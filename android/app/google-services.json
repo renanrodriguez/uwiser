@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1176808257",
+    "firebase_url": "https://uwizer.firebaseio.com",
+    "project_id": "uwizer",
+    "storage_bucket": "uwizer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1176808257:android:6e28433a87dae7da",
+        "android_client_info": {
+          "package_name": "com.uwizer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1176808257-t2cdkldk2s6hbe4r6gcsvbh5bnhuoi75.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5xXZDJPDBUp35elbOjpf2O_GIcH7ADbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1176808257-t2cdkldk2s6hbe4r6gcsvbh5bnhuoi75.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
