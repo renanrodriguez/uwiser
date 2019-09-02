@@ -97,21 +97,21 @@ const {currentUser} = this.state
 
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#0000EE',width:'100%'}} >
+            <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#0000EE',width:'100%'}} >
-        <Button vertical active style={{backgroundColor:'#0000EE',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
+        <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
+        <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>
-        <Button style={{backgroundColor:'#0000EE',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
+        <Button style={{backgroundColor:'#a454ff',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>GERENCIAR MEMBROS</Text>
             </Button>
 
-            <Button vertical active style={{backgroundColor:'#0000EE',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
+            <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
               <Text style={{fontSize: 12,color:'white'}}>EVENTOS</Text>
             </Button>
-            <Button vertical active style={{backgroundColor:'#0000EE',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
+            <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
               <Text style={{fontSize: 12,color:'white'}}>MEUS EVENTOS</Text>
             </Button>
         </Header>
@@ -131,7 +131,7 @@ const {currentUser} = this.state
             Onde: {item.local_link}{'\n'}
             Descrição: {item.descricao}
             </Text>
-            <Button block light style={{color:'black',backgroundColor:'#0000EE',width:'25%',height:'100%'}} onPress={() => this.handleConfirmarPresenca(item.chave_seguranca_evento,item.titulo,item.data_evento)} >
+            <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'25%',height:'100%'}} onPress={() => this.handleConfirmarPresenca(item.chave_seguranca_evento,item.titulo,item.data_evento)} >
             <Text style={{color:'white',fontSize:15}}>Realizar check-in</Text>
             </Button>
             <Button block light style={{color:'black',backgroundColor:'#DC143C',width:'25%',height:'100%'}} onPress={() => this.props.navigation.navigate('Lista_Confirmados',{nome_grupo_privado:this.props.navigation.state.params.nome_grupo_privado,chave_seguranca_evento: item.chave_seguranca_evento,nome_evento:item.titulo})}>

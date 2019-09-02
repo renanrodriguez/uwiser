@@ -100,21 +100,21 @@ handleNovoMembro = () => {
     this.props.navigation.state.params.chave_seguranca
     return (
         <View style={styles.container}>
-       <Header style={{color:'black',backgroundColor:'#0000EE',width:'100%'}} >
+       <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#0000EE',width:'100%'}} >
-        <Button vertical active style={{backgroundColor:'#0000EE',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
+        <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
+        <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>
-        <Button style={{backgroundColor:'#0000EE',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
+        <Button style={{backgroundColor:'#a454ff',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>GERENCIAR MEMBROS</Text>
             </Button>
 
-            <Button vertical active style={{backgroundColor:'#0000EE',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
+            <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
               <Text style={{fontSize: 12,color:'white'}}>EVENTOS</Text>
             </Button>
-            <Button vertical active style={{backgroundColor:'#0000EE',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
+            <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
               <Text style={{fontSize: 12,color:'white'}}>MEUS EVENTOS</Text>
             </Button>
         </Header>
@@ -126,7 +126,7 @@ handleNovoMembro = () => {
          </Item>           
     
       <Item body bordered >
-      <Button block light style={{color:'black',backgroundColor:'#0000EE',width:'100%'}} onPress={() => this.handleNovoMembro()}>
+      <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} onPress={() => this.handleNovoMembro()}>
             <Text style={{color:'white',fontSize:20}}>Adicionar membro ao grupo</Text>
             <Icon name="add" style={{color:'white'}}/>
             </Button>
@@ -141,7 +141,7 @@ handleNovoMembro = () => {
   return (
     <Card>   
     <Item header bordered>
-    <Button block light style={{color:'black',backgroundColor:'#0000EE',width:'75%'}}  >
+    <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'75%'}}  >
            <Text style={{color:'white',fontSize:15}}>{item.usuario}</Text>
            </Button>
      <Button block light style={{color:'black',backgroundColor:'#DC143C',width:'25%'}}  onPress={() => this.handleExcluirMembro(item.key)}>
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   btnPerfil: {
     height: 240,
     width: '100%',
-    backgroundColor: '#0000EE',
+    backgroundColor: '#a454ff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, Platform, Image, Text, View,ScrollView,TouchableOpacity,FlatList,AsyncStorage,Linking } from 'react-native'
-import {Badge,Header,Input,Button,Body, Icon, Content,Footer, FooterTab,Card,CardItem,Thumbnail,Right,Left,Container,Form,Item,Picker, Textarea} from 'native-base'
+import { StyleSheet, Platform, Image, Text, View, ScrollView, TouchableOpacity, FlatList, AsyncStorage, Linking } from 'react-native'
+import { Badge, Header, Input, Button, Body, Icon, Content, Footer, FooterTab, Card, CardItem, Thumbnail, Right, Left, Container, Form, Item, Picker, Textarea } from 'native-base'
 import Hyperlink from 'react-native-hyperlink'
-import {firebaseDatabase,firebaseStorage} from './config'
+import { firebaseDatabase, firebaseStorage } from './config'
 import firebase from 'react-native-firebase';
 import ImagePicker from 'react-native-image-picker';
 import FilePickerManager from 'react-native-file-picker';
@@ -25,234 +25,234 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null ,
-      categoria:'Sem assunto',
-      texto_post:'',
-      data_atual:'',
-      usuario : [],
+      currentUser: null,
+      categoria: 'Sem assunto',
+      texto_post: '',
+      data_atual: '',
+      usuario: [],
       posts: [],
-      categoria_pesquisa:'',
-      imgSource:'',
-      images:[],
-      files:[],
-      validacao_imagem:'',
-      validacao_file:'',
-      fileSource:''
+      categoria_pesquisa: '',
+      imgSource: '',
+      images: [],
+      files: [],
+      validacao_imagem: '',
+      validacao_file: '',
+      fileSource: ''
     };
   }
 
-  handleNovoPost = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,emailUsuario) => {
-    const { categoria ,texto_post,currentUser,data_atual} = this.state
-    if(texto_post=='' && this.state.validacao_imagem == '' && (this.state.validacao_file == '' || this.state.validacao_file == 'valido')){
-        Toast.show('Coloque um texto ou foto na sua publicação')
+  handleNovoPost = (nome_usuario, nome_faculdade, nome_curso, selected_heroi, emailUsuario) => {
+    const { categoria, texto_post, currentUser, data_atual } = this.state
+    if (texto_post == '' && this.state.validacao_imagem == '' && (this.state.validacao_file == '' || this.state.validacao_file == 'valido')) {
+      Toast.show('Coloque um texto ou foto na sua publicação')
     }
-/*Publicação apenas texto */
-    if(texto_post!='' && this.state.validacao_imagem == '' && this.state.validacao_file==''){
-        post_ref.push({
-          usuario: currentUser.uid,
-          categoria : categoria,
-          texto_post : texto_post,
-          data_inclusao : data_atual,
-          nome_usuario:nome_usuario,
-          nome_faculdade:nome_faculdade,
-          nome_curso:nome_curso,
-          selected_heroi:selected_heroi,
-          emailUsuario:emailUsuario,
-          chave_seguranca_comentarios:currentUser.uid+data_atual+texto_post
-        });
-        Toast.show('Publicação realizada com sucesso')
+    /*Publicação apenas texto */
+    if (texto_post != '' && this.state.validacao_imagem == '' && this.state.validacao_file == '') {
+      post_ref.push({
+        usuario: currentUser.uid,
+        categoria: categoria,
+        texto_post: texto_post,
+        data_inclusao: data_atual,
+        nome_usuario: nome_usuario,
+        nome_faculdade: nome_faculdade,
+        nome_curso: nome_curso,
+        selected_heroi: selected_heroi,
+        emailUsuario: emailUsuario,
+        chave_seguranca_comentarios: currentUser.uid + data_atual + texto_post
+      });
+      Toast.show('Publicação realizada com sucesso')
     }
     /*Publicação imagem e/ou texto */
-    if(this.state.validacao_imagem == 'valido' && this.state.validacao_file==''){
-        var publicar = 0;
-        var randomNumber = Math.floor(Math.random() * 1000)/Math.random() + 1;
-        const ext = this.state.imageUri.split('.').pop(); // Extract image extension
-        const filename = `${randomNumber}.${ext}`; // Generate unique name
-        this.setState({ uploading: true });
-        firebase.storage().ref('images/'+randomNumber).putFile(this.state.imageUri).on(
-          firebase.storage.TaskEvent.STATE_CHANGED,
-          snapshot => {
-            let state = {};
-            
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            Toast.show('Progresso postagem:'+ progress + '%')
-            
-            if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
-              if (publicar==0){
-                const allImages = this.state.images;           
-                allImages.push(snapshot.downloadURL);
-                post_ref.push({
-                  usuario: currentUser.uid,
-                  categoria : categoria,
-                  texto_post : texto_post,
-                  data_inclusao : data_atual,
-                  nome_usuario:nome_usuario,
-                  nome_faculdade:nome_faculdade,
-                  nome_curso:nome_curso,
-                  selected_heroi:selected_heroi,
-                  emailUsuario:emailUsuario,
-                  urlImagem:snapshot.downloadURL,
-                  chave_seguranca_comentarios:currentUser.uid+data_atual+texto_post+snapshot.downloadURL
-                });
-                publicar = 1;
-                Toast.show('Publicação realizada com sucesso')
-                state = {
-                  ...state,
-                  uploading: false,
-                  imgSource: '',
-                  imageUri: '',
-                  progress: 0,
-                  images: allImages,
-                  validacao_imagem:''
-                };
-                AsyncStorage.setItem('images', JSON.stringify(allImages));
-              }
-              this.setState(state);
-              }     
-            
-          },
-          error => {
-            unsubscribe();
-            Toast.show('Ocorreu um erro tente de novo');
+    if (this.state.validacao_imagem == 'valido' && this.state.validacao_file == '') {
+      var publicar = 0;
+      var randomNumber = Math.floor(Math.random() * 1000) / Math.random() + 1;
+      const ext = this.state.imageUri.split('.').pop(); // Extract image extension
+      const filename = `${randomNumber}.${ext}`; // Generate unique name
+      this.setState({ uploading: true });
+      firebase.storage().ref('images/' + randomNumber).putFile(this.state.imageUri).on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        snapshot => {
+          let state = {};
+
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          Toast.show('Progresso postagem:' + progress + '%')
+
+          if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
+            if (publicar == 0) {
+              const allImages = this.state.images;
+              allImages.push(snapshot.downloadURL);
+              post_ref.push({
+                usuario: currentUser.uid,
+                categoria: categoria,
+                texto_post: texto_post,
+                data_inclusao: data_atual,
+                nome_usuario: nome_usuario,
+                nome_faculdade: nome_faculdade,
+                nome_curso: nome_curso,
+                selected_heroi: selected_heroi,
+                emailUsuario: emailUsuario,
+                urlImagem: snapshot.downloadURL,
+                chave_seguranca_comentarios: currentUser.uid + data_atual + texto_post + snapshot.downloadURL
+              });
+              publicar = 1;
+              Toast.show('Publicação realizada com sucesso')
+              state = {
+                ...state,
+                uploading: false,
+                imgSource: '',
+                imageUri: '',
+                progress: 0,
+                images: allImages,
+                validacao_imagem: ''
+              };
+              AsyncStorage.setItem('images', JSON.stringify(allImages));
+            }
+            this.setState(state);
           }
-        );
-      }
 
-      /*Publicação imagem e arquivo */
-      if(this.state.validacao_imagem == 'valido' && this.state.validacao_file=='valido'){
+        },
+        error => {
+          unsubscribe();
+          Toast.show('Ocorreu um erro tente de novo');
+        }
+      );
+    }
 
-        var publicar = 0;
-        var randomNumber = Math.floor(Math.random() * 1000)/Math.random() + 1;
-        const ext = this.state.imageUri.split('.').pop(); // Extract image extension
-        const filename = `${randomNumber}.${ext}`; // Generate unique name
-        this.setState({ uploading: true });
-        firebase.storage().ref('images/'+randomNumber).putFile(this.state.imageUri).on(
-          firebase.storage.TaskEvent.STATE_CHANGED,
-          snapshot => {
-            let state = {};
-            
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            Toast.show('Progresso upload foto:'+ progress + '%')
-            
-            if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
+    /*Publicação imagem e arquivo */
+    if (this.state.validacao_imagem == 'valido' && this.state.validacao_file == 'valido') {
 
-              var randomNumber = Math.floor(Math.random() * 1000)/Math.random() + 1;
-              const ext = this.state.fileUri.split('.').pop(); // Extract image extension
-              const filename = `${randomNumber}.${ext}`; // Generate unique name
-              this.setState({ uploading: true });
-              firebase.storage().ref('file/'+filename).putFile(this.state.fileUri).on(
-                firebase.storage.TaskEvent.STATE_CHANGED,
-                snapshot2 => {
-                  let state = {};
+      var publicar = 0;
+      var randomNumber = Math.floor(Math.random() * 1000) / Math.random() + 1;
+      const ext = this.state.imageUri.split('.').pop(); // Extract image extension
+      const filename = `${randomNumber}.${ext}`; // Generate unique name
+      this.setState({ uploading: true });
+      firebase.storage().ref('images/' + randomNumber).putFile(this.state.imageUri).on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        snapshot => {
+          let state = {};
 
-                  var progress = (snapshot2.bytesTransferred / snapshot2.totalBytes) * 100;
-                  Toast.show('Progresso upload arquivo:'+ progress + '%')
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          Toast.show('Progresso upload foto:' + progress + '%')
 
-                  if (snapshot2.state === firebase.storage.TaskState.SUCCESS) {
-                    if (publicar==0){
-                      const allImages = this.state.images;           
-                      allImages.push(snapshot.downloadURL);
-                      const allFiles = this.state.files;
-                      allFiles.push(snapshot2.downloadURL);
-                      post_ref.push({
-                        usuario: currentUser.uid,
-                        categoria : categoria,
-                        texto_post : texto_post,
-                        data_inclusao : data_atual,
-                        nome_usuario:nome_usuario,
-                        nome_faculdade:nome_faculdade,
-                        nome_curso:nome_curso,
-                        selected_heroi:selected_heroi,
-                        emailUsuario:emailUsuario,
-                        urlImagem:snapshot.downloadURL,
-                        urlFile:snapshot2.downloadURL,
-                        chave_seguranca_comentarios:currentUser.uid+data_atual+texto_post+snapshot.downloadURL
-                      });
-                      publicar = 1;
-                      Toast.show('Publicação realizada com sucesso')
-                      state = {
-                        ...state,
-                        uploading: false,
-                        imgSource: '',
-                        imageUri: '',
-                        progress: 0,
-                        images: allImages,
-                        validacao_imagem:'',
-                        fileSource:'',
-                        fileUri:'',
-                        files:allFiles,
-                        validacao_file:''
-                      };
-                      AsyncStorage.setItem('images', JSON.stringify(allImages));
-                      AsyncStorage.setItem('files', JSON.stringify(allFiles));
-                    }
-                    this.setState(state);
+          if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
+
+            var randomNumber = Math.floor(Math.random() * 1000) / Math.random() + 1;
+            const ext = this.state.fileUri.split('.').pop(); // Extract image extension
+            const filename = `${randomNumber}.${ext}`; // Generate unique name
+            this.setState({ uploading: true });
+            firebase.storage().ref('file/' + filename).putFile(this.state.fileUri).on(
+              firebase.storage.TaskEvent.STATE_CHANGED,
+              snapshot2 => {
+                let state = {};
+
+                var progress = (snapshot2.bytesTransferred / snapshot2.totalBytes) * 100;
+                Toast.show('Progresso upload arquivo:' + progress + '%')
+
+                if (snapshot2.state === firebase.storage.TaskState.SUCCESS) {
+                  if (publicar == 0) {
+                    const allImages = this.state.images;
+                    allImages.push(snapshot.downloadURL);
+                    const allFiles = this.state.files;
+                    allFiles.push(snapshot2.downloadURL);
+                    post_ref.push({
+                      usuario: currentUser.uid,
+                      categoria: categoria,
+                      texto_post: texto_post,
+                      data_inclusao: data_atual,
+                      nome_usuario: nome_usuario,
+                      nome_faculdade: nome_faculdade,
+                      nome_curso: nome_curso,
+                      selected_heroi: selected_heroi,
+                      emailUsuario: emailUsuario,
+                      urlImagem: snapshot.downloadURL,
+                      urlFile: snapshot2.downloadURL,
+                      chave_seguranca_comentarios: currentUser.uid + data_atual + texto_post + snapshot.downloadURL
+                    });
+                    publicar = 1;
+                    Toast.show('Publicação realizada com sucesso')
+                    state = {
+                      ...state,
+                      uploading: false,
+                      imgSource: '',
+                      imageUri: '',
+                      progress: 0,
+                      images: allImages,
+                      validacao_imagem: '',
+                      fileSource: '',
+                      fileUri: '',
+                      files: allFiles,
+                      validacao_file: ''
+                    };
+                    AsyncStorage.setItem('images', JSON.stringify(allImages));
+                    AsyncStorage.setItem('files', JSON.stringify(allFiles));
                   }
+                  this.setState(state);
                 }
-              )             
-              
-              }      
-          },
-          error => {
-            unsubscribe();
-            Toast.show('Ocorreu um erro tente de novo');
-          }
-        );
-      }
-
-      if (this.state.validacao_imagem == '' && this.state.validacao_file=='valido' && this.state.texto_post !=''){
-        var publicar = 0;
-        var randomNumber = Math.floor(Math.random() * 1000)/Math.random() + 1;
-        const ext = this.state.fileUri.split('.').pop(); // Extract image extension
-        const filename = `${randomNumber}.${ext}`; // Generate unique name
-        this.setState({ uploading: true });
-        firebase.storage().ref('file/'+filename).putFile(this.state.fileUri).on(
-          firebase.storage.TaskEvent.STATE_CHANGED,
-          snapshot => {
-            let state = {};
-            
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            Toast.show('Progresso postagem:'+ progress + '%')
-            
-            if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
-              if (publicar==0){
-                const allFiles = this.state.files;           
-                allFiles.push(snapshot.downloadURL);
-                post_ref.push({
-                  usuario: currentUser.uid,
-                  categoria : categoria,
-                  texto_post : texto_post,
-                  data_inclusao : data_atual,
-                  nome_usuario:nome_usuario,
-                  nome_faculdade:nome_faculdade,
-                  nome_curso:nome_curso,
-                  selected_heroi:selected_heroi,
-                  emailUsuario:emailUsuario,
-                  urlFile:snapshot.downloadURL,
-                  chave_seguranca_comentarios:currentUser.uid+data_atual+texto_post+snapshot.downloadURL
-                });
-                publicar = 1;
-                Toast.show('Publicação realizada com sucesso')
-                state = {
-                  ...state,
-                  uploading: false,
-                  fileSource: '',
-                  fileUri: '',
-                  progress: 0,
-                  files: allFiles,
-                  validacao_file:''
-                };
-                AsyncStorage.setItem('files', JSON.stringify(allFiles));
               }
-              this.setState(state);
-              }     
-          },
-          error => {
-            unsubscribe();
-            Toast.show('Ocorreu um erro tente de novo');
+            )
+
           }
-        );
-      }      
+        },
+        error => {
+          unsubscribe();
+          Toast.show('Ocorreu um erro tente de novo');
+        }
+      );
+    }
+
+    if (this.state.validacao_imagem == '' && this.state.validacao_file == 'valido' && this.state.texto_post != '') {
+      var publicar = 0;
+      var randomNumber = Math.floor(Math.random() * 1000) / Math.random() + 1;
+      const ext = this.state.fileUri.split('.').pop(); // Extract image extension
+      const filename = `${randomNumber}.${ext}`; // Generate unique name
+      this.setState({ uploading: true });
+      firebase.storage().ref('file/' + filename).putFile(this.state.fileUri).on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        snapshot => {
+          let state = {};
+
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          Toast.show('Progresso postagem:' + progress + '%')
+
+          if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
+            if (publicar == 0) {
+              const allFiles = this.state.files;
+              allFiles.push(snapshot.downloadURL);
+              post_ref.push({
+                usuario: currentUser.uid,
+                categoria: categoria,
+                texto_post: texto_post,
+                data_inclusao: data_atual,
+                nome_usuario: nome_usuario,
+                nome_faculdade: nome_faculdade,
+                nome_curso: nome_curso,
+                selected_heroi: selected_heroi,
+                emailUsuario: emailUsuario,
+                urlFile: snapshot.downloadURL,
+                chave_seguranca_comentarios: currentUser.uid + data_atual + texto_post + snapshot.downloadURL
+              });
+              publicar = 1;
+              Toast.show('Publicação realizada com sucesso')
+              state = {
+                ...state,
+                uploading: false,
+                fileSource: '',
+                fileUri: '',
+                progress: 0,
+                files: allFiles,
+                validacao_file: ''
+              };
+              AsyncStorage.setItem('files', JSON.stringify(allFiles));
+            }
+            this.setState(state);
+          }
+        },
+        error => {
+          unsubscribe();
+          Toast.show('Ocorreu um erro tente de novo');
+        }
+      );
+    }
   }
 
   pickImage = () => {
@@ -272,10 +272,10 @@ export default class Main extends React.Component {
     });
   };
 
-  pickFile = () => { 
+  pickFile = () => {
     FilePickerManager.showFilePicker(null, (response) => {
-    
-     
+
+
       if (response.didCancel) {
         Toast.show('Você fechou a opção de escolha de arquivos');
       }
@@ -291,14 +291,14 @@ export default class Main extends React.Component {
         });
       }
     });
-    };
+  };
 
-  
+
 
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
     header: null,
-};
+  };
 
 
 
@@ -314,68 +314,68 @@ export default class Main extends React.Component {
     });
   }
 
-  
+
 
   handleFiltro = () => {
-    const { categoria_pesquisa} = this.state
-    if(categoria_pesquisa == 'Sem Filtro'){
+    const { categoria_pesquisa } = this.state
+    if (categoria_pesquisa == 'Sem Filtro') {
       const rootPosts = firebaseDatabase.ref('post');
       rootPosts.on('value', (childSnapshot) => {
         const posts = [];
         childSnapshot.forEach((doc) => {
           posts.push({
-            key:doc.key,
+            key: doc.key,
             usuario: doc.toJSON().usuario,
-            categoria : doc.toJSON().categoria,
-            texto_post : doc.toJSON().texto_post,
-            data_inclusao : doc.toJSON().data_inclusao,
-            nome_usuario:doc.toJSON().nome_usuario,
-            nome_faculdade:doc.toJSON().nome_curso,
-            nome_curso:doc.toJSON().nome_curso,
-            selected_heroi:doc.toJSON().selected_heroi,
-            emailUsuario:doc.toJSON().emailUsuario,
+            categoria: doc.toJSON().categoria,
+            texto_post: doc.toJSON().texto_post,
+            data_inclusao: doc.toJSON().data_inclusao,
+            nome_usuario: doc.toJSON().nome_usuario,
+            nome_faculdade: doc.toJSON().nome_curso,
+            nome_curso: doc.toJSON().nome_curso,
+            selected_heroi: doc.toJSON().selected_heroi,
+            emailUsuario: doc.toJSON().emailUsuario,
             urlImagem: doc.toJSON().urlImagem,
-            urlFile:doc.toJSON().urlFile,
-            chave_seguranca_comentarios: doc.toJSON().chave_seguranca_comentarios       
-            });
-            this.setState({
-              posts: posts.sort((a, b) => {
-                return (a.key<b.key);
-              }),
-              loading: false,
-            }); 
+            urlFile: doc.toJSON().urlFile,
+            chave_seguranca_comentarios: doc.toJSON().chave_seguranca_comentarios
           });
+          this.setState({
+            posts: posts.sort((a, b) => {
+              return (a.key < b.key);
+            }),
+            loading: false,
+          });
+        });
       });
-    }else{
+    } else {
       const rootPosts = firebaseDatabase.ref('post').orderByChild("categoria").equalTo(categoria_pesquisa);
       rootPosts.on('value', (childSnapshot) => {
         const posts = [];
         childSnapshot.forEach((doc) => {
           posts.push({
-            key:doc.key,
+            key: doc.key,
             usuario: doc.toJSON().usuario,
-            categoria : doc.toJSON().categoria,
-            texto_post : doc.toJSON().texto_post,
-            data_inclusao : doc.toJSON().data_inclusao,
-            nome_usuario:doc.toJSON().nome_usuario,
-            nome_faculdade:doc.toJSON().nome_curso,
-            nome_curso:doc.toJSON().nome_curso,
-            selected_heroi:doc.toJSON().selected_heroi,
-            emailUsuario:doc.toJSON().emailUsuario,
+            categoria: doc.toJSON().categoria,
+            texto_post: doc.toJSON().texto_post,
+            data_inclusao: doc.toJSON().data_inclusao,
+            nome_usuario: doc.toJSON().nome_usuario,
+            nome_faculdade: doc.toJSON().nome_curso,
+            nome_curso: doc.toJSON().nome_curso,
+            selected_heroi: doc.toJSON().selected_heroi,
+            emailUsuario: doc.toJSON().emailUsuario,
             urlImagem: doc.toJSON().urlImagem,
-            urlFile:doc.toJSON().urlFile,
-            chave_seguranca_comentarios: doc.toJSON().chave_seguranca_comentarios   
-            });
-            this.setState({
-              posts: posts.sort((a, b) => {
-                return (a.key<b.key);
-              }),
-              loading: false,
-            }); 
+            urlFile: doc.toJSON().urlFile,
+            chave_seguranca_comentarios: doc.toJSON().chave_seguranca_comentarios
           });
+          this.setState({
+            posts: posts.sort((a, b) => {
+              return (a.key < b.key);
+            }),
+            loading: false,
+          });
+        });
       });
     }
-   
+
   }
 
   componentDidMount() {
@@ -402,28 +402,28 @@ export default class Main extends React.Component {
         date + '/' + month + '/' + year + ' ' + hours + ':' + min
     });
     const { currentUser } = firebase.auth()
-    this.setState({ currentUser})
+    this.setState({ currentUser })
 
     const rootUser = firebaseDatabase.ref('Users').orderByChild("idUsuario").equalTo(currentUser.uid);
     rootUser.on('value', (childSnapshot) => {
       const usuario = [];
       childSnapshot.forEach((doc) => {
         usuario.push({
-          key:doc.key,
+          key: doc.key,
           idUsuario: doc.toJSON().idUsuario,
           nome_usuario: doc.toJSON().nome_usuario,
           nome_faculdade: doc.toJSON().nome_faculdade,
           nome_curso: doc.toJSON().nome_curso,
           selected_heroi: doc.toJSON().selected_heroi,
           emailUsuario: doc.toJSON().emailUsuario,
-          });
-          this.setState({
-            usuario: usuario.sort((a, b) => {
-              return (a.key<b.key);
-            }),
-            loading: false,
-          }); 
         });
+        this.setState({
+          usuario: usuario.sort((a, b) => {
+            return (a.key < b.key);
+          }),
+          loading: false,
+        });
+      });
     });
 
 
@@ -432,219 +432,238 @@ export default class Main extends React.Component {
       const posts = [];
       childSnapshot.forEach((doc) => {
         posts.push({
-          key:doc.key,
+          key: doc.key,
           usuario: doc.toJSON().usuario,
-          categoria : doc.toJSON().categoria,
-          texto_post : doc.toJSON().texto_post,
-          data_inclusao : doc.toJSON().data_inclusao,
-          nome_usuario:doc.toJSON().nome_usuario,
-          nome_faculdade:doc.toJSON().nome_curso,
-          nome_curso:doc.toJSON().nome_curso,
-          selected_heroi:doc.toJSON().selected_heroi,
-          emailUsuario:doc.toJSON().emailUsuario,
+          categoria: doc.toJSON().categoria,
+          texto_post: doc.toJSON().texto_post,
+          data_inclusao: doc.toJSON().data_inclusao,
+          nome_usuario: doc.toJSON().nome_usuario,
+          nome_faculdade: doc.toJSON().nome_curso,
+          nome_curso: doc.toJSON().nome_curso,
+          selected_heroi: doc.toJSON().selected_heroi,
+          emailUsuario: doc.toJSON().emailUsuario,
           urlImagem: doc.toJSON().urlImagem,
-          urlFile:doc.toJSON().urlFile,
-          chave_seguranca_comentarios: doc.toJSON().chave_seguranca_comentarios   
-          });
-          this.setState({
-            posts: posts.sort((a, b) => {
-              return (a.key<b.key);
-            }),
-            loading: false,
-          }); 
+          urlFile: doc.toJSON().urlFile,
+          chave_seguranca_comentarios: doc.toJSON().chave_seguranca_comentarios
         });
+        this.setState({
+          posts: posts.sort((a, b) => {
+            return (a.key < b.key);
+          }),
+          loading: false,
+        });
+      });
     });
 
 
-    }
-  
+  }
+
 
   render() {
-    const { currentUser} = this.state
+    const { currentUser } = this.state
 
     return (
       <Container style={styles.container}>
-        <Header searchBar rounded>
-        <Item fixedLabel last > 
-            <Text styles={backgroundColor='white'}>Filtre por assunto:</Text>
-            <Picker  mode="dropdown"
+        <Header searchBar style={{
+          backgroundColor: '#fff', margin: 15, marginBottom: 10, marginTop: 10, borderRadius: 100, shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+
+          elevation: 5,
+        }}>
+          <Item fixedLabel last >
+            <Text style={{ paddingLeft: 10 }}>Filtre por assunto:</Text>
+            <Picker mode="dropdown"
               iosHeader="Selecionar"
               iosIcon={<Icon name="arrow-down" />}
               style={{ width: undefined }}
               selectedValue={this.state.categoria_pesquisa}
               onValueChange={this.onValueChange1.bind(this)}  >
-              <Picker.Item label="Sem Filtro" value="Sem Filtro"/>
+              <Picker.Item label="Sem Filtro" value="Sem Filtro" />
               <Picker.Item label="Tecnologia da informação" value="Tecnologia da informação" />
               <Picker.Item label="Letras" value="Letras" />
-              <Picker.Item label="Medicina" value="Medicina"/>
-              <Picker.Item label="Biologia" value="Biologia"/>
-              <Picker.Item label="Matemática" value="Matemática"/>
-              <Picker.Item label="Odontologia" value="Odontologia"/>
+              <Picker.Item label="Medicina" value="Medicina" />
+              <Picker.Item label="Biologia" value="Biologia" />
+              <Picker.Item label="Matemática" value="Matemática" />
+              <Picker.Item label="Odontologia" value="Odontologia" />
             </Picker>
-            <Button onPress={this.handleFiltro}>
-            <Icon name="ios-search" />
-            </Button>
-            
-            </Item>
-        </Header>
-       <Content>
-       <FlatList
-          data={this.state.usuario}
-          renderItem={({item}) => {
-          return (
-            <Card>
-               <CardItem>
-              <Left>
-              <Thumbnail medium source={{uri: item.selected_heroi}} />
-                <Body>
-                  <Text style={styles.texto}>{item.nome_usuario}</Text>
-                  <Text style={{ marginLeft: 10 }} note> {item.nome_curso} </Text>
-                  <TouchableOpacity style={styles.btnPerfil} onPress={() => this.props.navigation.navigate('Perfil')}>
-                <Text style={{ color: 'white' }}>Editar perfil</Text>
-              </TouchableOpacity>
-                </Body>
-              </Left>
-            </CardItem>
-        </Card>);}}>
-        </FlatList>
-        
-        <Form>
-        <Card>
-        <Item fixedLabel  > 
-            <Text styles={backgroundColor='white'}>Assunto</Text>
-            <Picker  mode="dropdown"
-              iosHeader="Selecionar"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: undefined }}
-              selectedValue={this.state.categoria}
-              onValueChange={this.onValueChange.bind(this)}  >
-              <Picker.Item label="Selecione" value="Selecione"/>
-              <Picker.Item label="Tecnologia da informação" value="Tecnologia da informação" />
-              <Picker.Item label="Letras" value="Letras" />
-              <Picker.Item label="Medicina" value="Medicina"/>
-              <Picker.Item label="Biologia" value="Biologia"/>
-              <Picker.Item label="Matemática" value="Matemática"/>
-              <Picker.Item label="Odontologia" value="Odontologia"/>
-            </Picker>
-            </Item>
-            <Input multiline={true} bordered placeholder='O que você está estudando?'  onChangeText={texto_post => this.setState({ texto_post })} value={this.state.texto_post} />
-            
-            {this.state.imgSource ? (
-          <Image source={this.state.imgSource} style={styles.image} />):(null)}
+            <TouchableOpacity onPress={this.handleFiltro}>
+              <Icon name="ios-search" />
+            </TouchableOpacity>
 
-        {this.state.fileSource ? (
-          <Item>
-          <Text>Arquivo selecionado com sucesso</Text>
           </Item>
-          ):(null)}
+        </Header>
+        <Content style={{ margin: 10, marginTop: 0 }}>
+          <FlatList
+            data={this.state.usuario}
+            renderItem={({ item }) => {
+              return (
+                <Card transparent>
+                  <CardItem>
+                    <Left>
+                      <Thumbnail medium source={{ uri: item.selected_heroi }} />
+                      <Body>
+                        <Text style={[styles.texto, { margin: 10 }]}>{item.nome_usuario}</Text>
+                        <Text style={{ marginLeft: 10 }} note> {item.nome_curso} </Text>
+                        <TouchableOpacity style={styles.btnPerfil} onPress={() => this.props.navigation.navigate('Perfil')}>
+                          <Text style={{ color: '#a454ff' }}>Editar perfil</Text>
+                        </TouchableOpacity>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                </Card>);
+            }}>
+          </FlatList>
 
-   
-            <FlatList
-          data={this.state.usuario}
-          renderItem={({item}) => {
-          return (
-            <Item last>
-            <Button block light style={{color:'black',backgroundColor:'#0000EE',width:'60%'}} onPress={() => this.handleNovoPost(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
-            <Text style={{color:'white',fontSize:20}}>Adicionar Post</Text>
-            <Icon name="add" style={{color:'white'}}/>
-        </Button>
-        <Button block light style={{color:'black',backgroundColor:'#DC143C',width:'20%'}} onPress={this.pickImage}>
-            <Icon name="camera" style={{color:'white'}}/>
-        </Button>
-        <Button block light style={{color:'black',backgroundColor:'#00ced1',width:'20%'}} onPress={this.pickFile}>
-            <Icon name="paper" style={{color:'white'}}/>
-        </Button>
-            </Item>
-            
-        );}}>
-        </FlatList>
-            </Card>
-        </Form>
-
-
-
-        <ScrollView>
-        <FlatList
-          data={this.state.posts}
-          renderItem={({item}) => {
-          return (
+          <Form>
             <Card>
-              <CardItem header bordered>
-              <Left>
-              <Thumbnail square small source={{uri:item.selected_heroi }} />
-                <Body>
-                  <Text> Usuario: {item.nome_usuario}{'\n'}Curso: {item.nome_faculdade} </Text>
-                  <Badge primary>
-                  <Text note style={{color:'white'}}>{item.categoria}</Text>
-                  </Badge>
-                </Body>
-              </Left>
-              </CardItem>
+              <Item fixedLabel  >
+                <Text style={{ margin: 10 }}>Assunto</Text>
+                <Picker mode="dropdown"
+                  iosHeader="Selecionar"
+                  iosIcon={<Icon name="arrow-down" />}
+                  style={{ width: undefined }}
+                  selectedValue={this.state.categoria}
+                  onValueChange={this.onValueChange.bind(this)}  >
+                  <Picker.Item label="Selecione" value="Selecione" />
+                  <Picker.Item label="Tecnologia da informação" value="Tecnologia da informação" />
+                  <Picker.Item label="Letras" value="Letras" />
+                  <Picker.Item label="Medicina" value="Medicina" />
+                  <Picker.Item label="Biologia" value="Biologia" />
+                  <Picker.Item label="Matemática" value="Matemática" />
+                  <Picker.Item label="Odontologia" value="Odontologia" />
+                </Picker>
+              </Item>
+              <Input multiline={true} bordered placeholder='O que você está estudando?' onChangeText={texto_post => this.setState({ texto_post })} value={this.state.texto_post} />
 
-              {item.texto_post ? (
-              <CardItem body bordered >
-              <Text selectable={true}  style={{fontSize: 20,color:'#505050E'}}>{item.texto_post}</Text>       
-              </CardItem>):(null)}
+              {this.state.imgSource ? (
+                <Image source={this.state.imgSource} style={styles.image} />) : (null)}
 
-            
-            {item.urlImagem ? (
-              <CardItem>
-          <Thumbnail square source={{uri: item.urlImagem}} style={styles.image_post}/>
-         </CardItem>):(null)}
-
-         {item.urlImagem ? (
-          <TouchableOpacity block light style={{color:'black',backgroundColor:'#0000EE',width:'100%'}} onPress={ ()=>{ Linking.openURL(item.urlImagem)}}>
-            <Text style={{color:'white'}}>Visualizar a foto no browser</Text>
-          </TouchableOpacity>
-         ):(null)}
-
+              {this.state.fileSource ? (
+                <Item>
+                  <Text>Arquivo selecionado com sucesso</Text>
+                </Item>
+              ) : (null)}
 
 
-            <CardItem>
-              <Left>
-              {item.urlFile ? (
-            
-            <Button block light style={{color:'black',backgroundColor:'#0000EE',width:'80%'}} onPress={ ()=>{ Linking.openURL(item.urlFile)}}>
-            <Text style={{color:'white',fontSize:10}}>Baixar arquivo</Text>
-          </Button>
-            ):(null)}
-              </Left>
-              <Body>
-                <Button transparent onPress={() => this.props.navigation.navigate('Comentarios',{chave_seguranca_comentarios:item.chave_seguranca_comentarios })}>
-                  <Icon active name="chatbubbles" />
-                  <Text>Comentar</Text>
-                </Button>
-              </Body>
-              <Right>
-              <Text style={{fontSize: 10,color:'#808080'}}>{item.data_inclusao}</Text>
-              </Right>
-            </CardItem>
-            </Card>);}}>
-        </FlatList>
+              <FlatList
+                data={this.state.usuario}
+                renderItem={({ item }) => {
+                  return (
+                    <Item last>
+                      <Button block light style={{ color: 'black', backgroundColor: '#a454ff', width: '60%' }} onPress={() => this.handleNovoPost(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
+                        <Text style={{ color: 'white', fontSize: 20 }}>Adicionar Post</Text>
+                        <Icon name="add" style={{ color: 'white' }} />
+                      </Button>
+                      <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} onPress={this.pickImage}>
+                        <Icon name="camera" style={{ color: 'gray' }} />
+                      </Button>
+                      <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', borderColor: 'transparent', width: '20%' }} onPress={this.pickFile}>
+                        <Icon name="paper" style={{ color: 'gray' }} />
+                      </Button>
+                    </Item>
 
-        </ScrollView>
+                  );
+                }}>
+              </FlatList>
+            </Card>
+          </Form>
+
+
+
+          <ScrollView>
+            <FlatList
+              data={this.state.posts}
+              renderItem={({ item }) => {
+                return (
+                  <Card>
+                    <CardItem header bordered>
+                      <Left>
+                        <Thumbnail circle small source={{ uri: item.selected_heroi }} />
+                        <Body>
+                          <Text style={{ fontSize: 14 }}>{item.nome_usuario}</Text>
+                          <Text style={{ color: 'gray' }}>{item.nome_faculdade}</Text>
+
+                        </Body>
+                        <Right>
+                          <TouchableOpacity style={{
+                            backgroundColor: 'transparent', borderColor: 'gray', borderRadius: 40, borderWidth: 0.5, margin: 0, marginLeft: 10, padding:5
+                          }}>
+                            <Text style={{ color: 'gray', fontSize: 10, padding: 5, }}>{item.categoria}</Text>
+                          </TouchableOpacity>
+                        </Right>
+                      </Left>
+                    </CardItem>
+
+                    {item.texto_post ? (
+                      <CardItem body bordered >
+                        <Text selectable={true} style={{ fontSize: 20, color: '#505050E' }}>{item.texto_post}</Text>
+                      </CardItem>) : (null)}
+
+
+                    {item.urlImagem ? (
+                      <CardItem>
+                        <Thumbnail square source={{ uri: item.urlImagem }} style={styles.image_post} />
+                      </CardItem>) : (null)}
+
+                    {item.urlImagem ? (
+                      <TouchableOpacity block light style={{ color: 'black', width: '100%', marginBottom: 10 }} onPress={() => { Linking.openURL(item.urlImagem) }}>
+                        <Text style={{ color: '#a454ff', textAlign: 'center' }}>Visualizar a foto no browser</Text>
+                      </TouchableOpacity>
+                    ) : (null)}
+
+
+
+                    <CardItem>
+                      <Left>
+                        {item.urlFile ? (
+
+                          <Button block light style={{ color: 'black', backgroundColor: '#a454ff', width: '80%' }} onPress={() => { Linking.openURL(item.urlFile) }}>
+                            <Text style={{ color: 'white', fontSize: 10 }}>Baixar arquivo</Text>
+                          </Button>
+                        ) : (null)}
+                      </Left>
+                      <Body>
+                        <Button transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
+                          <Icon active name="chatbubbles" />
+                          <Text>Comentar</Text>
+                        </Button>
+                      </Body>
+                      <Right>
+                        <Text style={{ fontSize: 10, color: '#808080' }}>{item.data_inclusao}</Text>
+                      </Right>
+                    </CardItem>
+                  </Card>);
+              }}>
+            </FlatList>
+
+          </ScrollView>
         </Content>
-        <Footer>
-          <FooterTab>
+        <Footer style={{ backgroundColor: "#A461FD" }}>
+          <FooterTab style={{ backgroundColor: "#A461FD" }}>
             <Button vertical active onPress={() => this.props.navigation.navigate('Main')}>
               <Icon name="grid" />
-              <Text style={{fontSize: 12,color:'white'}}>Feed</Text>
+              <Text style={{ fontSize: 12, color: 'white' }}>Feed</Text>
             </Button>
             <Button vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
               <Icon name="person" />
-              <Text style={{fontSize: 12,color:'white'}}>Perfil</Text>
+              <Text style={{ fontSize: 12, color: 'white' }}>Perfil</Text>
             </Button>
             <Button vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
               <Icon active name="contacts" />
-              <Text style={{fontSize: 12,color:'white'}}>Grupos</Text>
+              <Text style={{ fontSize: 12, color: 'white' }}>Grupos</Text>
             </Button>
-            <Button vertical active  onPress={() => this.props.navigation.navigate('Anotacoes')} >
+            <Button vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
               <Icon name="bookmarks" />
-              <Text style={{fontSize: 12,color:'white'}}>Estudos</Text>
+              <Text style={{ fontSize: 12, color: 'white' }}>Estudos</Text>
             </Button>
           </FooterTab>
         </Footer>
-        </Container>
+      </Container>
     )
   }
 }
@@ -654,8 +673,8 @@ export default class Main extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
-    height:100
+    backgroundColor: '#fff',
+    height: 100
   },
   footer: {
     flexDirection: 'row',
@@ -723,13 +742,15 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   btnPerfil: {
-    height: 50,
     width: '40%',
-    backgroundColor: '#0000EE',
+    backgroundColor: '#fff',
+    borderColor: '#a454ff',
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     margin: 5,
+    padding: 5
   },
   image: {
     width: '100%',

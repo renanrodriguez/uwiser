@@ -20,7 +20,7 @@ export default class Calendario extends React.Component {
     const { currentUser } = this.state
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#0000EE'}}>
+            <Header style={{color:'black',backgroundColor:'#a454ff'}}>
               <Text style={{fontSize: 30,color:'white',}}>Calendário</Text>
         </Header>
           <Content>

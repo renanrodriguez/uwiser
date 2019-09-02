@@ -58,7 +58,7 @@ export default class Lista_Confirmados extends React.Component {
     this.props.navigation.state.params.nome_evento
     return (
         <View style={styles.container}>
-       <Header style={{color:'black',backgroundColor:'#0000EE',width:'100%'}} >
+       <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
         </Header>
           <Content>
@@ -75,7 +75,7 @@ export default class Lista_Confirmados extends React.Component {
   return (
     <Card>   
     <Item header bordered>
-    <CardItem block light style={{color:'black',backgroundColor:'#0000EE',width:'100%',justifyContent:"center"}}>
+    <CardItem block light style={{color:'black',backgroundColor:'#a454ff',width:'100%',justifyContent:"center"}}>
            <Text style={{color:'white',fontSize:15}}>{item.usuario_email}</Text>
            </CardItem>
     </Item>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   btnPerfil: {
     height: 240,
     width: '100%',
-    backgroundColor: '#0000EE',
+    backgroundColor: '#a454ff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

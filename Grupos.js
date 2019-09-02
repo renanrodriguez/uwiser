@@ -20,7 +20,7 @@ export default class Grupos extends React.Component {
     const { currentUser } = this.state
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#0000EE'}}>
+            <Header style={{color:'black',backgroundColor:'#a454ff'}}>
               <Text style={{fontSize: 30,color:'white',}}>Grupos</Text>
         </Header>
           <Content>
@@ -116,9 +116,9 @@ const styles = StyleSheet.create({
     resizeMode: 'center',
   },
   btnPerfil: {
-    height: 240,
+    height: 50,
     width: '100%',
-    backgroundColor: '#0000EE',
+    backgroundColor: '#a454ff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

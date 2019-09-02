@@ -61,7 +61,7 @@ export default class Perfil extends React.Component {
 
     return (
       <View style={styles.container}>
-             <Header style={{color:'black',backgroundColor:'#0000EE'}}>
+             <Header style={{color:'black',backgroundColor:'#a454ff'}}>
               <Text style={{fontSize: 30,color:'white',}}>Perfil</Text>
         </Header>
             <FlatList
@@ -103,7 +103,7 @@ export default class Perfil extends React.Component {
           </Card>
                       );}}>
         </FlatList>
-        <Button block light style={{color:'black',width:'100%',backgroundColor:'#0000EE',height:25}}  onPress={() => this.props.navigation.navigate('Cadastro')}>
+        <Button block light style={{color:'black',width:'100%',backgroundColor:'#a454ff',height:25}}  onPress={() => this.props.navigation.navigate('Cadastro')}>
             <Text style={{color:'white',fontSize:20}}>Editar Perfil</Text>
             <Icon name="add" style={{color:'white'}}/>
         </Button>
