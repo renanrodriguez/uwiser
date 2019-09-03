@@ -86,7 +86,7 @@ export default class Cadastro extends React.Component {
 
     return (
       <View style={styles.container}>
-          <Header style={{color:'black',backgroundColor:'#a454ff'}}>
+          <Header style={{color:'black',backgroundColor:'#963BE0'}}>
               <Text style={{fontSize: 30,color:'white',}}>Cadastro</Text>
         </Header>
          <Form>
@@ -203,7 +203,7 @@ export default class Cadastro extends React.Component {
               <Picker.Item label="Ótima" value="https://image.flaticon.com/icons/png/128/1053/1053399.png" />
             </Picker>
             </Item>
-        <Button block light style={{color:'black',backgroundColor:'#a454ff'}}  onPress={this.handleCadastroUsuario}>
+        <Button block light style={{color:'black',backgroundColor:'#963BE0'}}  onPress={this.handleCadastroUsuario}>
             <Text style={{color:'white',fontSize:20}}>Adicionar</Text>
             <Icon name="add" style={{color:'white'}}/>
         </Button>
@@ -264,14 +264,14 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 20,
     borderRadius: 50,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
   },
   item2: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 40,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
     width: '80%',
     height: '10%',
     marginLeft: '10%',

@@ -111,7 +111,7 @@ handleApagarGrupo = (key) => {
     const { currentUser } = this.state
     return (
         <View style={styles.container}>    
-        <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >      
+        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >      
               <Text style={{fontSize: 30,color:'white'}}>GRUPOS PRIVADOS</Text>
         </Header>
           <Content>
@@ -130,7 +130,7 @@ handleApagarGrupo = (key) => {
             <Input multiline={true} bordered placeholder='Email membro 3' onChangeText={email3 => this.setState({ email3 })} value={this.state.email3}/>
              </Item>
      <Item body bordered>
-      <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} onPress={() => this.handleNovoGrupo()}>
+      <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} onPress={() => this.handleNovoGrupo()}>
             <Text style={{color:'white',fontSize:20}}>Criar grupo</Text>
             <Icon name="add" style={{color:'white'}}/>
             </Button>
@@ -147,7 +147,7 @@ handleApagarGrupo = (key) => {
     return (
       <Card>   
      <Item header bordered>
-     <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'75%'}}  onPress={() => this.props.navigation.navigate('Posts_Privados', {nome_grupo_privado: item.nome_grupo_privado,chave_seguranca:item.chave_seguranca })}>
+     <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'75%'}}  onPress={() => this.props.navigation.navigate('Posts_Privados', {nome_grupo_privado: item.nome_grupo_privado,chave_seguranca:item.chave_seguranca })}>
             <Text style={{color:'white',fontSize:20}}>{item.nome_grupo_privado}</Text>
             <Icon name="chatboxes" style={{color:'white'}}/>
             </Button>
@@ -194,14 +194,14 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 20,
     borderRadius: 50,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
   },
   item2: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 40,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
     width: '80%',
     height: '10%',
     marginLeft: '10%',
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
   btnPerfil: {
     height: 240,
     width: '100%',
-    backgroundColor: '#a454ff',
+    backgroundColor: '#963BE0',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

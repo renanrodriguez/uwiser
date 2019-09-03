@@ -386,21 +386,21 @@ pickFile = () => {
     this.props.navigation.state.params.chave_seguranca
     return (
         <View style={styles.container}>
-           <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
+           <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
-        <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
+        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+        <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>
-        <Button style={{backgroundColor:'#a454ff',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
+        <Button style={{backgroundColor:'#963BE0',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>GERENCIAR MEMBROS</Text>
             </Button>
 
-            <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
+            <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
               <Text style={{fontSize: 12,color:'white'}}>EVENTOS</Text>
             </Button>
-            <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
+            <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
               <Text style={{fontSize: 12,color:'white'}}>MEUS EVENTOS</Text>
             </Button>
         </Header>
@@ -424,7 +424,7 @@ pickFile = () => {
       renderItem={({item}) => {
     return (
       <Item body bordered >
-      <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'60%'}} onPress={() => this.handleNovaPublicacao(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
+      <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'60%'}} onPress={() => this.handleNovaPublicacao(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
             <Text style={{color:'white',fontSize:20}}>Adicionar Post</Text>
             <Icon name="add" style={{color:'white'}}/>
             </Button>
@@ -466,7 +466,7 @@ pickFile = () => {
           </CardItem>):(null)}
 
           {item.urlImagem ? (
-          <TouchableOpacity block light style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} onPress={ ()=>{ Linking.openURL(item.urlImagem)}}>
+          <TouchableOpacity block light style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} onPress={ ()=>{ Linking.openURL(item.urlImagem)}}>
             <Text style={{color:'white'}}>Visualizar a foto no browser</Text>
           </TouchableOpacity>
          ):(null)}
@@ -475,7 +475,7 @@ pickFile = () => {
               <Left>
               {item.urlFile ? (
             
-            <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'80%'}} onPress={ ()=>{ Linking.openURL(item.urlFile)}}>
+            <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'80%'}} onPress={ ()=>{ Linking.openURL(item.urlFile)}}>
             <Text style={{color:'white',fontSize:10}}>Baixar arquivo</Text>
           </Button>
             ):(null)}
@@ -528,14 +528,14 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 20,
     borderRadius: 50,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
   },
   item2: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 40,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
     width: '80%',
     height: '10%',
     marginLeft: '10%',
@@ -556,7 +556,7 @@ const styles = StyleSheet.create({
   btnPerfil: {
     height: 240,
     width: '100%',
-    backgroundColor: '#a454ff',
+    backgroundColor: '#963BE0',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

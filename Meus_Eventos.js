@@ -138,21 +138,21 @@ setDate(newDate) {
 
     return (
         <View style={styles.container}>
-           <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
+           <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
-        <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
+        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+        <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>
-        <Button style={{backgroundColor:'#a454ff',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
+        <Button style={{backgroundColor:'#963BE0',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>GERENCIAR MEMBROS</Text>
             </Button>
 
-            <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
+            <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
               <Text style={{fontSize: 12,color:'white'}}>EVENTOS</Text>
             </Button>
-            <Button vertical active style={{backgroundColor:'#a454ff',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
+            <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
               <Text style={{fontSize: 12,color:'white'}}>MEUS EVENTOS</Text>
             </Button>
         </Header>
@@ -193,7 +193,7 @@ setDate(newDate) {
       renderItem={({item}) => {
     return (
       <Item body bordered >
-      <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} onPress={() => this.handleNovoEvento(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
+      <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} onPress={() => this.handleNovoEvento(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
             <Text style={{color:'white',fontSize:20}}>Adicionar Evento</Text>
             <Icon name="add" style={{color:'white'}}/>
             </Button>
@@ -260,14 +260,14 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 20,
     borderRadius: 50,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
   },
   item2: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 40,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
     width: '80%',
     height: '10%',
     marginLeft: '10%',

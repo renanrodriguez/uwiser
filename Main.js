@@ -510,7 +510,7 @@ export default class Main extends React.Component {
                         <Text style={[styles.texto, { margin: 10 }]}>{item.nome_usuario}</Text>
                         <Text style={{ marginLeft: 10 }} note> {item.nome_curso} </Text>
                         <TouchableOpacity style={styles.btnPerfil} onPress={() => this.props.navigation.navigate('Perfil')}>
-                          <Text style={{ color: '#a454ff' }}>Editar perfil</Text>
+                          <Text style={{ color: '#963BE0' }}>Editar perfil</Text>
                         </TouchableOpacity>
                       </Body>
                     </Left>
@@ -520,7 +520,7 @@ export default class Main extends React.Component {
           </FlatList>
 
           <Form>
-            <Card>
+            <Card transparent>
               <Item fixedLabel  >
                 <Text style={{ margin: 10 }}>Assunto</Text>
                 <Picker mode="dropdown"
@@ -555,7 +555,7 @@ export default class Main extends React.Component {
                 renderItem={({ item }) => {
                   return (
                     <Item last>
-                      <Button block light style={{ color: 'black', backgroundColor: '#a454ff', width: '60%' }} onPress={() => this.handleNovoPost(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
+                      <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '60%' }} onPress={() => this.handleNovoPost(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
                         <Text style={{ color: 'white', fontSize: 20 }}>Adicionar Post</Text>
                         <Icon name="add" style={{ color: 'white' }} />
                       </Button>
@@ -580,20 +580,21 @@ export default class Main extends React.Component {
               data={this.state.posts}
               renderItem={({ item }) => {
                 return (
-                  <Card>
-                    <CardItem header bordered>
+                  <Card style={{ borderRadius: 10 }}>
+                    <CardItem bordered header style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10 }} header >
                       <Left>
                         <Thumbnail circle small source={{ uri: item.selected_heroi }} />
                         <Body>
                           <Text style={{ fontSize: 14 }}>{item.nome_usuario}</Text>
-                          <Text style={{ color: 'gray' }}>{item.nome_faculdade}</Text>
+                          <Text style={{ color: 'gray', fontSize: 12 }}>{item.nome_faculdade}</Text>
 
                         </Body>
                         <Right>
+                          <Text style={{ fontSize: 10, color: '#808080', padding: 5 }}>{item.data_inclusao}</Text>
                           <TouchableOpacity style={{
-                            backgroundColor: 'transparent', borderColor: 'gray', borderRadius: 40, borderWidth: 0.5, margin: 0, marginLeft: 10, padding:5
+                            backgroundColor: 'transparent', borderColor: '#0082FF', borderRadius: 8, borderWidth: 0.5, margin: 0, marginLeft: 10, padding: 5
                           }}>
-                            <Text style={{ color: 'gray', fontSize: 10, padding: 5, }}>{item.categoria}</Text>
+                            <Text style={{ color: '#0082FF', fontSize: 10, padding: 2, textAlign: 'center' }}>{item.categoria}</Text>
                           </TouchableOpacity>
                         </Right>
                       </Left>
@@ -601,7 +602,7 @@ export default class Main extends React.Component {
 
                     {item.texto_post ? (
                       <CardItem body bordered >
-                        <Text selectable={true} style={{ fontSize: 20, color: '#505050E' }}>{item.texto_post}</Text>
+                        <Text selectable={true} style={{ fontSize: 18, color: '#505050E' }}>{item.texto_post}</Text>
                       </CardItem>) : (null)}
 
 
@@ -612,29 +613,27 @@ export default class Main extends React.Component {
 
                     {item.urlImagem ? (
                       <TouchableOpacity block light style={{ color: 'black', width: '100%', marginBottom: 10 }} onPress={() => { Linking.openURL(item.urlImagem) }}>
-                        <Text style={{ color: '#a454ff', textAlign: 'center' }}>Visualizar a foto no browser</Text>
+                        <Text style={{ color: '#963BE0', textAlign: 'center' }}>Visualizar a foto no browser</Text>
                       </TouchableOpacity>
                     ) : (null)}
 
 
 
-                    <CardItem>
+                    <CardItem footer style={{ borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}>
                       <Left>
                         {item.urlFile ? (
-
-                          <Button block light style={{ color: 'black', backgroundColor: '#a454ff', width: '80%' }} onPress={() => { Linking.openURL(item.urlFile) }}>
-                            <Text style={{ color: 'white', fontSize: 10 }}>Baixar arquivo</Text>
+                          <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => { Linking.openURL(item.urlFile) }}>
+                            <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} name="download" />
+                            <Text>Baixar arquivo</Text>
                           </Button>
+
                         ) : (null)}
                       </Left>
-                      <Body>
-                        <Button transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
-                          <Icon active name="chatbubbles" />
+                      <Right>
+                        <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
+                          <Icon style={{ color: '#0082FF', padding: 10 }} active name="chatbubbles" />
                           <Text>Comentar</Text>
                         </Button>
-                      </Body>
-                      <Right>
-                        <Text style={{ fontSize: 10, color: '#808080' }}>{item.data_inclusao}</Text>
                       </Right>
                     </CardItem>
                   </Card>);
@@ -643,23 +642,23 @@ export default class Main extends React.Component {
 
           </ScrollView>
         </Content>
-        <Footer style={{ backgroundColor: "#A461FD" }}>
-          <FooterTab style={{ backgroundColor: "#A461FD" }}>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon name="grid" />
-              <Text style={{ fontSize: 12, color: 'white' }}>Feed</Text>
+        <Footer style={{ backgroundColor: "white" }}>
+          <FooterTab style={{ backgroundColor: "white" }}>
+            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Main')}>
+              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} name="grid" />
+              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Feed</Text>
             </Button>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon name="person" />
-              <Text style={{ fontSize: 12, color: 'white' }}>Perfil</Text>
+            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
+              <Icon style={{ color: 'gray', fontSize: 30 }} name="person" />
+              <Text style={{ fontSize: 12, color: 'gray' }}>Perfil</Text>
             </Button>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
-              <Icon active name="contacts" />
-              <Text style={{ fontSize: 12, color: 'white' }}>Grupos</Text>
+            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
+              <Icon style={{ color: 'gray', fontSize: 30 }} active name="contacts" />
+              <Text style={{ fontSize: 12, color: 'gray' }}>Grupos</Text>
             </Button>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
-              <Icon name="bookmarks" />
-              <Text style={{ fontSize: 12, color: 'white' }}>Estudos</Text>
+            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
+              <Icon style={{ color: 'gray', fontSize: 30 }} name="bookmarks" />
+              <Text style={{ fontSize: 12, color: 'gray' }}>Anotações</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -698,14 +697,14 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 20,
     borderRadius: 50,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
   },
   item2: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 40,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
     width: '80%',
     height: '10%',
     marginLeft: '10%',
@@ -744,11 +743,11 @@ const styles = StyleSheet.create({
   btnPerfil: {
     width: '40%',
     backgroundColor: '#fff',
-    borderColor: '#a454ff',
+    borderColor: '#963BE0',
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: 8,
     margin: 5,
     padding: 5
   },

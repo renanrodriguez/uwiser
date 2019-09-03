@@ -140,17 +140,17 @@ setDate(newDate) {
     this.props.navigation.state.params.chave_seguranca
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
+            <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_publico}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
-        <Button style={{backgroundColor:'#a454ff',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Grupos_Publicos',{nome_grupo_publico:  this.props.navigation.state.params.nome_grupo_publico,chave_seguranca:   this.props.navigation.state.params.chave_seguranca })}>
+        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+        <Button style={{backgroundColor:'#963BE0',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Grupos_Publicos',{nome_grupo_publico:  this.props.navigation.state.params.nome_grupo_publico,chave_seguranca:   this.props.navigation.state.params.chave_seguranca })}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>
-            <Button vertical active style={{backgroundColor:'#a454ff',width:'33%'}} onPress={() => this.props.navigation.navigate('Eventos_Publicos',{nome_grupo_publico:  this.props.navigation.state.params.nome_grupo_publico,chave_seguranca:   this.props.navigation.state.params.chave_seguranca })}>
+            <Button vertical active style={{backgroundColor:'#963BE0',width:'33%'}} onPress={() => this.props.navigation.navigate('Eventos_Publicos',{nome_grupo_publico:  this.props.navigation.state.params.nome_grupo_publico,chave_seguranca:   this.props.navigation.state.params.chave_seguranca })}>
               <Text style={{fontSize: 12,color:'white'}}>EVENTOS</Text>
             </Button>
-            <Button vertical active style={{backgroundColor:'#a454ff',width:'33%'}} onPress={() => this.props.navigation.navigate('Gerenciar_Eventos',{nome_grupo_publico:  this.props.navigation.state.params.nome_grupo_publico,chave_seguranca:   this.props.navigation.state.params.chave_seguranca })}>       
+            <Button vertical active style={{backgroundColor:'#963BE0',width:'33%'}} onPress={() => this.props.navigation.navigate('Gerenciar_Eventos',{nome_grupo_publico:  this.props.navigation.state.params.nome_grupo_publico,chave_seguranca:   this.props.navigation.state.params.chave_seguranca })}>       
               <Text style={{fontSize: 12,color:'white'}}>MEUS EVENTOS</Text>
             </Button>
         </Header>
@@ -191,7 +191,7 @@ setDate(newDate) {
       renderItem={({item}) => {
     return (
       <Item body bordered >
-      <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} onPress={() => this.handleNovoEvento(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
+      <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} onPress={() => this.handleNovoEvento(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
             <Text style={{color:'white',fontSize:20}}>Adicionar Evento</Text>
             <Icon name="add" style={{color:'white'}}/>
             </Button>
@@ -257,14 +257,14 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 20,
     borderRadius: 50,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
   },
   item2: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 40,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
     width: '80%',
     height: '10%',
     marginLeft: '10%',

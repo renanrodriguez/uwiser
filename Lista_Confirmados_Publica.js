@@ -59,7 +59,7 @@ export default class Lista_Confirmados_Publica extends React.Component {
     this.props.navigation.state.params.nome_evento
     return (
         <View style={styles.container}>
-               <Header style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} >
+               <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_publico}</Text>  
         </Header>
           <Content>
@@ -76,7 +76,7 @@ export default class Lista_Confirmados_Publica extends React.Component {
   return (
     <Card>   
     <Item header bordered>
-    <CardItem block light style={{color:'black',backgroundColor:'#a454ff',width:'100%',justifyContent:"center"}}>
+    <CardItem block light style={{color:'black',backgroundColor:'#963BE0',width:'100%',justifyContent:"center"}}>
            <Text style={{color:'white',fontSize:15}}>{item.usuario_email}</Text>
            </CardItem>
     </Item>
@@ -119,14 +119,14 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 20,
     borderRadius: 50,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
   },
   item2: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 40,
-    backgroundColor: '#A461FD',
+    backgroundColor: '#963BE0',
     width: '80%',
     height: '10%',
     marginLeft: '10%',
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   btnPerfil: {
     height: 240,
     width: '100%',
-    backgroundColor: '#a454ff',
+    backgroundColor: '#963BE0',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

@@ -118,7 +118,7 @@ static navigationOptions = {
 
     return (
       <View style={styles.container}>
-        <Header style={{color:'black',backgroundColor:'#a454ff'}}>
+        <Header style={{color:'black',backgroundColor:'#963BE0'}}>
               <Text style={{fontSize: 30,color:'white',}}>Comentarios</Text>
         </Header>
       <Form>
@@ -131,7 +131,7 @@ static navigationOptions = {
           renderItem={({item}) => {
           return (
             <Item last>
-         <Button block light style={{color:'black',backgroundColor:'#a454ff',width:'100%'}} onPress={() => this.handleNovoComentario(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
+         <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} onPress={() => this.handleNovoComentario(item.nome_usuario,item.nome_faculdade,item.nome_curso,item.selected_heroi,item.emailUsuario)}>
             <Text style={{color:'white',fontSize:20}}>Comentar</Text>
             <Icon name="add" style={{color:'white'}}/>
             </Button>
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       borderRadius: 20,
       marginTop: 40,
-      backgroundColor: '#A461FD',
+      backgroundColor: '#963BE0',
       width: '80%',
       height: '10%',
       marginLeft: '10%',
