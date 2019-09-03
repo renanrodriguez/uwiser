@@ -183,8 +183,8 @@ export default class Anotacoes extends React.Component {
         </Form>
         <Item>
           <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '60%' }} onPress={this.handleCadastroTarefa}>
+            <Icon name="add" style={{ color: 'white', marginLeft: 0 }} />
             <Text style={{ color: 'white', fontSize: 20 }}>Adicionar</Text>
-            <Icon name="add" style={{ color: 'white' }} />
           </Button>
           <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} onPress={this.pickImage}>
             <Icon name="camera" style={{ color: 'gray' }} />
@@ -234,23 +234,23 @@ export default class Anotacoes extends React.Component {
           </FlatList>
 
         </Content>
-        <Footer>
-          <FooterTab>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon name="grid" />
-              <Text style={{ fontSize: 12, color: 'white' }}>Feed</Text>
+        <Footer style={{ backgroundColor: "white" }}>
+          <FooterTab style={{ backgroundColor: "white" }}>
+            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Main')}>
+              <Icon style={{ color: 'gray', fontSize: 30 }} name="grid" />
+              <Text style={{ fontSize: 12, color: 'gray' }}>Feed</Text>
             </Button>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon name="person" />
-              <Text style={{ fontSize: 12, color: 'white' }}>Perfil</Text>
+            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
+              <Icon style={{ color: 'gray', fontSize: 30 }} name="person" />
+              <Text style={{ fontSize: 12, color: 'gray' }}>Perfil</Text>
             </Button>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
-              <Icon active name="contacts" />
-              <Text style={{ fontSize: 12, color: 'white' }}>Grupos</Text>
+            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
+              <Icon style={{ color: 'gray', fontSize: 30 }} active name="contacts" />
+              <Text style={{ fontSize: 12, color: 'gray' }}>Grupos</Text>
             </Button>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
-              <Icon name="bookmarks" />
-              <Text style={{ fontSize: 12, color: 'white' }}>Estudos</Text>
+            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
+              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} name="bookmarks" />
+              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Anotações</Text>
             </Button>
           </FooterTab>
         </Footer>

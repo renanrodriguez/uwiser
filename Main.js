@@ -465,7 +465,7 @@ export default class Main extends React.Component {
     return (
       <Container style={styles.container}>
         <Header searchBar style={{
-          backgroundColor: '#fff', margin: 15, marginBottom: 10, marginTop: 10, borderRadius: 100, shadowColor: "#000",
+          backgroundColor: '#fff', margin: 15, marginBottom: 5, marginTop: 10, borderRadius: 100, shadowColor: "#000",
           shadowOffset: {
             width: 0,
             height: 2,
@@ -508,7 +508,7 @@ export default class Main extends React.Component {
                       <Thumbnail medium source={{ uri: item.selected_heroi }} />
                       <Body>
                         <Text style={[styles.texto, { margin: 10 }]}>{item.nome_usuario}</Text>
-                        <Text style={{ marginLeft: 10 }} note> {item.nome_curso} </Text>
+                        <Text style={{ marginLeft: 5 }} note> {item.nome_curso} </Text>
                         <TouchableOpacity style={styles.btnPerfil} onPress={() => this.props.navigation.navigate('Perfil')}>
                           <Text style={{ color: '#963BE0' }}>Editar perfil</Text>
                         </TouchableOpacity>
@@ -520,7 +520,7 @@ export default class Main extends React.Component {
           </FlatList>
 
           <Form>
-            <Card transparent>
+            <Card>
               <Item fixedLabel  >
                 <Text style={{ margin: 10 }}>Assunto</Text>
                 <Picker mode="dropdown"
@@ -538,7 +538,7 @@ export default class Main extends React.Component {
                   <Picker.Item label="Odontologia" value="Odontologia" />
                 </Picker>
               </Item>
-              <Input multiline={true} bordered placeholder='O que você está estudando?' onChangeText={texto_post => this.setState({ texto_post })} value={this.state.texto_post} />
+              <Input style={{ margin: 10 }} multiline={true} bordered placeholder='O que você está estudando?' onChangeText={texto_post => this.setState({ texto_post })} value={this.state.texto_post} />
 
               {this.state.imgSource ? (
                 <Image source={this.state.imgSource} style={styles.image} />) : (null)}
@@ -555,9 +555,9 @@ export default class Main extends React.Component {
                 renderItem={({ item }) => {
                   return (
                     <Item last>
-                      <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '60%' }} onPress={() => this.handleNovoPost(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
+                      <Button block light style={{ color: 'black', backgroundColor: '#963BE0', borderRadius: 5, width: '60%' }} onPress={() => this.handleNovoPost(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
+                        <Icon name="add" style={{ color: 'white', marginLeft:0, marginRight:10 }} />
                         <Text style={{ color: 'white', fontSize: 20 }}>Adicionar Post</Text>
-                        <Icon name="add" style={{ color: 'white' }} />
                       </Button>
                       <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} onPress={this.pickImage}>
                         <Icon name="camera" style={{ color: 'gray' }} />
@@ -741,7 +741,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   btnPerfil: {
-    width: '40%',
+    width: '80%',
     backgroundColor: '#fff',
     borderColor: '#963BE0',
     borderWidth: 1,
