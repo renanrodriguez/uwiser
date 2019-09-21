@@ -43,6 +43,12 @@ export default class Grupos_Publicos extends React.Component {
     header: null,
 };
 
+handleApagarPost = (key) => {
+  Toast.show('Item excluido com sucesso');
+  const caminho_exclusao = firebaseDatabase.ref('Publicacao_Grupo_Publico/' + key)
+  caminho_exclusao.remove()
+}
+
 handleNovaPublicacao = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,emailUsuario) => {
   const { navigate } = this.props.navigation;
     this.props.navigation.state.params.nome_grupo_publico
@@ -65,6 +71,9 @@ handleNovaPublicacao = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,em
         chave_seguranca_comentarios:currentUser.uid+data_atual+texto_publicacao,
         nome_grupo_publico :     this.props.navigation.state.params.nome_grupo_publico,
         chave_seguranca:     this.props.navigation.state.params.chave_seguranca
+      });
+      this.setState({
+        texto_publicacao: ''
       });
       Toast.show('Publicação realizada com sucesso')
   }
@@ -115,6 +124,9 @@ handleNovaPublicacao = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,em
               AsyncStorage.setItem('images', JSON.stringify(allImages));
             }
             this.setState(state);
+            this.setState({
+              texto_publicacao: ''
+            });
             }     
           
         },
@@ -195,6 +207,9 @@ handleNovaPublicacao = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,em
                     AsyncStorage.setItem('files', JSON.stringify(allFiles));
                   }
                   this.setState(state);
+                  this.setState({
+                    texto_publicacao: ''
+                  });
                 }
               }
             )             
@@ -254,6 +269,9 @@ handleNovaPublicacao = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,em
               AsyncStorage.setItem('files', JSON.stringify(allFiles));
             }
             this.setState(state);
+            this.setState({
+              texto_publicacao: ''
+            });
             }     
         },
         error => {
@@ -379,10 +397,10 @@ pickFile = () => {
     this.props.navigation.state.params.chave_seguranca
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+            <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_publico}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+        <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
         <Button style={{backgroundColor:'#963BE0',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Grupos_Publicos',{nome_grupo_publico:  this.props.navigation.state.params.nome_grupo_publico,chave_seguranca:   this.props.navigation.state.params.chave_seguranca })}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>
@@ -467,6 +485,13 @@ pickFile = () => {
           </Button>
             ):(null)}
               </Left>
+              {item.usuario == currentUser.uid ? (
+                          <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.handleApagarPost(item.key)} >
+                            <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} name="remove"/>
+                            <Text>Excluir</Text>
+                          </Button>
+
+                        ) : (null)}
               <Body>
                 <Button transparent onPress={() => this.props.navigation.navigate('Comentarios',{chave_seguranca_comentarios:item.chave_seguranca_comentarios })}>
                   <Icon active name="chatbubbles" />

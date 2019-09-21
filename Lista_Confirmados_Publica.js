@@ -59,7 +59,7 @@ export default class Lista_Confirmados_Publica extends React.Component {
     this.props.navigation.state.params.nome_evento
     return (
         <View style={styles.container}>
-               <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+               <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_publico}</Text>  
         </Header>
           <Content>

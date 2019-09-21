@@ -46,13 +46,17 @@ handleNovoGrupo = () => {
   if (nome_grupo=='' || categoria==''){
     Toast.show('Um grupo precisa de um nome e um assunto!');
   }else{
-      Toast.show('Grupo criado com sucesso');
+    
       grupo_publico_ref.push({
         usuario: currentUser.email,
         nome_grupo_publico : nome_grupo,
         categoria:categoria,
         chave_seguranca : currentUser.uid+nome_grupo+categoria
       });    
+      Toast.show('Grupo criado com sucesso');
+      this.setState({
+        nome_grupo: ''
+      });
   }
 }
 
@@ -112,7 +116,7 @@ handleFiltro = () => {
     const { currentUser } = this.state
     return (
         <View style={styles.container}>    
-        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >      
+        <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >      
               <Text style={{fontSize: 30,color:'white'}}>GRUPOS PUBLICOS</Text>
         </Header>
           <Content>

@@ -20,7 +20,7 @@ export default class Grupos extends React.Component {
     const { currentUser } = this.state
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#963BE0'}}>
+            <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0'}}>
               <Text style={{fontSize: 30,color:'white',}}>Grupos</Text>
         </Header>
           <Content>

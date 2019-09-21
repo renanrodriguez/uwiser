@@ -43,6 +43,9 @@ static navigationOptions = {
           selected_heroi:selected_heroi,
           chave_seguranca_comentarios:this.props.navigation.state.params.chave_seguranca_comentarios
         });
+        this.setState({
+          texto_comentario: '',
+        });
         Toast.show('Comentário realizado com sucesso')
       }
      
@@ -118,7 +121,7 @@ static navigationOptions = {
 
     return (
       <View style={styles.container}>
-        <Header style={{color:'black',backgroundColor:'#963BE0'}}>
+        <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0'}}>
               <Text style={{fontSize: 30,color:'white',}}>Comentarios</Text>
         </Header>
       <Form>

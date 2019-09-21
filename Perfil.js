@@ -61,7 +61,7 @@ export default class Perfil extends React.Component {
 
     return (
       <View style={styles.container}>
-             <Header style={{color:'black',backgroundColor:'#963BE0'}}>
+             <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0'}}>
               <Text style={{fontSize: 30,color:'white',}}>Perfil</Text>
         </Header>
             <FlatList
@@ -110,12 +110,12 @@ export default class Perfil extends React.Component {
         <Footer style={{ backgroundColor: "white" }}>
           <FooterTab style={{ backgroundColor: "white" }}>
             <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="grid" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Feed</Text>
+              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} name="grid" />
+              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Feed</Text>
             </Button>
             <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} name="person" />
-              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Perfil</Text>
+              <Icon style={{ color: 'gray', fontSize: 30 }} name="person" />
+              <Text style={{ fontSize: 12, color: 'gray' }}>Perfil</Text>
             </Button>
             <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
               <Icon style={{ color: 'gray', fontSize: 30 }} active name="contacts" />

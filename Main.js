@@ -60,6 +60,9 @@ export default class Main extends React.Component {
         emailUsuario: emailUsuario,
         chave_seguranca_comentarios: currentUser.uid + data_atual + texto_post
       });
+      this.setState({
+        texto_post: ''
+      });
       Toast.show('Publicação realizada com sucesso')
     }
     /*Publicação imagem e/ou texto */
@@ -107,6 +110,9 @@ export default class Main extends React.Component {
               };
               AsyncStorage.setItem('images', JSON.stringify(allImages));
             }
+            this.setState({
+              texto_post: ''
+            });
             this.setState(state);
           }
 
@@ -186,6 +192,9 @@ export default class Main extends React.Component {
                     AsyncStorage.setItem('images', JSON.stringify(allImages));
                     AsyncStorage.setItem('files', JSON.stringify(allFiles));
                   }
+                  this.setState({
+                    texto_post: ''
+                  });
                   this.setState(state);
                 }
               }
@@ -244,6 +253,9 @@ export default class Main extends React.Component {
               };
               AsyncStorage.setItem('files', JSON.stringify(allFiles));
             }
+            this.setState({
+              texto_post: ''
+            });
             this.setState(state);
           }
         },
@@ -315,6 +327,11 @@ export default class Main extends React.Component {
   }
 
 
+  handleApagarPost = (key) => {
+    Toast.show('Item excluido com sucesso');
+    const caminho_exclusao = firebaseDatabase.ref('post/' + key)
+    caminho_exclusao.remove()
+  }
 
   handleFiltro = () => {
     const { categoria_pesquisa } = this.state
@@ -464,7 +481,7 @@ export default class Main extends React.Component {
 
     return (
       <Container style={styles.container}>
-        <Header searchBar style={{
+        <Header androidStatusBarColor="#6c05da" searchBar style={{
           backgroundColor: '#fff', margin: 15, marginBottom: 5, marginTop: 10, borderRadius: 100, shadowColor: "#000",
           shadowOffset: {
             width: 0,
@@ -629,6 +646,13 @@ export default class Main extends React.Component {
 
                         ) : (null)}
                       </Left>
+                      {item.usuario == currentUser.uid ? (
+                          <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.handleApagarPost(item.key)} >
+                            <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} name="remove"/>
+                            <Text>Excluir</Text>
+                          </Button>
+
+                        ) : (null)}
                       <Right>
                         <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
                           <Icon style={{ color: '#0082FF', padding: 10 }} active name="chatbubbles" />

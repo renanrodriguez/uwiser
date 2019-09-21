@@ -72,6 +72,13 @@ handleNovoGrupo = () => {
           chave_seguranca : currentUser.uid+nome_grupo
         });
       }
+
+      this.setState({
+        nome_grupo: '',
+        email1: '',
+        email2: '',
+        email3: '',
+      });
     }
   }
  
@@ -111,7 +118,7 @@ handleApagarGrupo = (key) => {
     const { currentUser } = this.state
     return (
         <View style={styles.container}>    
-        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >      
+        <Header androidStatusBarColor="#6c05da" androidStatusBarColor="#963BE0" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >      
               <Text style={{fontSize: 30,color:'white'}}>GRUPOS PRIVADOS</Text>
         </Header>
           <Content>

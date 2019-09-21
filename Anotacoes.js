@@ -51,6 +51,10 @@ export default class Anotacoes extends React.Component {
           descricao_tarefa: descricao,
           data_inclusao: data_atual
         });
+        this.setState({
+          titulo: '',
+          descricao : ''
+        });
         Toast.show('Publicação realizada com sucesso')
       } else {
         var publicar = 0;
@@ -91,6 +95,10 @@ export default class Anotacoes extends React.Component {
                 AsyncStorage.setItem('images', JSON.stringify(allImages));
               }
               this.setState(state);
+              this.setState({
+                titulo: '',
+                descricao : ''
+              });
             }
 
           },
@@ -102,7 +110,7 @@ export default class Anotacoes extends React.Component {
       }
 
     }
-
+    
   }
 
   pickImage = () => {
@@ -170,7 +178,7 @@ export default class Anotacoes extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Header style={{ color: 'black', backgroundColor: '#963BE0' }}>
+        <Header androidStatusBarColor="#6c05da" style={{ color: 'black', backgroundColor: '#963BE0' }}>
           <Text style={{ fontSize: 30, color: 'white', }}>Estudos</Text>
         </Header>
         <Form>
@@ -186,11 +194,8 @@ export default class Anotacoes extends React.Component {
             <Icon name="add" style={{ color: 'white', marginLeft: 0 }} />
             <Text style={{ color: 'white', fontSize: 20 }}>Adicionar</Text>
           </Button>
-          <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} onPress={this.pickImage}>
+          <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '40%' }} onPress={this.pickImage}>
             <Icon name="camera" style={{ color: 'gray' }} />
-          </Button>
-          <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} >
-            <Icon name="paper" style={{ color: 'gray' }} />
           </Button>
         </Item>
 

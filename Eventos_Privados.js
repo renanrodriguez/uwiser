@@ -97,10 +97,10 @@ const {currentUser} = this.state
 
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+            <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+        <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
         <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>

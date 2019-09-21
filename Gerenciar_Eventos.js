@@ -70,6 +70,13 @@ handleNovoEvento = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,emailU
         chave_seguranca:this.props.navigation.state.params.chave_seguranca,
         chave_seguranca_evento:this.props.navigation.state.params.chave_seguranca+titulo+chosenDate.toString().substr(4, 12)+currentUser.uid
       });
+      Toast.show('Evento criado com sucesso')
+      this.setState({
+        titulo: '',
+        descricao : '',
+        local_link:'',
+        horario: ''
+      });
     }
   }
 
@@ -140,10 +147,10 @@ setDate(newDate) {
     this.props.navigation.state.params.chave_seguranca
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+            <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_publico}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+        <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
         <Button style={{backgroundColor:'#963BE0',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Grupos_Publicos',{nome_grupo_publico:  this.props.navigation.state.params.nome_grupo_publico,chave_seguranca:   this.props.navigation.state.params.chave_seguranca })}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>

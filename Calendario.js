@@ -20,7 +20,7 @@ export default class Calendario extends React.Component {
     const { currentUser } = this.state
     return (
         <View style={styles.container}>
-            <Header style={{color:'black',backgroundColor:'#963BE0'}}>
+            <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#0000EE'}}>
               <Text style={{fontSize: 30,color:'white',}}>Calendário</Text>
         </Header>
           <Content>
@@ -86,14 +86,14 @@ const styles = StyleSheet.create({
     margin: 4,
     padding: 20,
     borderRadius: 50,
-    backgroundColor: '#963BE0',
+    backgroundColor: '#A461FD',
   },
   item2: {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 40,
-    backgroundColor: '#963BE0',
+    backgroundColor: '#A461FD',
     width: '80%',
     height: '10%',
     marginLeft: '10%',

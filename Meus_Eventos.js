@@ -41,7 +41,7 @@ handleNovoEvento = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,emailU
       if (chosenDate == '' || titulo=='' || horario == '' || local_link ==''){
         Toast.show('Para um evento ser adicionado ele precisa de um titulo, local, data e horario')
       }else{
-        Toast.show('Evento adicionado com sucesso')
+      
         pri_eve_ref.push({
           usuario: currentUser.uid,
           usuario_grupo:currentUser.uid+this.props.navigation.state.params.nome_grupo_privado,
@@ -67,6 +67,13 @@ handleNovoEvento = (nome_usuario,nome_faculdade,nome_curso,selected_heroi,emailU
           nome_grupo_privado :    this.props.navigation.state.params.nome_grupo_privado,
           chave_seguranca:this.props.navigation.state.params.chave_seguranca,
           chave_seguranca_evento:this.props.navigation.state.params.chave_seguranca+titulo+chosenDate.toString().substr(4, 12)+currentUser.uid
+        });
+        Toast.show('Evento adicionado com sucesso')
+        this.setState({
+          titulo: '',
+          descricao : '',
+          local_link:'',
+          horario: ''
         });
       }
     }
@@ -138,10 +145,10 @@ setDate(newDate) {
 
     return (
         <View style={styles.container}>
-           <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+           <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
               <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
         </Header>
-        <Header style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
+        <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
         <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
               <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
             </Button>
