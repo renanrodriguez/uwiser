@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, TextInput, View ,TouchableOpacity,Image,ScrollView,FlatList} from 'react-native'
 import {Badge,Header,Input,Button, Icon, Content,Footer, FooterTab,Item,Form,Card,CardItem,Left,Right,Body,Thumbnail,HeaderTab} from 'native-base'
 import firebase from 'react-native-firebase';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-native';
 import {firebaseDatabase} from './config'
 
 const pub_pri_root = firebaseDatabase.ref();
@@ -28,8 +28,13 @@ export default class Grupos_Privados extends React.Component {
 
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
-    header: null,
-};
+    title: "Grupos Privados",
+    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff'}, 
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: '#963BE0'
+    },
+  };
 
 
 handleNovoGrupo = () => {
@@ -118,9 +123,6 @@ handleApagarGrupo = (key) => {
     const { currentUser } = this.state
     return (
         <View style={styles.container}>    
-        <Header androidStatusBarColor="#6c05da" androidStatusBarColor="#963BE0" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >      
-              <Text style={{fontSize: 30,color:'white'}}>GRUPOS PRIVADOS</Text>
-        </Header>
           <Content>
           <Form>
             <Card>

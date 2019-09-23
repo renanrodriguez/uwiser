@@ -3,7 +3,7 @@ import { StyleSheet, Platform, Image, Text, View,ScrollView,TouchableOpacity,Fla
 import {Header,Input,Button,Body, Icon, Content,Footer, FooterTab,Card,CardItem,Thumbnail,Right,Left,Container,Form,Item,Picker, Textarea} from 'native-base'
 import {firebaseDatabase} from './config'
 import firebase from 'react-native-firebase';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-native';
 
 const pri_eve_root = firebaseDatabase.ref();
 const pri_eve_part = pri_eve_root.child('Eventos_Privados_Participantes');

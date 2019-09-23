@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View ,TouchableOpacity,Image} from 'react-native'
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from 'react-native'
 import firebase from 'react-native-firebase';
-import {Header,Input,Button, Icon, Content,Footer, FooterTab} from 'native-base'
+import { Header, Input, Button, Icon, Content, Footer, FooterTab } from 'native-base'
 export default class Calendario extends React.Component {
 
   state = { currentUser: null }
@@ -9,8 +9,8 @@ export default class Calendario extends React.Component {
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
     header: null,
-};
- 
+  };
+
   componentDidMount() {
     const { currentUser } = firebase.auth()
     this.setState({ currentUser })
@@ -19,39 +19,19 @@ export default class Calendario extends React.Component {
   render() {
     const { currentUser } = this.state
     return (
-        <View style={styles.container}>
-            <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#0000EE'}}>
-              <Text style={{fontSize: 30,color:'white',}}>Calendário</Text>
+      <View style={styles.container}>
+        <Header androidStatusBarColor="#6c05da" style={{ color: 'black', backgroundColor: '#0000EE' }}>
+          <Text style={{ fontSize: 30, color: 'white', }}>Calendário</Text>
         </Header>
-          <Content>
-        <Text>
-          Olá {currentUser && currentUser.email}!
+        <Content>
+          <Text>
+            Olá {currentUser && currentUser.email}!
         </Text>
-        <Text>
-         Seja bem-vindo a tela de Calendario
+          <Text>
+            Seja bem-vindo a tela de Calendario
         </Text>
         </Content>
-        <Footer>
-          <FooterTab>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon name="grid" />
-              <Text style={{fontSize: 12,color:'white'}}>Feed</Text>
-            </Button>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon name="person" />
-              <Text style={{fontSize: 12,color:'white'}}>Perfil</Text>
-            </Button>
-            <Button vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
-              <Icon active name="contacts" />
-              <Text style={{fontSize: 12,color:'white'}}>Grupos</Text>
-            </Button>
-            <Button vertical active  onPress={() => this.props.navigation.navigate('Anotacoes')} >
-              <Icon name="bookmarks" />
-              <Text style={{fontSize: 12,color:'white'}}>Estudos</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-        </View>
+      </View>
     )
   }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, StatusBar, View, Text, FlatList, TouchableOpacity, AsyncStorage, Image } from 'react-native'
 import { Header, Input, Button, Icon, Content, Footer, FooterTab, Form, Item, Label, Card, CardItem, Body, Thumbnail } from 'native-base'
 import firebase from 'react-native-firebase';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-native';
 import { firebaseDatabase } from './config'
 import Hyperlink from 'react-native-hyperlink'
 import ImagePicker from 'react-native-image-picker';
@@ -36,13 +36,17 @@ export default class Anotacoes extends React.Component {
 
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
-    header: null,
+    title: "Anotações",
+    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff'}, 
+    headerStyle: {
+      backgroundColor: '#963BE0'
+    },
   };
 
   handleCadastroTarefa = (nome_usuario, nome_faculdade, nome_curso, selected_heroi, emailUsuario) => {
     const { titulo, currentUser, descricao, data_atual } = this.state
     if (titulo == '' && this.state.validacao_imagem == '') {
-      Toast.show('Coloque um texto ou foto na sua anotação')
+      Toast.show('Coloque um texto ou foto na sua anotação', Toast.LONG, Toast.BOTTOM, toastErro);
     } else {
       if (titulo != '' && this.state.validacao_imagem == '') {
         tarefa_ref.push({
@@ -53,9 +57,9 @@ export default class Anotacoes extends React.Component {
         });
         this.setState({
           titulo: '',
-          descricao : ''
+          descricao: ''
         });
-        Toast.show('Publicação realizada com sucesso')
+        Toast.show('Publicação realizada com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
       } else {
         var publicar = 0;
         var randomNumber = Math.floor(Math.random() * 1000) / Math.random() + 1;
@@ -68,7 +72,7 @@ export default class Anotacoes extends React.Component {
             let state = {};
 
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            Toast.show('Progresso anotação:' + progress + '%')
+            Toast.show('Progresso anotação:' + progress + '%', Toast.SHORT, Toast.BOTTOM, toastInfo);
 
             if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
               if (publicar == 0) {
@@ -82,7 +86,7 @@ export default class Anotacoes extends React.Component {
                   urlImagem: snapshot.downloadURL
                 });
                 publicar = 1;
-                Toast.show('Publicação realizada com sucesso')
+                Toast.show('Publicação realizada com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
                 state = {
                   ...state,
                   uploading: false,
@@ -97,7 +101,7 @@ export default class Anotacoes extends React.Component {
               this.setState(state);
               this.setState({
                 titulo: '',
-                descricao : ''
+                descricao: ''
               });
             }
 
@@ -110,15 +114,15 @@ export default class Anotacoes extends React.Component {
       }
 
     }
-    
+
   }
 
   pickImage = () => {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
-        Toast.show('Você fechou a opção de imagens');
+        // Toast.show('Você fechou a opção de imagens');
       } else if (response.error) {
-        Toast.show('O seguinte erro aconteceu: ', response.error);
+        Toast.show(('O seguinte erro aconteceu: ', response.error), Toast.LONG, Toast.BOTTOM, toastErro);
       } else {
         const source = { uri: response.uri };
         this.setState({
@@ -131,7 +135,7 @@ export default class Anotacoes extends React.Component {
   };
 
   handleApagarTarefa = (key) => {
-    Toast.show('Item excluido com sucesso');
+    Toast.show('Item excluido com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
     const caminho_exclusao = firebaseDatabase.ref('tarefa/' + key)
     caminho_exclusao.remove()
   }
@@ -178,9 +182,6 @@ export default class Anotacoes extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Header androidStatusBarColor="#6c05da" style={{ color: 'black', backgroundColor: '#963BE0' }}>
-          <Text style={{ fontSize: 30, color: 'white', }}>Estudos</Text>
-        </Header>
         <Form>
           <Item fixedLabel>
             <Input multiline placeholder='Digite aqui o titulo' onChangeText={titulo => this.setState({ titulo })} value={this.state.titulo} />
@@ -239,30 +240,37 @@ export default class Anotacoes extends React.Component {
           </FlatList>
 
         </Content>
-        <Footer style={{ backgroundColor: "white" }}>
-          <FooterTab style={{ backgroundColor: "white" }}>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="grid" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Feed</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="person" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Perfil</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} active name="contacts" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Grupos</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
-              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} name="bookmarks" />
-              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Anotações</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
       </View>
     )
   }
 }
+
+const toastErro = {
+  backgroundColor: "#FF6C6C",
+  height: 200,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastSucesso = {
+  backgroundColor: "#61a465",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastInfo = {
+  backgroundColor: "#7182e1",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
 
 const styles = StyleSheet.create({
   container: {

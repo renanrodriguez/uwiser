@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View ,TouchableOpacity,Image} from 'react-native'
-import {Header,Input,Button, Icon, Content,Footer, FooterTab} from 'native-base'
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from 'react-native'
+import { Header, Input, Button, Icon, Content, Footer, FooterTab } from 'native-base'
 import firebase from 'react-native-firebase';
 
 export default class Grupos extends React.Component {
@@ -8,8 +8,12 @@ export default class Grupos extends React.Component {
 
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
-    header: null,
-};
+    title: "Grupos",
+    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff'}, 
+    headerStyle: {
+      backgroundColor: '#963BE0'
+    },
+  };
 
   componentDidMount() {
     const { currentUser } = firebase.auth()
@@ -19,44 +23,20 @@ export default class Grupos extends React.Component {
   render() {
     const { currentUser } = this.state
     return (
-        <View style={styles.container}>
-            <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0'}}>
-              <Text style={{fontSize: 30,color:'white',}}>Grupos</Text>
-        </Header>
-          <Content>
+      <View style={styles.container}>
+        <Content>
+          <TouchableOpacity style={styles.btnPerfil} onPress={() => this.props.navigation.navigate('Grupos_Publicos_Gerenciar')}>
+            <Text style={{ color: 'white' }}>Grupos públicos</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btnPerfil} onPress={() => this.props.navigation.navigate('Grupos_Privados')}>
+            <Text style={{ color: 'white' }}>Grupos privados</Text>
+          </TouchableOpacity>
 
 
-        <TouchableOpacity style={styles.btnPerfil} onPress={() => this.props.navigation.navigate('Grupos_Publicos_Gerenciar')}>
-                <Text style={{ color: 'white' }}>Grupos públicos</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.btnPerfil} onPress={() => this.props.navigation.navigate('Grupos_Privados')}>
-                <Text style={{ color: 'white' }}>Grupos privados</Text>
-              </TouchableOpacity>
-
- 
         </Content>
-        <Footer style={{ backgroundColor: "white" }}>
-          <FooterTab style={{ backgroundColor: "white" }}>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="grid" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Feed</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="person" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Perfil</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
-              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} active name="contacts" />
-              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Grupos</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="bookmarks" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Anotações</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-        </View>
+
+      </View>
     )
   }
 }

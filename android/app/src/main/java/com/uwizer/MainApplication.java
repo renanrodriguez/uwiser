@@ -7,6 +7,7 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import com.toast.RCTToastPackage;
 import com.imagepicker.ImagePickerPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RCTToastPackage(),
             new ImagePickerPackage(),
           new RNFirebasePackage(),
           new RNGestureHandlerPackage(),

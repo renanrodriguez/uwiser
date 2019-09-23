@@ -4,7 +4,7 @@ import firebase from 'react-native-firebase';
 import {Header,Input,Button, Icon, Content,Footer, FooterTab,Item,Form,DatePicker,Card,Thumbnail,Body} from 'native-base'
 import {firebaseDatabase} from './config'
 import Hyperlink from 'react-native-hyperlink'
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-native';
 
 const pri_eve_root = firebaseDatabase.ref();
 const pri_eve_ref = pri_eve_root.child('Eventos_Privados');

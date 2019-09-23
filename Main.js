@@ -6,7 +6,7 @@ import { firebaseDatabase, firebaseStorage } from './config'
 import firebase from 'react-native-firebase';
 import ImagePicker from 'react-native-image-picker';
 import FilePickerManager from 'react-native-file-picker';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-native';
 
 const post_root = firebaseDatabase.ref();
 const post_ref = post_root.child('post');
@@ -44,7 +44,7 @@ export default class Main extends React.Component {
   handleNovoPost = (nome_usuario, nome_faculdade, nome_curso, selected_heroi, emailUsuario) => {
     const { categoria, texto_post, currentUser, data_atual } = this.state
     if (texto_post == '' && this.state.validacao_imagem == '' && (this.state.validacao_file == '' || this.state.validacao_file == 'valido')) {
-      Toast.show('Coloque um texto ou foto na sua publicação')
+      Toast.show('Insira um texto ou foto na sua publicação', Toast.LONG, Toast.BOTTOM, toastErro);
     }
     /*Publicação apenas texto */
     if (texto_post != '' && this.state.validacao_imagem == '' && this.state.validacao_file == '') {
@@ -63,7 +63,7 @@ export default class Main extends React.Component {
       this.setState({
         texto_post: ''
       });
-      Toast.show('Publicação realizada com sucesso')
+      Toast.show('Publicação realizada com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
     }
     /*Publicação imagem e/ou texto */
     if (this.state.validacao_imagem == 'valido' && this.state.validacao_file == '') {
@@ -78,7 +78,7 @@ export default class Main extends React.Component {
           let state = {};
 
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          Toast.show('Progresso postagem:' + progress + '%')
+          Toast.show('Progresso postagem:' + progress + '%', Toast.SHORT, Toast.BOTTOM, toastInfo);
 
           if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
             if (publicar == 0) {
@@ -98,7 +98,7 @@ export default class Main extends React.Component {
                 chave_seguranca_comentarios: currentUser.uid + data_atual + texto_post + snapshot.downloadURL
               });
               publicar = 1;
-              Toast.show('Publicação realizada com sucesso')
+              Toast.show('Publicação realizada com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
               state = {
                 ...state,
                 uploading: false,
@@ -119,7 +119,7 @@ export default class Main extends React.Component {
         },
         error => {
           unsubscribe();
-          Toast.show('Ocorreu um erro tente de novo');
+          Toast.show('Ocorreu um erro tente de novo', Toast.LONG, Toast.BOTTOM, toastErro);
         }
       );
     }
@@ -138,7 +138,7 @@ export default class Main extends React.Component {
           let state = {};
 
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          Toast.show('Progresso upload foto:' + progress + '%')
+          Toast.show('Fazendo Upload:' + progress + '%', Toast.SHORT, Toast.BOTTOM, toastInfo);
 
           if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
 
@@ -152,7 +152,7 @@ export default class Main extends React.Component {
                 let state = {};
 
                 var progress = (snapshot2.bytesTransferred / snapshot2.totalBytes) * 100;
-                Toast.show('Progresso upload arquivo:' + progress + '%')
+                Toast.show('Fazendo Upload:' + progress + '%', Toast.SHORT, Toast.BOTTOM, toastInfo);
 
                 if (snapshot2.state === firebase.storage.TaskState.SUCCESS) {
                   if (publicar == 0) {
@@ -175,7 +175,7 @@ export default class Main extends React.Component {
                       chave_seguranca_comentarios: currentUser.uid + data_atual + texto_post + snapshot.downloadURL
                     });
                     publicar = 1;
-                    Toast.show('Publicação realizada com sucesso')
+                    Toast.show('Publicação realizada com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
                     state = {
                       ...state,
                       uploading: false,
@@ -204,7 +204,7 @@ export default class Main extends React.Component {
         },
         error => {
           unsubscribe();
-          Toast.show('Ocorreu um erro tente de novo');
+          Toast.show('Ocorreu um erro tente de novo', Toast.LONG, Toast.BOTTOM, toastErro);
         }
       );
     }
@@ -221,7 +221,7 @@ export default class Main extends React.Component {
           let state = {};
 
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          Toast.show('Progresso postagem:' + progress + '%')
+          Toast.show('Publicando:' + progress + '%', Toast.SHORT, Toast.BOTTOM, toastInfo);
 
           if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
             if (publicar == 0) {
@@ -241,7 +241,7 @@ export default class Main extends React.Component {
                 chave_seguranca_comentarios: currentUser.uid + data_atual + texto_post + snapshot.downloadURL
               });
               publicar = 1;
-              Toast.show('Publicação realizada com sucesso')
+              Toast.show('Publicação realizada com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
               state = {
                 ...state,
                 uploading: false,
@@ -261,7 +261,7 @@ export default class Main extends React.Component {
         },
         error => {
           unsubscribe();
-          Toast.show('Ocorreu um erro tente de novo');
+          Toast.show('Ocorreu um erro tente de novo', Toast.LONG, Toast.BOTTOM, toastErro);
         }
       );
     }
@@ -270,9 +270,9 @@ export default class Main extends React.Component {
   pickImage = () => {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
-        Toast.show('Você fechou a opção de imagens');
+        //Toast.show('Você fechou a opção de imagens');
       } else if (response.error) {
-        Toast.show('O seguinte erro aconteceu: ', response.error);
+        Toast.show(('O seguinte erro aconteceu: ', response.error), Toast.LONG, Toast.BOTTOM, toastErro);
       } else {
         const source = { uri: response.uri };
         this.setState({
@@ -289,10 +289,10 @@ export default class Main extends React.Component {
 
 
       if (response.didCancel) {
-        Toast.show('Você fechou a opção de escolha de arquivos');
+        //Toast.show('Você fechou a opção de escolha de arquivos');
       }
       else if (response.error) {
-        Toast.show('O seguinte erro aconteceu: ', response.error);
+        Toast.show(('O seguinte erro aconteceu: ', response.error), Toast.LONG, Toast.BOTTOM, toastErro);
       }
       else {
         const source = { uri: response.uri };
@@ -328,7 +328,7 @@ export default class Main extends React.Component {
 
 
   handleApagarPost = (key) => {
-    Toast.show('Item excluido com sucesso');
+    Toast.show('Item excluido com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
     const caminho_exclusao = firebaseDatabase.ref('post/' + key)
     caminho_exclusao.remove()
   }
@@ -405,7 +405,7 @@ export default class Main extends React.Component {
         });
       })
       .catch(error => {
-        Toast.show(error);
+        Toast.show(error, Toast.LONG, Toast.BOTTOM, toastErro);
       });
 
     var that = this;
@@ -537,7 +537,7 @@ export default class Main extends React.Component {
           </FlatList>
 
           <Form>
-            <Card>
+            <Card style={{ borderRadius: 10 }} >
               <Item fixedLabel  >
                 <Text style={{ margin: 10 }}>Assunto</Text>
                 <Picker mode="dropdown"
@@ -573,7 +573,7 @@ export default class Main extends React.Component {
                   return (
                     <Item last>
                       <Button block light style={{ color: 'black', backgroundColor: '#963BE0', borderRadius: 5, width: '60%' }} onPress={() => this.handleNovoPost(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
-                        <Icon name="add" style={{ color: 'white', marginLeft:0, marginRight:10 }} />
+                        <Icon name="add" style={{ color: 'white', marginLeft: 0, marginRight: 10 }} />
                         <Text style={{ color: 'white', fontSize: 20 }}>Adicionar Post</Text>
                       </Button>
                       <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} onPress={this.pickImage}>
@@ -588,11 +588,13 @@ export default class Main extends React.Component {
                 }}>
               </FlatList>
             </Card>
+            <CardItem footer style={{ borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}/>
           </Form>
 
 
 
           <ScrollView>
+          
             <FlatList
               data={this.state.posts}
               renderItem={({ item }) => {
@@ -619,7 +621,7 @@ export default class Main extends React.Component {
 
                     {item.texto_post ? (
                       <CardItem body bordered >
-                        <Text selectable={true} style={{ fontSize: 18, color: '#505050E' }}>{item.texto_post}</Text>
+                        <Text selectable={true} style={{ fontSize: 18, color: '#505050'}}>{item.texto_post}</Text>
                       </CardItem>) : (null)}
 
 
@@ -647,12 +649,12 @@ export default class Main extends React.Component {
                         ) : (null)}
                       </Left>
                       {item.usuario == currentUser.uid ? (
-                          <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.handleApagarPost(item.key)} >
-                            <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} name="remove"/>
-                            <Text>Excluir</Text>
-                          </Button>
+                        <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.handleApagarPost(item.key)} >
+                          <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} name="remove" />
+                          <Text>Excluir</Text>
+                        </Button>
 
-                        ) : (null)}
+                      ) : (null)}
                       <Right>
                         <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
                           <Icon style={{ color: '#0082FF', padding: 10 }} active name="chatbubbles" />
@@ -663,34 +665,39 @@ export default class Main extends React.Component {
                   </Card>);
               }}>
             </FlatList>
-
           </ScrollView>
         </Content>
-        <Footer style={{ backgroundColor: "white" }}>
-          <FooterTab style={{ backgroundColor: "white" }}>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} name="grid" />
-              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Feed</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="person" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Perfil</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} active name="contacts" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Grupos</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="bookmarks" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Anotações</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
       </Container>
     )
   }
 }
 
+const toastErro = {
+  backgroundColor: "#FF6C6C",
+  height: 200,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastSucesso = {
+  backgroundColor: "#61a465",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastInfo = {
+  backgroundColor: "#7182e1",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
 
 
 const styles = StyleSheet.create({

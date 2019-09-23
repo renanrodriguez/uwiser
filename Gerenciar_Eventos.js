@@ -6,7 +6,7 @@ import {firebaseDatabase} from './config'
 import Hyperlink from 'react-native-hyperlink'
 import ImagePicker from 'react-native-image-picker';
 import FilePickerManager from 'react-native-file-picker';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-native';
 
 const pub_eve_root = firebaseDatabase.ref();
 const pub_eve_ref = pub_eve_root.child('Eventos_Publicos');

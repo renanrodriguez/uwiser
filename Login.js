@@ -8,11 +8,16 @@ import {
   Image,
   Linking
 } from 'react-native';
+import {Header} from 'native-base';
 import firebase from 'react-native-firebase';
+
+
 
 export default class Login extends React.Component {
   state = { email: 'lukasrenan2009@hotmail.com', password: '123456', errorMessage: null };
-
+  static navigationOptions = {
+    headerStyle: {backgroundColor:'#6c05da',elevation: 0,shadowOpacity: 0},
+  };
   handleLogin = () => {
     const { email, password } = this.state
     firebase
@@ -25,6 +30,9 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Header androidStatusBarColor="#6c05da" style={{ display: 'none' }} >
+          <Text style={{ fontSize: 30, color: 'white', }}>Estudos</Text>
+        </Header>
         <View style={styles.uconteiner}>
           <Image
             style={styles.img}
@@ -58,7 +66,7 @@ export default class Login extends React.Component {
         <TouchableOpacity style={styles.btnStyle} onPress={this.handleLogin}>
           <Text style={{ color: 'white' }}>Entrar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={styles.btnStyleNao}
           onPress={() => this.props.navigation.navigate('SignUp')}>
@@ -77,11 +85,11 @@ const styles = StyleSheet.create({
   },
   uconteiner: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: '#6c05da',
-    height: '35%',
+    height: '50%',
     width: '100%',
-    marginBottom: 70,
+    marginBottom: 40,
   },
   textInput: {
     marginTop: 2,
@@ -106,7 +114,6 @@ const styles = StyleSheet.create({
   },
   btnStyleNao: {
     height: '8%',
-
     width: '70%',
     backgroundColor: '#ffffff',
     justifyContent: 'center',
@@ -116,7 +123,6 @@ const styles = StyleSheet.create({
   btnStyleEsqueceu: {
     height: '5%',
     marginTop: 2,
-
     width: '70%',
     borderRadius: 50,
   },

@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Platform, Image, Text, View } from 'react-native'
-import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { createStackNavigator, createAppContainer, createMaterialTopTabNavigator, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation'
+import { Icon } from 'native-base'
 // import the different screens
 import SignUp from './SignUp'
 import Login from './Login'
@@ -25,18 +26,67 @@ import Grupos_Publicos_Gerenciar from './Grupos_Publicos_Gerenciar'
 import Lista_Confirmados_Publica from './Lista_Confirmados_Publica'
 
 
-// create our app's navigation stack
-const App = createStackNavigator(
+
+const TopTabs = createMaterialTopTabNavigator(
+  {
+    Grupos_Publicos: Grupos_Publicos,
+    Grupos_Privados: Grupos_Privados,
+  },
+  {
+    initialRouteName: 'Grupos_Publicos',
+    tabBarPosition: 'top',
+    swipeEnabled: true,
+    animationEnabled: true,
+  }
+);
+
+const AuthStack = createStackNavigator(
   {
     SignUp,
     Login,
-    Main,
     ForgetPassword,
+    Cadastro,
+  },
+  {
+    initialRouteName: 'Login'
+  }, {
+  defaultNavigationOptions: {
+  },
+}
+)
+
+const FeedStack = createStackNavigator(
+  {
+    Main,
+    Calendario,
+    Posts_Privados,
+    Comentarios,
+  },
+  {
+    initialRouteName: 'Main'
+  }, {
+  defaultNavigationOptions: {
+  },
+}
+)
+
+
+const PerfilStack = createStackNavigator(
+  {
+    Perfil,
+  },
+  {
+    initialRouteName: 'Perfil'
+  }, {
+  defaultNavigationOptions: {
+  },
+}
+)
+
+const GruposStack = createStackNavigator(
+  {
     Calendario,
     Grupos,
-    Anotacoes,
-    Cadastro,
-    Perfil,
     Grupos_Publicos,
     Grupos_Privados,
     Eventos_Publicos,
@@ -51,13 +101,101 @@ const App = createStackNavigator(
     Lista_Confirmados_Publica
   },
   {
-    initialRouteName: 'Login'
-  },{
-    defaultNavigationOptions: {
-      header: null
-    },
-  }
+    initialRouteName: 'Grupos'
+  }, {
+  defaultNavigationOptions: {
+  },
+}
 )
 
-const AppContainer = createAppContainer(App);
-export default AppContainer
+const AnotacoesStack = createStackNavigator(
+  {
+    Anotacoes,
+    Posts_Privados,
+    Comentarios,
+  },
+  {
+    initialRouteName: 'Anotacoes'
+  }, {
+  defaultNavigationOptions: {
+  },
+}
+)
+
+
+let navOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+      tabBarVisible = false;
+  }
+
+  return {
+      tabBarVisible,
+  };
+};
+
+FeedStack.navigationOptions = navOptions;
+PerfilStack.navigationOptions= navOptions;
+GruposStack.navigationOptions = navOptions;
+AnotacoesStack.navigationOptions = navOptions;
+
+
+
+const bottomTab = createBottomTabNavigator(
+  {
+    FeedStack: {
+      screen: FeedStack,
+      navigationOptions: {
+        tabBarLabel: "Feed",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon style={{ color: tintColor, fontSize: 30, padding: 10 }} name="grid" />
+        )
+      },
+    },
+    PerfilStack: {
+      screen: PerfilStack,
+      navigationOptions: {
+        tabBarLabel: "Perfil",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon style={{ color: tintColor, fontSize: 30, padding: 10 }} name="person" />
+        )
+      },
+    },
+    GruposStack: {
+      screen: GruposStack,
+
+      navigationOptions: {
+        tabBarLabel: "Grupos",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon style={{ color: tintColor, fontSize: 30, padding: 10 }} name="contacts" />
+        )
+      },
+    },
+    AnotacoesStack: {
+      screen: AnotacoesStack,
+      navigationOptions: {
+        tabBarLabel: "Anotações",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon style={{ color: tintColor, fontSize: 30, padding: 10 }} name="bookmarks" />
+        )
+      },
+    }
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: '#7F1CFD'
+    }
+  });
+
+
+
+const AppContainer = createAppContainer(
+  createSwitchNavigator({
+    AuthStack: AuthStack,
+    App: bottomTab,
+  },
+    {
+      initialRouteName: 'AuthStack',
+    }
+  ));
+export default AppContainer;

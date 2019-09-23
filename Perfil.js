@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, Platform, Image, Text, View,ScrollView,TouchableOpacity,FlatList} from 'react-native'
-import {Header,Input,Button, Icon, Content,Footer, FooterTab,Card,CardItem,Thumbnail,Label} from 'native-base'
+import { StyleSheet, Platform, Image, Text, View, ScrollView, TouchableOpacity, FlatList } from 'react-native'
+import { Header, Input, Button, Icon, Content, Footer, FooterTab, Card, CardItem, Thumbnail, Label } from 'native-base'
 import firebase from 'react-native-firebase';
-import {firebaseDatabase} from './config'
+import { firebaseDatabase } from './config'
 
 
 export default class Perfil extends React.Component {
@@ -11,21 +11,24 @@ export default class Perfil extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null ,
-      usuario : [],
-      urlImagem:''
+      currentUser: null,
+      usuario: [],
+      urlImagem: ''
     };
   }
 
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
-    header: null,
-};
-  
+    title: "Perfil",
+    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff'}, 
+    headerStyle: {
+      backgroundColor: '#963BE0'
+    },  };
+
 
   componentDidMount() {
     const { currentUser } = firebase.auth()
-    this.setState({ currentUser})
+    this.setState({ currentUser })
 
     const rootUser = firebaseDatabase.ref('Users').orderByChild("idUsuario").equalTo(currentUser.uid);
     rootUser.on('value', (childSnapshot) => {
@@ -43,91 +46,70 @@ export default class Perfil extends React.Component {
           grau_satisfacao: doc.toJSON().grau_satisfacao,
           modalidade: doc.toJSON().modalidade,
           estado: doc.toJSON().estado
-          });
-          this.setState({
-            usuario: usuario.sort((a, b) => {
-              urlImagem=selected_heroi
-              return (a.idUsuario>b.idUsuario);
-            }),
-            loading: false,
-          }); 
         });
+        this.setState({
+          usuario: usuario.sort((a, b) => {
+            urlImagem = selected_heroi
+            return (a.idUsuario > b.idUsuario);
+          }),
+          loading: false,
+        });
+      });
     });
-    }
-  
+  }
+
 
   render() {
-    const { currentUser} = this.state
+    const { currentUser } = this.state
 
     return (
       <View style={styles.container}>
-             <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0'}}>
-              <Text style={{fontSize: 30,color:'white',}}>Perfil</Text>
-        </Header>
-            <FlatList
+        <FlatList
           data={this.state.usuario}
-          renderItem={({item}) => {
-          return (
-            <Card>
+          renderItem={({ item }) => {
+            return (
+              <Card>
 
-          <CardItem style={{marginTop:8}} header bordered>
-            <Thumbnail medium source={{uri: item.selected_heroi}} />
-              <Text selectable={true}  style={{fontSize: 28,color:'#000000'}}>{item.nome_usuario}</Text>   
-            </CardItem>
+                <CardItem style={{ marginTop: 8 }} header bordered>
+                  <Thumbnail medium source={{ uri: item.selected_heroi }} />
+                  <Text selectable={true} style={{ fontSize: 28, color: '#000000' }}>{item.nome_usuario}</Text>
+                </CardItem>
 
-            <CardItem style={styles.carditem} bordered>
-              <Text selectable={true}  style={{fontSize: 22,color:'#333333'}}>{item.nome_faculdade}, {item.nome_curso}</Text>
-          </CardItem>
+                <CardItem style={styles.carditem} bordered>
+                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>{item.nome_faculdade}, {item.nome_curso}</Text>
+                </CardItem>
 
-          <CardItem style={styles.carditem} bordered>
-              <Text selectable={true}  style={{fontSize: 22,color:'#333333'}}>Modalidade: {item.modalidade}</Text>
-          </CardItem>
+                <CardItem style={styles.carditem} bordered>
+                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>Modalidade: {item.modalidade}</Text>
+                </CardItem>
 
-          <CardItem style={styles.carditem} bordered>
-              <Text selectable={true}  style={{fontSize: 22,color:'#333333'}}>{item.idade} Anos</Text>
-          </CardItem>
+                <CardItem style={styles.carditem} bordered>
+                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>{item.idade} Anos</Text>
+                </CardItem>
 
-          <CardItem style={styles.carditem} bordered>
-          <Text selectable={true}  style={{fontSize: 22,color:'#333333'}}>Gênero : </Text>
-          <Thumbnail square small source={{uri: item.selected_sexo}} />
-          </CardItem>
+                <CardItem style={styles.carditem} bordered>
+                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>Gênero : </Text>
+                  <Thumbnail square small source={{ uri: item.selected_sexo }} />
+                </CardItem>
 
-          <CardItem style={styles.carditem}bordered>
-              <Text selectable={true}  style={{fontSize: 22,color:'#333333'}}>{item.emailUsuario}</Text>
-          </CardItem>
+                <CardItem style={styles.carditem} bordered>
+                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>{item.emailUsuario}</Text>
+                </CardItem>
 
-          <CardItem style={styles.carditem} bordered>
-          <Text selectable={true}  style={{fontSize: 22,color:'#333333'}}>Avaliação da faculdade: </Text>
-          <Thumbnail square small source={{uri: item.grau_satisfacao}}/>
-          </CardItem> 
-          </Card>
-                      );}}>
+                <CardItem style={styles.carditem} bordered>
+                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>Avaliação da faculdade: </Text>
+                  <Thumbnail square small source={{ uri: item.grau_satisfacao }} />
+                </CardItem>
+              </Card>
+            );
+          }}>
         </FlatList>
-        <Button block light style={{color:'black',width:'100%',backgroundColor:'#963BE0',height:25}}  onPress={() => this.props.navigation.navigate('Cadastro')}>
-            <Text style={{color:'white',fontSize:20}}>Editar Perfil</Text>
-            <Icon name="add" style={{color:'white'}}/>
+        <Button block light style={{ color: 'black', width: '100%', backgroundColor: '#963BE0', height: 25 }} onPress={() => this.props.navigation.navigate('Cadastro')}>
+          <Text style={{ color: 'white', fontSize: 20 }}>Editar Perfil</Text>
+          <Icon name="add" style={{ color: 'white' }} />
         </Button>
-        <Footer style={{ backgroundColor: "white" }}>
-          <FooterTab style={{ backgroundColor: "white" }}>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} name="grid" />
-              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Feed</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="person" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Perfil</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} active name="contacts" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Grupos</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="bookmarks" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Anotações</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-        </View>
+
+      </View>
     )
   }
 }
@@ -141,7 +123,7 @@ const styles = StyleSheet.create({
   },
   carditem: {
     backgroundColor: '#e7f5fe',
-    marginTop:1
+    marginTop: 1
   },
   footer: {
     flexDirection: 'row',

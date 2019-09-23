@@ -36,6 +36,8 @@ target 'uwizer' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'RNToastNative', :path => '../node_modules/react-native-toast-native'
+
   target 'uwizerTests' do
     inherit! :search_paths
     # Pods for testing

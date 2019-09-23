@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, TextInput, View ,TouchableOpacity,Image,ScrollView,FlatList} from 'react-native'
 import {Badge,Header,Input,Button, Icon, Content,Footer, FooterTab,Item,Form,Card,CardItem,Left,Right,Body,Thumbnail,HeaderTab} from 'native-base'
 import firebase from 'react-native-firebase';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-native';
 import {firebaseDatabase} from './config'
 
 export default class Lista_Confirmados extends React.Component {
