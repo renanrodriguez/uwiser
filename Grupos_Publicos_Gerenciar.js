@@ -28,7 +28,7 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
     //To hide the ActionBar/NavigationBar
     //To hide the ActionBar/NavigationBar
     title: 'Grupos Públicos',
-    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff' },
+    headerTitleStyle: { color: '#fff' },
     headerTintColor: 'white',
     headerStyle: {
       backgroundColor: '#963BE0'

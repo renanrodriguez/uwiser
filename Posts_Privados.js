@@ -40,7 +40,7 @@ export default class Posts_Privados extends React.Component {
   static navigationOptions = ({navigation}) => ({
     //To hide the ActionBar/NavigationBar
     title: navigation.state.params.nome_grupo_privado,
-    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff' },
+    headerTitleStyle: { color: '#fff' },
     headerTintColor: 'white',
     headerStyle: {
       backgroundColor: '#963BE0'

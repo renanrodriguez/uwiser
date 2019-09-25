@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, StatusBar, View, Text, FlatList, TouchableOpacity, AsyncStorage, Image } from 'react-native'
-import { Header, Input, Button, Icon, Content, Footer, FooterTab, Form, Item, Label, Card, CardItem, Body, Thumbnail, Left } from 'native-base'
+import { Header, Input, Button, Icon, Content, Footer, FooterTab, Form, Item, Label, Card, CardItem, Body, Thumbnail, Left, Right } from 'native-base'
 import firebase from 'react-native-firebase';
 import Toast from 'react-native-toast-native';
 import { firebaseDatabase } from './config'
@@ -26,7 +26,7 @@ export default class Comentarios extends React.Component {
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
     title: 'Comentários',
-    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff' },
+    headerTitleStyle: { color: '#fff' },
     headerTintColor: 'white',
     headerStyle: {
       backgroundColor: '#963BE0'
@@ -126,26 +126,6 @@ export default class Comentarios extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Form>
-          <Card>
-            <Item fixedLabel last>
-              <Input multiline placeholder='Escreva um comentário' onChangeText={texto_comentario => this.setState({ texto_comentario })} value={this.state.texto_comentario} />
-            </Item>
-            <FlatList
-              data={this.state.usuario}
-              renderItem={({ item }) => {
-                return (
-                  <Item last>
-                    <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} onPress={() => this.handleNovoComentario(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
-                      <Text style={{ color: 'white', fontSize: 20 }}>Comentar</Text>
-                      <Icon name="add" style={{ color: 'white' }} />
-                    </Button>
-                  </Item>
-                );
-              }}>
-            </FlatList>
-          </Card>
-        </Form>
 
 
         <Content>
@@ -161,20 +141,41 @@ export default class Comentarios extends React.Component {
                         <Text>{item.nome_usuario}</Text>
                       </Body>
                     </Left>
+                    <Right>
+                      <Text selectable={true} style={{ fontSize: 10, color: 'grey' }}>Data inclusão: {item.data_inclusao}</Text>
+                    </Right>
                   </CardItem>
                   <CardItem>
                     <Hyperlink linkStyle={{ color: '#2980b9', fontSize: 20 }}>
                       <Text selectable={true} style={{ fontSize: 20, color: '#4F4F4F' }}>{item.texto_comentario}</Text>
                     </Hyperlink>
                   </CardItem>
-                  <CardItem footer>
-                    <Text selectable={true} style={{ fontSize: 10, color: 'grey' }}>Data inclusão: {item.data_inclusao}</Text>
-                  </CardItem>
                 </Card>);
             }}>
           </FlatList>
 
         </Content>
+
+        <Form>
+          <Card>
+            <Item fixedLabel last>
+              <Input multiline placeholder='Escreva um comentário' onChangeText={texto_comentario => this.setState({ texto_comentario })} value={this.state.texto_comentario} />
+            </Item>
+            <FlatList
+              data={this.state.usuario}
+              renderItem={({ item }) => {
+                return (
+                  <Item last>
+                    <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} onPress={() => this.handleNovoComentario(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
+                      <Text style={{ color: 'white', fontSize: 20 }}>Comentar</Text>
+                      <Icon name="message1" type='AntDesign' style={{ color: 'white' }} />
+                    </Button>
+                  </Item>
+                );
+              }}>
+            </FlatList>
+          </Card>
+        </Form>
 
       </View>
     )
@@ -184,7 +185,7 @@ export default class Comentarios extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
   },
   footer: {
     flexDirection: 'row',

@@ -29,7 +29,7 @@ export default class Grupos_Privados extends React.Component {
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
     title: "Grupos Privados",
-    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff'}, 
+    headerTitleStyle: { color: '#fff'}, 
     headerTintColor: 'white',
     headerStyle: {
       backgroundColor: '#963BE0'

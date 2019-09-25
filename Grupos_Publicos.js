@@ -41,7 +41,8 @@ export default class Grupos_Publicos extends React.Component {
   static navigationOptions = ({navigation}) => ({
     //To hide the ActionBar/NavigationBar
     title: navigation.state.params.nome_grupo_publico ? navigation.state.params.nome_grupo_publico : 'Grupos Públicos',
-    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff' },
+    headerTitleStyle: { color: '#fff' },
+    headerTintColor: 'white',
     headerStyle: {
       backgroundColor: '#963BE0'
     },

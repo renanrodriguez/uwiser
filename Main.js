@@ -588,13 +588,13 @@ export default class Main extends React.Component {
                 }}>
               </FlatList>
             </Card>
-            <CardItem footer style={{ borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}/>
+            <CardItem footer style={{ borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }} />
           </Form>
 
 
 
           <ScrollView>
-          
+
             <FlatList
               data={this.state.posts}
               renderItem={({ item }) => {
@@ -621,7 +621,7 @@ export default class Main extends React.Component {
 
                     {item.texto_post ? (
                       <CardItem body bordered >
-                        <Text selectable={true} style={{ fontSize: 18, color: '#505050'}}>{item.texto_post}</Text>
+                        <Text selectable={true} style={{ fontSize: 18, color: '#505050' }}>{item.texto_post}</Text>
                       </CardItem>) : (null)}
 
 
@@ -649,15 +649,15 @@ export default class Main extends React.Component {
                         ) : (null)}
                       </Left>
                       {item.usuario == currentUser.uid ? (
-                        <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.handleApagarPost(item.key)} >
-                          <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} name="remove" />
+                        <Button style={{ color: '#0082FF', padding: 10, paddingRight:30 }} transparent onPress={() => this.handleApagarPost(item.key)} >
+                          <Icon style={{ color: '#0082FF', fontSize: 20, padding: 0 }} type='FontAwesome' name="trash-o" />
                           <Text>Excluir</Text>
                         </Button>
 
                       ) : (null)}
                       <Right>
                         <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
-                          <Icon style={{ color: '#0082FF', padding: 10 }} active name="chatbubbles" />
+                          <Icon name="message1" type='AntDesign' style={{ color: '#0082FF', margin:8}} />
                           <Text>Comentar</Text>
                         </Button>
                       </Right>

@@ -46,7 +46,7 @@ export default class Grupos extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
   },
   footer: {
     flexDirection: 'row',

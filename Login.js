@@ -6,9 +6,9 @@ import {
   View,
   TouchableOpacity,
   Image,
-  Linking
+  Linking,
 } from 'react-native';
-import {Header} from 'native-base';
+import { Header, Icon } from 'native-base';
 import firebase from 'react-native-firebase';
 
 
@@ -16,7 +16,7 @@ import firebase from 'react-native-firebase';
 export default class Login extends React.Component {
   state = { email: 'lukasrenan2009@hotmail.com', password: '123456', errorMessage: null };
   static navigationOptions = {
-    headerStyle: {backgroundColor:'#6c05da',elevation: 0,shadowOpacity: 0},
+    headerStyle: { backgroundColor: '#963BE0', elevation: 0, shadowOpacity: 0 },
   };
   handleLogin = () => {
     const { email, password } = this.state
@@ -30,7 +30,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header androidStatusBarColor="#6c05da" style={{ display: 'none' }} >
+        <Header androidStatusBarColor="#963BE0" style={{ display: 'none' }} >
           <Text style={{ fontSize: 30, color: 'white', }}>Estudos</Text>
         </Header>
         <View style={styles.uconteiner}>
@@ -42,26 +42,32 @@ export default class Login extends React.Component {
         {this.state.errorMessage && (
           <Text style={{ color: 'red' }}>{this.state.errorMessage}</Text>
         )}
+        <View style={{width:'70%'}}>
+          <Icon style={{ position: 'absolute', right: 0, top: 5, color: '#888', padding: 10, fontSize: 20 }} name="mail" />
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Digite aqui o seu e-mail"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
+        </View>
+        <View style={{width:'70%'}}>
+          <Icon style={{ position: 'absolute', right: 3, top: 5, color: '#888', padding: 10, fontSize: 20 }} name="lock" />
+          <TextInput
+            secureTextEntry
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Digite aqui a sua senha"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+        </View>
 
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Digite aqui o seu e-mail"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Digite aqui a sua senha"
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
         <TouchableOpacity
           style={styles.btnStyleEsqueceu}
           onPress={() => this.props.navigation.navigate('ForgetPassword')}>
-          <Text style={{ color: '#0094ff' }}>esqueceu a senha?</Text>
+          <Text style={{ color: '#0094ff' }}>Esqueceu a senha?</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnStyle} onPress={this.handleLogin}>
           <Text style={{ color: 'white' }}>Entrar</Text>
@@ -86,15 +92,16 @@ const styles = StyleSheet.create({
   uconteiner: {
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: '#6c05da',
-    height: '50%',
+    backgroundColor: '#963BE0',
+    height: '45%',
     width: '100%',
     marginBottom: 40,
   },
   textInput: {
     marginTop: 2,
     height: 50,
-    width: '70%',
+    borderBottomWidth:1,
+    borderBottomColor: '#ccc'
   },
 
   img: {
@@ -107,7 +114,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
     width: '70%',
-    backgroundColor: '#6c05da',
+    backgroundColor: '#963BE0',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,

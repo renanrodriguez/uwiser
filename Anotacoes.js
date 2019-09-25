@@ -37,7 +37,7 @@ export default class Anotacoes extends React.Component {
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
     title: "Anotações",
-    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff'}, 
+    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff' },
     headerStyle: {
       backgroundColor: '#963BE0'
     },
@@ -213,9 +213,9 @@ export default class Anotacoes extends React.Component {
                 <Card >
                   <CardItem header bordered >
                     <Text selectable={true} style={{ fontSize: 25, color: 'black' }}>{item.titulo_tarefa}</Text>
-                    <Button style={{ marginLeft: 25, backgroundColor: 'transparent' }} onPress={() => this.handleApagarTarefa(item.key)}>
-                      <Thumbnail square small source={{ uri: 'https://image.flaticon.com/icons/png/128/68/68606.png' }} />
-                    </Button>
+                    <TouchableOpacity style={{ marginLeft: 25, marginRight:20, shadowOffset: { width: 0, height: 0, }, backgroundColor: 'transparent', position: 'absolute', right: 10 }} onPress={() => this.handleApagarTarefa(item.key)}>
+                      <Icon name="trash" type='FontAwesome' style={{ color: '#FF6C6C', fontSize: 35, marginLeft: 0 }} />
+                    </TouchableOpacity>
                   </CardItem>
 
                   {item.descricao_tarefa ? (
@@ -275,7 +275,7 @@ const toastInfo = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
   },
   footer: {
     flexDirection: 'row',
