@@ -83,8 +83,36 @@ const PerfilStack = createStackNavigator(
 }
 )
 
+
+
+const tab = createMaterialTopTabNavigator({
+
+  Grupos_Publicos_Gerenciar,
+  Grupos_Privados,
+
+},
+  {
+    tabBarOptions: {
+      style: {
+        backgroundColor: '#963BE0',
+      },
+      indicatorStyle: {
+        height: '100%',
+        backgroundColor: '#6c05da'
+      },
+    }
+  });
+
+tab.navigationOptions = {
+  header: null,
+  title: "Grupos",
+  headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff' },
+
+};
+
 const GruposStack = createStackNavigator(
   {
+    tab,
     Calendario,
     Grupos,
     Grupos_Publicos,
@@ -101,7 +129,7 @@ const GruposStack = createStackNavigator(
     Lista_Confirmados_Publica
   },
   {
-    initialRouteName: 'Grupos'
+    initialRouteName: 'tab'
   }, {
   defaultNavigationOptions: {
   },
@@ -126,16 +154,16 @@ const AnotacoesStack = createStackNavigator(
 let navOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
-      tabBarVisible = false;
+    tabBarVisible = false;
   }
 
   return {
-      tabBarVisible,
+    tabBarVisible,
   };
 };
 
 FeedStack.navigationOptions = navOptions;
-PerfilStack.navigationOptions= navOptions;
+PerfilStack.navigationOptions = navOptions;
 GruposStack.navigationOptions = navOptions;
 AnotacoesStack.navigationOptions = navOptions;
 

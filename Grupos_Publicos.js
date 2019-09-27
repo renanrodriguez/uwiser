@@ -403,14 +403,14 @@ export default class Grupos_Publicos extends React.Component {
     return (
       <View style={styles.container}>
        
-        <Header androidStatusBarColor="#6c05da" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
-          <Button style={{ backgroundColor: '#963BE0', width: '33%' }} vertical active onPress={() => this.props.navigation.navigate('Grupos_Publicos', { nome_grupo_publico: this.props.navigation.state.params.nome_grupo_publico, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+       <Header androidStatusBarColor="#963BE0" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
+          <Button style={{ backgroundColor: '#6c05da', width: '33%', elevation: 0 }} vertical active onPress={() => this.props.navigation.navigate('Grupos_Publicos', { nome_grupo_publico: this.props.navigation.state.params.nome_grupo_publico, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
             <Text style={{ fontSize: 12, color: 'white' }}>POSTS</Text>
           </Button>
-          <Button vertical active style={{ backgroundColor: '#963BE0', width: '33%' }} onPress={() => this.props.navigation.navigate('Eventos_Publicos', { nome_grupo_publico: this.props.navigation.state.params.nome_grupo_publico, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+          <Button vertical active style={{ backgroundColor: '#963BE0', width: '33%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Eventos_Publicos', { nome_grupo_publico: this.props.navigation.state.params.nome_grupo_publico, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
             <Text style={{ fontSize: 12, color: 'white' }}>EVENTOS</Text>
           </Button>
-          <Button vertical active style={{ backgroundColor: '#963BE0', width: '33%' }} onPress={() => this.props.navigation.navigate('Gerenciar_Eventos', { nome_grupo_publico: this.props.navigation.state.params.nome_grupo_publico, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+          <Button vertical active style={{ backgroundColor: '#963BE0', width: '33%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Gerenciar_Eventos', { nome_grupo_publico: this.props.navigation.state.params.nome_grupo_publico, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
             <Text style={{ fontSize: 12, color: 'white' }}>MEUS EVENTOS</Text>
           </Button>
         </Header>

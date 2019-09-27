@@ -409,19 +409,19 @@ export default class Posts_Privados extends React.Component {
     this.props.navigation.state.params.chave_seguranca
     return (
       <View style={styles.container}>
-        <Header androidStatusBarColor="#6c05da" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
-          <Button vertical active style={{ backgroundColor: '#963BE0', width: '25%' }} onPress={() => this.props.navigation.navigate('Posts_Privados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
-            <Text style={{ fontSize: 12, color: 'white' }}>POSTS</Text>
+    <Header androidStatusBarColor="#963BE0" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
+          <Button vertical active style={{ backgroundColor: '#6c05da', width: '20%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Posts_Privados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>POSTS</Text>
           </Button>
-          <Button style={{ backgroundColor: '#963BE0', width: '33%' }} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
-            <Text style={{ fontSize: 12, color: 'white' }}>GERENCIAR MEMBROS</Text>
+          <Button style={{ backgroundColor: '#963BE0', width: '33%', elevation: 0 }} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>GERENCIAR MEMBROS</Text>
           </Button>
 
-          <Button vertical active style={{ backgroundColor: '#963BE0', width: '25%' }} onPress={() => this.props.navigation.navigate('Eventos_Privados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
-            <Text style={{ fontSize: 12, color: 'white' }}>EVENTOS</Text>
+          <Button vertical active style={{ backgroundColor: '#963BE0', width: '25%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Eventos_Privados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>EVENTOS</Text>
           </Button>
-          <Button vertical active style={{ backgroundColor: '#963BE0', width: '25%' }} onPress={() => this.props.navigation.navigate('Meus_Eventos', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
-            <Text style={{ fontSize: 12, color: 'white' }}>MEUS EVENTOS</Text>
+          <Button vertical active style={{ backgroundColor: '#963BE0', width: '25%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Meus_Eventos', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>MEUS EVENTOS</Text>
           </Button>
         </Header>
         <Content>

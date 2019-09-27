@@ -86,7 +86,7 @@ export default class Cadastro extends React.Component {
 
     return (
       <View style={styles.container}>
-          <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0'}}>
+          <Header androidStatusBarColor="#963BE0" style={{color:'black',backgroundColor:'#963BE0'}}>
               <Text style={{fontSize: 30,color:'white',}}>Cadastro</Text>
         </Header>
          <Form>

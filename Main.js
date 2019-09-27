@@ -481,7 +481,7 @@ export default class Main extends React.Component {
 
     return (
       <Container style={styles.container}>
-        <Header androidStatusBarColor="#6c05da" searchBar style={{
+        <Header androidStatusBarColor="#963BE0" searchBar style={{
           backgroundColor: '#fff', margin: 15, marginBottom: 5, marginTop: 10, borderRadius: 100, shadowColor: "#000",
           shadowOffset: {
             width: 0,

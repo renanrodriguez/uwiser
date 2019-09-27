@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View ,TouchableOpacity,Image,ScrollView,FlatList} from 'react-native'
-import {Badge,Header,Input,Button, Icon, Content,Footer, FooterTab,Item,Form,Card,CardItem,Left,Right,Body,Thumbnail,HeaderTab} from 'native-base'
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, ScrollView, FlatList } from 'react-native'
+import { Badge, Header, Input, Button, Icon, Content, Footer, FooterTab, Item, Form, Card, CardItem, Left, Right, Body, Thumbnail, HeaderTab } from 'native-base'
 import firebase from 'react-native-firebase';
 import Toast from 'react-native-toast-native';
-import {firebaseDatabase} from './config'
+import { firebaseDatabase } from './config'
+import { HeaderBackButton } from 'react-navigation';
 
 const pub_pri_root = firebaseDatabase.ref();
 const pub_pri_ref = pub_pri_root.child('Grupo_Privado');
@@ -12,56 +13,65 @@ export default class Gerenciar_Membros extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null ,
-      usuario : [],
-      email_membro:'',
-      grupo_privado:[]
+      currentUser: null,
+      usuario: [],
+      email_membro: '',
+      grupo_privado: []
     };
   }
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     //To hide the ActionBar/NavigationBar
-    header: null,
-};
+    title: navigation.state.params.nome_grupo_privado,
+    headerTitleStyle: { color: '#fff' },
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: '#963BE0'
+    },
 
-handleNovoMembro = () => {
-  const {  currentUser,email_membro} = this.state
-  const { navigate } = this.props.navigation;
-  if (currentUser.uid+this.props.navigation.state.params.nome_grupo_privado != this.props.navigation.state.params.chave_seguranca){
-    Toast.show('Apenas o criador do grupo pode adicionar novos membros')
-  }else{ 
-    pub_pri_ref.push({
-      usuario: email_membro,
-      nome_grupo_privado : this.props.navigation.state.params.nome_grupo_privado,
-      chave_seguranca:this.props.navigation.state.params.chave_seguranca
-    });
-    Toast.show('Novo membro adicionado com sucesso')
-    this.setState({
-      email_membro: ''
-    });
+    headerLeft: (<HeaderBackButton tintColor='#fff' onPress={() => { navigation.navigate('tab') }} />)
+
+  });
+
+
+  handleNovoMembro = () => {
+    const { currentUser, email_membro } = this.state
+    const { navigate } = this.props.navigation;
+    if (currentUser.uid + this.props.navigation.state.params.nome_grupo_privado != this.props.navigation.state.params.chave_seguranca) {
+      Toast.show('Apenas o criador do grupo pode adicionar novos membros')
+    } else {
+      pub_pri_ref.push({
+        usuario: email_membro,
+        nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado,
+        chave_seguranca: this.props.navigation.state.params.chave_seguranca
+      });
+      Toast.show('Novo membro adicionado com sucesso')
+      this.setState({
+        email_membro: ''
+      });
+    }
   }
-} 
 
 
   handleExcluirMembro = (key) => {
-    const {  currentUser,email_membro} = this.state
+    const { currentUser, email_membro } = this.state
     const { navigate } = this.props.navigation;
-    if (currentUser.uid+this.props.navigation.state.params.nome_grupo_privado != this.props.navigation.state.params.chave_seguranca){
+    if (currentUser.uid + this.props.navigation.state.params.nome_grupo_privado != this.props.navigation.state.params.chave_seguranca) {
       Toast.show('Apenas o criador do grupo pode excluir membros')
-    }else{
-    Toast.show('Membro excluido com sucesso');
-    const caminho_exclusao = firebaseDatabase.ref('Grupo_Privado/'+key)
-    caminho_exclusao.remove()
-  
-}
+    } else {
+      Toast.show('Membro excluido com sucesso');
+      const caminho_exclusao = firebaseDatabase.ref('Grupo_Privado/' + key)
+      caminho_exclusao.remove()
 
-}
+    }
+
+  }
 
 
   componentDidMount() {
     const { navigate } = this.props.navigation;
-   this.props.navigation.state.params.nome_grupo_privado
-   this.props.navigation.state.params.chave_seguranca
+    this.props.navigation.state.params.nome_grupo_privado
+    this.props.navigation.state.params.chave_seguranca
 
     var that = this;
     var date = new Date().getDate();
@@ -76,7 +86,7 @@ handleNovoMembro = () => {
 
     const { currentUser } = firebase.auth()
     this.setState({ currentUser })
-   
+
 
     const rootPub = firebaseDatabase.ref('Grupo_Privado').orderByChild("chave_seguranca").equalTo(this.props.navigation.state.params.chave_seguranca);
     rootPub.on('value', (childSnapshot) => {
@@ -85,14 +95,14 @@ handleNovoMembro = () => {
         grupo_privado.push({
           key: doc.key,
           usuario: doc.toJSON().usuario,
-          });
-          this.setState({
-            grupo_privado: grupo_privado.sort((a, b) => {
-              return (a.usuario<b.usuario);
-            }),
-            loading: false,
-          }); 
         });
+        this.setState({
+          grupo_privado: grupo_privado.sort((a, b) => {
+            return (a.usuario < b.usuario);
+          }),
+          loading: false,
+        });
+      });
     });
   }
 
@@ -102,61 +112,60 @@ handleNovoMembro = () => {
     this.props.navigation.state.params.nome_grupo_privado
     this.props.navigation.state.params.chave_seguranca
     return (
-        <View style={styles.container}>
-       <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
-              <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
-        </Header>
-        <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
-        <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Posts_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
-              <Text style={{fontSize: 12,color:'white'}}>POSTS</Text>
-            </Button>
-        <Button style={{backgroundColor:'#963BE0',width:'33%'}} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>
-              <Text style={{fontSize: 12,color:'white'}}>GERENCIAR MEMBROS</Text>
-            </Button>
+      <View style={styles.container}>
 
-            <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Eventos_Privados',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
-              <Text style={{fontSize: 12,color:'white'}}>EVENTOS</Text>
-            </Button>
-            <Button vertical active style={{backgroundColor:'#963BE0',width:'25%'}} onPress={() => this.props.navigation.navigate('Meus_Eventos',{nome_grupo_privado:    this.props.navigation.state.params.nome_grupo_privado,chave_seguranca: this.props.navigation.state.params.chave_seguranca})}>       
-              <Text style={{fontSize: 12,color:'white'}}>MEUS EVENTOS</Text>
-            </Button>
-        </Header>
-          <Content>
-        <Form>
-        <Card>
-        <Item fixedLabel last > 
-            <Input multiline={true} bordered placeholder='Digite o e-mail do novo membro' onChangeText={email_membro => this.setState({ email_membro })} value={this.state.email_membro}/>
-         </Item>           
-    
-      <Item body bordered >
-      <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} onPress={() => this.handleNovoMembro()}>
-            <Text style={{color:'white',fontSize:20}}>Adicionar membro ao grupo</Text>
-            <Icon name="add" style={{color:'white'}}/>
-            </Button>
-      </Item>
-      </Card>
-      </Form>
-      <ScrollView>
+        <Header androidStatusBarColor="#963BE0" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
+          <Button vertical active style={{ backgroundColor: '#963BE0', width: '20%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Posts_Privados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>POSTS</Text>
+          </Button>
+          <Button style={{ backgroundColor: '#6c05da', width: '33%', elevation: 0 }} vertical active onPress={() => this.props.navigation.navigate('Gerenciar_Membros', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>GERENCIAR MEMBROS</Text>
+          </Button>
 
-<FlatList
-  data={this.state.grupo_privado}
-  renderItem={({item}) => {
-  return (
-    <Card>   
-    <Item header bordered>
-    <Button block light style={{color:'black',backgroundColor:'#963BE0',width:'75%'}}  >
-           <Text style={{color:'white',fontSize:15}}>{item.usuario}</Text>
-           </Button>
-     <Button block light style={{color:'black',backgroundColor:'#DC143C',width:'25%'}}  onPress={() => this.handleExcluirMembro(item.key)}>
-     <Text note style={{color:'white'}}>Excluir</Text>
-    </Button>
-    </Item>
-    </Card>
-    );}}>
-</FlatList>
-</ScrollView>
+          <Button vertical active style={{ backgroundColor: '#963BE0', width: '25%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Eventos_Privados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>EVENTOS</Text>
+          </Button>
+          <Button vertical active style={{ backgroundColor: '#963BE0', width: '25%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Meus_Eventos', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
+            <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>MEUS EVENTOS</Text>
+          </Button>
+        </Header>
+        <Content>
+          <Form>
+            <Card>
+              <Item fixedLabel last >
+                <Input multiline={true} bordered placeholder='Digite o e-mail do novo membro' onChangeText={email_membro => this.setState({ email_membro })} value={this.state.email_membro} />
+              </Item>
+
+              <Item body bordered >
+                <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} onPress={() => this.handleNovoMembro()}>
+                  <Text style={{ color: 'white', fontSize: 20 }}>Adicionar membro ao grupo</Text>
+                  <Icon name="add" style={{ color: 'white' }} />
+                </Button>
+              </Item>
+            </Card>
+          </Form>
+          <ScrollView>
+
+            <FlatList
+              data={this.state.grupo_privado}
+              renderItem={({ item }) => {
+                return (
+                  <Card>
+                    <Item header bordered>
+                      <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '75%' }}  >
+                        <Text style={{ color: 'white', fontSize: 15 }}>{item.usuario}</Text>
+                      </Button>
+                      <Button block light style={{ color: 'black', backgroundColor: '#DC143C', width: '25%' }} onPress={() => this.handleExcluirMembro(item.key)}>
+                        <Text note style={{ color: 'white' }}>Excluir</Text>
+                      </Button>
+                    </Item>
+                  </Card>
+                );
+              }}>
+            </FlatList>
+          </ScrollView>
         </Content>
-        </View>
+      </View>
     )
   }
 }
