@@ -38,7 +38,7 @@ export default class Comentarios extends React.Component {
     const { navigate } = this.props.navigation;
     this.props.navigation.state.params.chave_seguranca_comentarios
     if (texto_comentario == '') {
-      Toast.show('Coloque um texto no seu comentário')
+      Toast.show('Coloque um texto no seu comentário', Toast.LONG, Toast.BOTTOM, toastInfo);
     } else {
       comentarios_ref.push({
         usuario: currentUser.uid,
@@ -51,7 +51,8 @@ export default class Comentarios extends React.Component {
       this.setState({
         texto_comentario: '',
       });
-      Toast.show('Comentário realizado com sucesso')
+      Toast.show('Comentário realizado com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
+
     }
 
   }
@@ -181,6 +182,34 @@ export default class Comentarios extends React.Component {
     )
   }
 }
+
+
+const toastErro = {
+  backgroundColor: "#001FA9",
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastSucesso = {
+  backgroundColor: "#0A9300",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastInfo = {
+  backgroundColor: "#001FA9",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
 
 const styles = StyleSheet.create({
   container: {

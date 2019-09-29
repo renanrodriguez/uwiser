@@ -97,8 +97,8 @@ const tab = createMaterialTopTabNavigator({
         backgroundColor: '#963BE0',
       },
       indicatorStyle: {
-        height: '100%',
-        backgroundColor: '#6c05da'
+        height: '10%',
+        backgroundColor: '#fff'
       },
     }
   });
@@ -211,6 +211,7 @@ const bottomTab = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
+      keyboardHidesTabBar: true, 
       activeTintColor: '#7F1CFD'
     }
   });

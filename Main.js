@@ -26,7 +26,7 @@ export default class Main extends React.Component {
     super(props);
     this.state = {
       currentUser: null,
-      categoria: 'Sem assunto',
+      categoria: 'Geral',
       texto_post: '',
       data_atual: '',
       usuario: [],
@@ -335,7 +335,7 @@ export default class Main extends React.Component {
 
   handleFiltro = () => {
     const { categoria_pesquisa } = this.state
-    if (categoria_pesquisa == 'Sem Filtro') {
+    if (categoria_pesquisa == 'Geral') {
       const rootPosts = firebaseDatabase.ref('post');
       rootPosts.on('value', (childSnapshot) => {
         const posts = [];
@@ -500,7 +500,7 @@ export default class Main extends React.Component {
               style={{ width: undefined }}
               selectedValue={this.state.categoria_pesquisa}
               onValueChange={this.onValueChange1.bind(this)}  >
-              <Picker.Item label="Sem Filtro" value="Sem Filtro" />
+              <Picker.Item label="Todos" value="Geral" />
               <Picker.Item label="Tecnologia da informação" value="Tecnologia da informação" />
               <Picker.Item label="Letras" value="Letras" />
               <Picker.Item label="Medicina" value="Medicina" />
@@ -536,17 +536,17 @@ export default class Main extends React.Component {
             }}>
           </FlatList>
 
-          <Form>
-            <Card style={{ borderRadius: 10 }} >
+          <Form >
+            <Card style={{ borderRadius: 10}}>
               <Item fixedLabel  >
-                <Text style={{ margin: 10 }}>Assunto</Text>
+                <Text style={{ margin: 10 }}>Selecione um assunto:</Text>
                 <Picker mode="dropdown"
                   iosHeader="Selecionar"
                   iosIcon={<Icon name="arrow-down" />}
                   style={{ width: undefined }}
                   selectedValue={this.state.categoria}
                   onValueChange={this.onValueChange.bind(this)}  >
-                  <Picker.Item label="Selecione" value="Selecione" />
+                  <Picker.Item label="Geral" value="Geral" />
                   <Picker.Item label="Tecnologia da informação" value="Tecnologia da informação" />
                   <Picker.Item label="Letras" value="Letras" />
                   <Picker.Item label="Medicina" value="Medicina" />
@@ -571,10 +571,10 @@ export default class Main extends React.Component {
                 data={this.state.usuario}
                 renderItem={({ item }) => {
                   return (
-                    <Item last>
-                      <Button block light style={{ color: 'black', backgroundColor: '#963BE0', borderRadius: 5, width: '60%' }} onPress={() => this.handleNovoPost(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
-                        <Icon name="add" style={{ color: 'white', marginLeft: 0, marginRight: 10 }} />
-                        <Text style={{ color: 'white', fontSize: 20 }}>Adicionar Post</Text>
+                    <Item last style={{ borderColor: 'transparent' }}>
+                      <Button block light style={{ color: 'black', backgroundColor: '#A361D9', borderRadius: 5, width: '60%' }} onPress={() => this.handleNovoPost(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
+                        <Text style={{ color: 'white', fontSize: 18 }}>Publicar</Text>
+                        <Icon name="send" type='FontAwesome' style={{ color: '#eee', fontSize: 18 }} />
                       </Button>
                       <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} onPress={this.pickImage}>
                         <Icon name="camera" style={{ color: 'gray' }} />
@@ -588,7 +588,6 @@ export default class Main extends React.Component {
                 }}>
               </FlatList>
             </Card>
-            <CardItem footer style={{ borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }} />
           </Form>
 
 
@@ -649,7 +648,7 @@ export default class Main extends React.Component {
                         ) : (null)}
                       </Left>
                       {item.usuario == currentUser.uid ? (
-                        <Button style={{ color: '#0082FF', padding: 10, paddingRight:30 }} transparent onPress={() => this.handleApagarPost(item.key)} >
+                        <Button style={{ color: '#0082FF', padding: 10, paddingRight: 30 }} transparent onPress={() => this.handleApagarPost(item.key)} >
                           <Icon style={{ color: '#0082FF', fontSize: 20, padding: 0 }} type='FontAwesome' name="trash-o" />
                           <Text>Excluir</Text>
                         </Button>
@@ -657,7 +656,7 @@ export default class Main extends React.Component {
                       ) : (null)}
                       <Right>
                         <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
-                          <Icon name="message1" type='AntDesign' style={{ color: '#0082FF', margin:8}} />
+                          <Icon name="message1" type='AntDesign' style={{ color: '#0082FF', margin: 8 }} />
                           <Text>Comentar</Text>
                         </Button>
                       </Right>
@@ -673,8 +672,7 @@ export default class Main extends React.Component {
 }
 
 const toastErro = {
-  backgroundColor: "#FF6C6C",
-  height: 200,
+  backgroundColor: "#001FA9",
   color: "#ffffff",
   fontSize: 17,
   borderRadius: 100,
@@ -682,7 +680,7 @@ const toastErro = {
 };
 
 const toastSucesso = {
-  backgroundColor: "#61a465",
+  backgroundColor: "#0A9300",
   height: 150,
   color: "#ffffff",
   fontSize: 17,
@@ -691,7 +689,7 @@ const toastSucesso = {
 };
 
 const toastInfo = {
-  backgroundColor: "#7182e1",
+  backgroundColor: "#001FA9",
   height: 150,
   color: "#ffffff",
   fontSize: 17,

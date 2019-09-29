@@ -31,7 +31,6 @@ export default class Login extends React.Component {
     return (
       <View style={styles.container}>
         <Header androidStatusBarColor="#963BE0" style={{ display: 'none' }} >
-          <Text style={{ fontSize: 30, color: 'white', }}>Estudos</Text>
         </Header>
         <View style={styles.uconteiner}>
           <Image

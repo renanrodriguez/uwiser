@@ -42,10 +42,10 @@ export default class Eventos_Privados extends React.Component {
     this.props.navigation.state.params.chave_seguranca
 
     if (chave_seguranca_evento == this.props.navigation.state.params.chave_seguranca + titulo + data_evento + currentUser.uid) {
-      Toast.show('Como criador do evento, você já fez check-in')
+      Toast.show('Como criador do evento, você já fez check-in', Toast.LONG, Toast.BOTTOM, toastInfo);
     } else {
       if (global == '') {
-        Toast.show('Check-in realizado com sucesso')
+        Toast.show('Check-in realizado com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
         pri_eve_part.push({
           titulo: titulo,
           usuario_email: currentUser.email,
@@ -56,7 +56,7 @@ export default class Eventos_Privados extends React.Component {
         global = chave_seguranca_evento + currentUser.uid
       } else {
         if (global = chave_seguranca_evento + currentUser.uid) {
-          Toast.show('Você já realizou check-in nesse evento, seu nome está na lista de confirmados!')
+          Toast.show('Você já realizou check-in nesse evento, seu nome está na lista de confirmados!', Toast.LONG, Toast.BOTTOM, toastInfo);
         }
       }
     }
@@ -106,7 +106,7 @@ export default class Eventos_Privados extends React.Component {
 
     return (
       <View style={styles.container}>
-    <Header androidStatusBarColor="#963BE0" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
+        <Header androidStatusBarColor="#963BE0" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
           <Button vertical active style={{ backgroundColor: '#963BE0', width: '20%', elevation: 0 }} onPress={() => this.props.navigation.navigate('Posts_Privados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
             <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>POSTS</Text>
           </Button>
@@ -121,27 +121,35 @@ export default class Eventos_Privados extends React.Component {
             <Text style={{ fontSize: 12, color: 'white', textAlign: 'center' }}>MEUS EVENTOS</Text>
           </Button>
         </Header>
-        <Content>
+        <Content style={{ marginTop: 20, marginLeft: 20, marginRight: 20 }}>
           <FlatList
             data={this.state.eventos}
             renderItem={({ item }) => {
               return (
-                <Card >
+                <Card style={{ elevation: 0, borderColor: 'transparent', marginTop: 20 }} >
                   <Item header bordered >
-                    <Text selectable={true} style={{ fontSize: 18, color: '#4F4F4F' }}>{item.titulo}</Text>
+                    <Text selectable={true} style={{ fontSize: 28, fontWeight: 'bold', color: '#4F4F4F' }}>{item.titulo}</Text>
                   </Item>
-                  <Item>
-                    <Text selectable={true} style={{ fontSize: 14, color: '#4F4F4F', width: '50%' }}>
+                  <Item style={{ flexDirection: 'column', alignItems: 'flex-start', padding: 20 }}>
+                    <Text selectable={true} style={{ fontSize: 14, color: '#4F4F4F ' }}>
                       Criador: {item.nome_usuario}{'\n'}
+                    </Text>
+                    <Text selectable={true} style={{ fontSize: 14, color: '#4F4F4F' }}>
                       Quando: {item.horario}, {item.data_evento}{'\n'}
+                    </Text>
+                    <Text selectable={true} style={{ fontSize: 14, color: '#4F4F4F' }}>
                       Onde: {item.local_link}{'\n'}
+                    </Text>
+                    <Text selectable={true} style={{ fontSize: 14, color: '#4F4F4F' }}>
                       Descrição: {item.descricao}
                     </Text>
-                    <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '25%', height: '100%' }} onPress={() => this.handleConfirmarPresenca(item.chave_seguranca_evento, item.titulo, item.data_evento)} >
-                      <Text style={{ color: 'white', fontSize: 15 }}>Realizar check-in</Text>
+                  </Item>
+                  <Item style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Button block light style={{ color: 'black', width: '50%', backgroundColor: '#963BE0', width: '50%', height: '100%', padding: 10 }} onPress={() => this.handleConfirmarPresenca(item.chave_seguranca_evento, item.titulo, item.data_evento)} >
+                      <Text style={{ color: 'white', fontSize: 15, textAlign: 'center' }}>Realizar check-in</Text>
                     </Button>
-                    <Button block light style={{ color: 'black', backgroundColor: '#DC143C', width: '25%', height: '100%' }} onPress={() => this.props.navigation.navigate('Lista_Confirmados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca_evento: item.chave_seguranca_evento, nome_evento: item.titulo })}>
-                      <Text note style={{ color: 'white', fontSize: 15 }}>Visualizar confirmados</Text>
+                    <Button block light style={{ color: 'black', backgroundColor: '#0088C4', width: '25%', width: '50%', height: '100%', padding: 10 }} onPress={() => this.props.navigation.navigate('Lista_Confirmados', { nome_grupo_privado: this.props.navigation.state.params.nome_grupo_privado, chave_seguranca_evento: item.chave_seguranca_evento, nome_evento: item.titulo })}>
+                      <Text note style={{ color: 'white', fontSize: 15, textAlign: 'center' }}>Visualizar confirmados</Text>
                     </Button>
                   </Item>
 
@@ -157,12 +165,38 @@ export default class Eventos_Privados extends React.Component {
 }
 
 
+const toastErro = {
+  backgroundColor: "#001FA9",
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastSucesso = {
+  backgroundColor: "#0A9300",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastInfo = {
+  backgroundColor: "#001FA9",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
   },
   footer: {
     flexDirection: 'row',

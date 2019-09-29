@@ -46,7 +46,7 @@ export default class Anotacoes extends React.Component {
   handleCadastroTarefa = (nome_usuario, nome_faculdade, nome_curso, selected_heroi, emailUsuario) => {
     const { titulo, currentUser, descricao, data_atual } = this.state
     if (titulo == '' && this.state.validacao_imagem == '') {
-      Toast.show('Coloque um texto ou foto na sua anotação', Toast.LONG, Toast.BOTTOM, toastErro);
+      Toast.show('Coloque um texto ou foto na sua anotação', Toast.LONG, Toast.BOTTOM, toastInfo);
     } else {
       if (titulo != '' && this.state.validacao_imagem == '') {
         tarefa_ref.push({
@@ -108,7 +108,7 @@ export default class Anotacoes extends React.Component {
           },
           error => {
             unsubscribe();
-            Toast.show('Ocorreu um erro tente de novo');
+            Toast.show('Ocorreu um erro tente de novo', Toast.LONG, Toast.BOTTOM, toastErro);
           }
         );
       }
@@ -198,6 +198,9 @@ export default class Anotacoes extends React.Component {
           <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '40%' }} onPress={this.pickImage}>
             <Icon name="camera" style={{ color: 'gray' }} />
           </Button>
+          <Button block transparent light style={{color:'black',backgroundColor:'#00ced1',width:'20%'}} >
+            <Icon name="paper" style={{color:'white'}}/>
+        </Button>
         </Item>
 
 
@@ -213,7 +216,8 @@ export default class Anotacoes extends React.Component {
                 <Card >
                   <CardItem header bordered >
                     <Text selectable={true} style={{ fontSize: 25, color: 'black' }}>{item.titulo_tarefa}</Text>
-                    <TouchableOpacity style={{ marginLeft: 25, marginRight:20, shadowOffset: { width: 0, height: 0, }, backgroundColor: 'transparent', position: 'absolute', right: 10 }} onPress={() => this.handleApagarTarefa(item.key)}>
+                    <TouchableOpacity style={{ marginLeft: 25, marginRight: 20, shadowOffset: { width: 0, height: 0, }, backgroundColor: 'transparent', position: 'absolute', right: 10 }} onPress={() => this.handleApagarTarefa(item.key)}>
+                      <Text style={{ position: 'absolute', right: 40, top: 10, width: 50, color: '#888' }}>Excluir</Text>
                       <Icon name="trash" type='FontAwesome' style={{ color: '#FF6C6C', fontSize: 35, marginLeft: 0 }} />
                     </TouchableOpacity>
                   </CardItem>
@@ -265,7 +269,7 @@ const toastSucesso = {
 
 const toastInfo = {
   backgroundColor: "#7182e1",
-  height: 150,
+  height: 200,
   color: "#ffffff",
   fontSize: 17,
   borderRadius: 100,

@@ -38,7 +38,7 @@ export default class Grupos_Publicos extends React.Component {
 
 
 
-  static navigationOptions = ({navigation}) => ({
+  static navigationOptions = ({ navigation }) => ({
     //To hide the ActionBar/NavigationBar
     title: navigation.state.params.nome_grupo_publico ? navigation.state.params.nome_grupo_publico : 'Grupos Públicos',
     headerTitleStyle: { color: '#fff' },
@@ -49,7 +49,7 @@ export default class Grupos_Publicos extends React.Component {
   });
 
   handleApagarPost = (key) => {
-    Toast.show('Item excluido com sucesso');
+    Toast.show('Item excluido com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
     const caminho_exclusao = firebaseDatabase.ref('Publicacao_Grupo_Publico/' + key)
     caminho_exclusao.remove()
   }
@@ -60,7 +60,8 @@ export default class Grupos_Publicos extends React.Component {
     this.props.navigation.state.params.chave_seguranca
     const { texto_publicacao, currentUser, data_atual } = this.state
     if (texto_publicacao == '' && this.state.validacao_imagem == '' && (this.state.validacao_file == '' || this.state.validacao_file == 'valido')) {
-      Toast.show('Coloque um texto ou foto na sua publicação')
+      Toast.show('Coloque um texto ou foto na sua publicação', Toast.LONG, Toast.BOTTOM, toastInfo);
+
     }
     /*Publicação apenas texto */
     if (texto_publicacao != '' && this.state.validacao_imagem == '' && this.state.validacao_file == '') {
@@ -80,7 +81,7 @@ export default class Grupos_Publicos extends React.Component {
       this.setState({
         texto_publicacao: ''
       });
-      Toast.show('Publicação realizada com sucesso')
+      Toast.show('Publicação realizada com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
     }
     /*Publicação imagem e/ou texto */
     if (this.state.validacao_imagem == 'valido' && this.state.validacao_file == '') {
@@ -95,7 +96,7 @@ export default class Grupos_Publicos extends React.Component {
           let state = {};
 
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          Toast.show('Progresso postagem:' + progress + '%')
+          Toast.show(('Progresso postagem:' + progress + '%'), Toast.SHORT, Toast.BOTTOM, toastInfo);
 
           if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
             if (publicar == 0) {
@@ -116,7 +117,7 @@ export default class Grupos_Publicos extends React.Component {
                 chave_seguranca: this.props.navigation.state.params.chave_seguranca
               });
               publicar = 1;
-              Toast.show('Publicação realizada com sucesso')
+              Toast.show('Publicação realizada com sucesso', Toast.SHORT, Toast.BOTTOM, toastSucesso);
               state = {
                 ...state,
                 uploading: false,
@@ -137,7 +138,8 @@ export default class Grupos_Publicos extends React.Component {
         },
         error => {
           unsubscribe();
-          Toast.show('Ocorreu um erro tente de novo');
+          Toast.show('Ocorreu um erro tente de novo', Toast.SHORT, Toast.BOTTOM, toastErro);
+
         }
       );
     }
@@ -155,8 +157,8 @@ export default class Grupos_Publicos extends React.Component {
         snapshot => {
           let state = {};
 
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          Toast.show('Progresso upload foto:' + progress + '%')
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;      
+          Toast.show(('Progresso upload foto:' + progress + '%'), Toast.SHORT, Toast.BOTTOM, toastInfo);
 
           if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
 
@@ -170,7 +172,7 @@ export default class Grupos_Publicos extends React.Component {
                 let state = {};
 
                 var progress = (snapshot2.bytesTransferred / snapshot2.totalBytes) * 100;
-                Toast.show('Progresso upload arquivo:' + progress + '%')
+                Toast.show(('Progresso upload arquivo:' + progress + '%'), Toast.SHORT, Toast.BOTTOM, toastInfo);
 
                 if (snapshot2.state === firebase.storage.TaskState.SUCCESS) {
                   if (publicar == 0) {
@@ -194,7 +196,7 @@ export default class Grupos_Publicos extends React.Component {
                       chave_seguranca: this.props.navigation.state.params.chave_seguranca
                     });
                     publicar = 1;
-                    Toast.show('Publicação realizada com sucesso')
+                    Toast.show('Publicação realizada com sucesso', Toast.SHORT, Toast.BOTTOM, toastSucesso);
                     state = {
                       ...state,
                       uploading: false,
@@ -223,7 +225,7 @@ export default class Grupos_Publicos extends React.Component {
         },
         error => {
           unsubscribe();
-          Toast.show('Ocorreu um erro tente de novo');
+          Toast.show('Ocorreu um erro tente de novo', Toast.SHORT, Toast.BOTTOM, toastErro);
         }
       );
     }
@@ -240,7 +242,8 @@ export default class Grupos_Publicos extends React.Component {
           let state = {};
 
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          Toast.show('Progresso postagem:' + progress + '%')
+          Toast.show(('Progresso postagem:' + progress + '%'), Toast.SHORT, Toast.BOTTOM, toastInfo);
+
 
           if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
             if (publicar == 0) {
@@ -261,7 +264,8 @@ export default class Grupos_Publicos extends React.Component {
                 chave_seguranca: this.props.navigation.state.params.chave_seguranca
               });
               publicar = 1;
-              Toast.show('Publicação realizada com sucesso')
+              Toast.show('Publicação realizada com sucesso', Toast.SHORT, Toast.BOTTOM, toastSucesso);
+
               state = {
                 ...state,
                 uploading: false,
@@ -281,7 +285,7 @@ export default class Grupos_Publicos extends React.Component {
         },
         error => {
           unsubscribe();
-          Toast.show('Ocorreu um erro tente de novo');
+          Toast.show('Ocorreu um erro tente de novo', Toast.SHORT, Toast.BOTTOM, toastErro);
         }
       );
     }
@@ -290,9 +294,9 @@ export default class Grupos_Publicos extends React.Component {
   pickImage = () => {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
-        Toast.show('Você fechou a opção de imagens');
+        Toast.show('Você fechou a opção de imagens', Toast.SHORT, Toast.BOTTOM, toastInfo);
       } else if (response.error) {
-        Toast.show('O seguinte erro aconteceu: ', response.error);
+        Toast.show(('O seguinte erro aconteceu: ', response.error), Toast.SHORT, Toast.BOTTOM, toastErro);
       } else {
         const source = { uri: response.uri };
         this.setState({
@@ -309,10 +313,10 @@ export default class Grupos_Publicos extends React.Component {
 
 
       if (response.didCancel) {
-        Toast.show('Você fechou a opção de escolha de arquivos');
+        Toast.show('Você fechou a opção de escolha de arquivos', Toast.SHORT, Toast.BOTTOM, toastInfo);
       }
       else if (response.error) {
-        Toast.show('O seguinte erro aconteceu: ', response.error);
+        Toast.show(('O seguinte erro aconteceu: ', response.error), Toast.SHORT, Toast.BOTTOM, toastErro);
       }
       else {
         const source = { uri: response.uri };
@@ -402,8 +406,8 @@ export default class Grupos_Publicos extends React.Component {
     this.props.navigation.state.params.chave_seguranca
     return (
       <View style={styles.container}>
-       
-       <Header androidStatusBarColor="#963BE0" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
+
+        <Header androidStatusBarColor="#963BE0" style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} >
           <Button style={{ backgroundColor: '#6c05da', width: '33%', elevation: 0 }} vertical active onPress={() => this.props.navigation.navigate('Grupos_Publicos', { nome_grupo_publico: this.props.navigation.state.params.nome_grupo_publico, chave_seguranca: this.props.navigation.state.params.chave_seguranca })}>
             <Text style={{ fontSize: 12, color: 'white' }}>POSTS</Text>
           </Button>
@@ -433,15 +437,15 @@ export default class Grupos_Publicos extends React.Component {
                 renderItem={({ item }) => {
                   return (
                     <Item last>
-                      <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '60%' }} onPress={() => this.handleNovaPublicacao(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
-                        <Text style={{ color: 'white', fontSize: 20 }}>Adicionar Post</Text>
-                        <Icon name="add" style={{ color: 'white' }} />
+                      <Button transparent block light style={{ color: 'black', backgroundColor: '#963BE0', width: '60%' }} onPress={() => this.handleNovaPublicacao(item.nome_usuario, item.nome_faculdade, item.nome_curso, item.selected_heroi, item.emailUsuario)}>
+                        <Text style={{ color: 'white', fontSize: 20 }}>Publicar</Text>
+                        <Icon name="send" type='FontAwesome' style={{ color: 'white', fontSize: 15 }} />
                       </Button>
-                      <Button block light style={{ color: 'black', backgroundColor: '#DC143C', width: '20%' }} onPress={this.pickImage}>
-                        <Icon name="camera" style={{ color: 'white' }} />
+                      <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} onPress={this.pickImage}>
+                        <Icon name="camera" style={{ color: 'gray' }} />
                       </Button>
-                      <Button block light style={{ color: 'black', backgroundColor: '#00ced1', width: '20%' }} onPress={this.pickFile}>
-                        <Icon name="paper" style={{ color: 'white' }} />
+                      <Button transparent block light style={{ color: 'black', backgroundColor: 'transparent', width: '20%' }} onPress={this.pickFile}>
+                        <Icon name="paper" style={{ color: 'gray' }} />
                       </Button>
                     </Item>
                   );
@@ -463,10 +467,13 @@ export default class Grupos_Publicos extends React.Component {
                           <Text>{item.nome_usuario}</Text>
                         </Body>
                       </Left>
+                      <Right>
+                        <Text style={{ fontSize: 12, color: '#808080', padding: 5 }}>{item.data_inclusao}</Text>
+                      </Right>
                     </CardItem>
                     {item.texto_publicacao ? (
                       <CardItem body bordered >
-                        <Text selectable={true} style={{ fontSize: 20, color: '#505050' }}>{item.texto_publicacao}</Text>
+                        <Text selectable={true} style={{ fontSize: 18, color: '#505050' }}>{item.texto_publicacao}</Text>
                       </CardItem>) : (null)}
 
 
@@ -491,20 +498,17 @@ export default class Grupos_Publicos extends React.Component {
                       </Left>
                       {item.usuario == currentUser.uid ? (
                         <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.handleApagarPost(item.key)} >
-                          <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} name="remove" />
+                          <Icon style={{ color: '#0082FF', fontSize: 20, padding: 0 }} type='FontAwesome' name="trash-o" />
                           <Text>Excluir</Text>
                         </Button>
 
                       ) : (null)}
                       <Body>
                         <Button transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
-                          <Icon active name="chatbubbles" />
+                          <Icon name="message1" type='AntDesign' style={{ color: '#0082FF', margin: 8 }} />
                           <Text>Comentar</Text>
                         </Button>
                       </Body>
-                      <Right>
-                        <Text style={{ fontSize: 10, color: '#808080' }}>{item.data_inclusao}</Text>
-                      </Right>
                     </CardItem>
                   </Card>);
               }}>
@@ -517,11 +521,37 @@ export default class Grupos_Publicos extends React.Component {
 }
 
 
+const toastErro = {
+  backgroundColor: "#001FA9",
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastSucesso = {
+  backgroundColor: "#0A9300",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastInfo = {
+  backgroundColor: "#001FA9",
+  height: 200,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
   },
   footer: {
     flexDirection: 'row',

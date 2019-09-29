@@ -50,7 +50,7 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
   handleNovoGrupo = () => {
     const { nome_grupo, currentUser, categoria } = this.state
     if (nome_grupo == '' || categoria == '') {
-      Toast.show('Um grupo precisa de um nome e um assunto!');
+      Toast.show('O grupo precisa de um nome e um assunto', Toast.LONG, Toast.BOTTOM, toastInfo);
     } else {
 
       grupo_publico_ref.push({
@@ -59,7 +59,7 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
         categoria: categoria,
         chave_seguranca: currentUser.uid + nome_grupo + categoria
       });
-      Toast.show('Grupo criado com sucesso');
+      Toast.show('Grupo criado com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
       this.setState({
         nome_grupo: ''
       });
@@ -69,7 +69,7 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
   handleFiltro = () => {
     const { categoria_pesquisa } = this.state
     if (categoria_pesquisa == '') {
-      Toast.show('Selecione um filtro!')
+      Toast.show('Selecione um filtro!', Toast.LONG, Toast.BOTTOM, toastInfo);
     } else {
       const rootGrupoPublico = firebaseDatabase.ref('Grupo_Publico').orderByChild("categoria").equalTo(categoria_pesquisa);
       rootGrupoPublico.on('value', (childSnapshot) => {
@@ -123,13 +123,13 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
     return (
       <View style={styles.container}>
         <Content>
-          <Form>
-            <Card>
-              <CardItem>
-                <Text>Criar grupo</Text>
-              </CardItem>
+          <Form style={{ marginLeft: 20, marginRight: 20 }}>
+            <Card style={{ elevation: 0, borderColor: 'transparent' }}>
+              <Item style={{ marginTop: 30, marginBottom: 10, borderColor: 'transparent' }}>
+                <Text style={{ fontSize: 25, textAlign: 'center', color: '#666', fontWeight: "bold" }}>Criar novo grupo público</Text>
+              </Item>
               <Item fixedLabel  >
-                <Text styles={backgroundColor = 'white'}>Assunto</Text>
+                <Text styles={backgroundColor = 'white'}>Selecione um assunto: </Text>
                 <Picker mode="dropdown"
                   iosHeader="Selecionar"
                   iosIcon={<Icon name="arrow-down" />}
@@ -146,24 +146,22 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
                 </Picker>
               </Item>
               <Item fixedLabel>
-                <Input multiline={true} bordered placeholder='Nome do Grupo' onChangeText={nome_grupo => this.setState({ nome_grupo })} value={this.state.nome_grupo} />
+                <Input multiline={true} bordered placeholderTextColor='#aaa' placeholder='Nome do Grupo' onChangeText={nome_grupo => this.setState({ nome_grupo })} value={this.state.nome_grupo} />
               </Item>
-              <Item body bordered>
-                <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} onPress={() => this.handleNovoGrupo()}>
-                  <Text style={{ color: 'white', fontSize: 20 }}>Criar grupo</Text>
-                  <Icon name="add" style={{ color: 'white' }} />
-                </Button>
-              </Item>
+              <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '100%', borderRadius: 10 }} onPress={() => this.handleNovoGrupo()}>
+                <Text style={{ color: 'white', fontSize: 20 }}>Criar grupo</Text>
+                <Icon name="add" style={{ color: 'white' }} />
+              </Button>
             </Card>
           </Form>
           <ScrollView>
-            <Item header>
-              <Text style={{ fontSize: 20, color: '#4F4F4F' }}>Todos os grupos publicos:</Text>
+            <Item style={{ marginTop: 30, borderColor: 'transparent' }} header>
+              <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold', marginLeft: 20, color: '#666' }}>Lista de grupos:</Text>
             </Item>
 
 
-            <Item fixedLabel last >
-              <Text styles={backgroundColor = 'white'}>Filtrar grupos por assunto:</Text>
+            <Item style={{ elevation: 0, borderColor: 'transparent', marginLeft: 20, marginRight: 20 }} fixedLabel last >
+              <Text style={{ color: '#888' }}>Filtrar grupos por assunto:</Text>
               <Picker mode="dropdown"
                 iosHeader="Selecionar"
                 iosIcon={<Icon name="arrow-down" />}
@@ -178,7 +176,7 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
                 <Picker.Item label="Matemática" value="Matemática" />
                 <Picker.Item label="Odontologia" value="Odontologia" />
               </Picker>
-              <Button onPress={this.handleFiltro}>
+              <Button style={{ backgroundColor: '#0082FF' }} onPress={this.handleFiltro}>
                 <Icon name="ios-search" />
               </Button>
 
@@ -187,15 +185,14 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
               data={this.state.grupo_publico}
               renderItem={({ item }) => {
                 return (
-                  <Card>
-                    <Item header bordered>
+                  <Card style={{ marginLeft: 20, marginRight: 20, borderColor: 'transparent', elevation: 0 }}>
 
-                      <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '100%' }} onPress={() => this.props.navigation.navigate('Grupos_Publicos', { nome_grupo_publico: item.nome_grupo_publico, chave_seguranca: item.chave_seguranca })}>
-                        <Text style={{ color: 'white', fontSize: 20 }}>{item.nome_grupo_publico}
-                          {'\n'}{item.categoria}</Text>
-                        <Icon name="chatboxes" style={{ color: 'white' }} />
-                      </Button>
-                    </Item>
+
+                    <TouchableOpacity style={{ color: 'black', backgroundColor: '#F7F7F7', marginTop: 10, elevation: 2, width: '100%', justifyContent: 'flex-start', borderRadius: 10, borderColor: '#ccc' }} onPress={() => this.props.navigation.navigate('Grupos_Publicos', { nome_grupo_publico: item.nome_grupo_publico, chave_seguranca: item.chave_seguranca })}>
+                      <Text style={{ color: '#666', fontSize: 15, paddingLeft: 10, paddingTop: 5, paddingBottom: 10 }}>{item.nome_grupo_publico}</Text>
+                      <Text style={{ color: '#666', fontSize: 15, paddingLeft: 10, paddingTop: 5, paddingBottom: 10 }}>{item.categoria}</Text>
+                      <Icon name="chatboxes" style={{ position: 'absolute', top: 10, right: 10, color: '#888' }} />
+                    </TouchableOpacity>
                   </Card>
                 );
               }}>
@@ -208,11 +205,36 @@ export default class Grupos_Publicos_Gerenciar extends React.Component {
 }
 
 
+const toastErro = {
+  backgroundColor: "#001FA9",
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastSucesso = {
+  backgroundColor: "#0A9300",
+  height: 150,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
+
+const toastInfo = {
+  backgroundColor: "#001FA9",
+  height: 200,
+  color: "#ffffff",
+  fontSize: 17,
+  borderRadius: 100,
+  yOffset: 200
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
   },
   footer: {
     flexDirection: 'row',
