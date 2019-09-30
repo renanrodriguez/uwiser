@@ -1,9 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View ,TouchableOpacity,Image} from 'react-native'
 import firebase from 'react-native-firebase';
+import { Header, Icon } from 'native-base';
 
 export default class ForgetPassword extends React.Component {
   state = {email: '', errorMessage: null }
+  static navigationOptions = {
+    title: "Esqueci minha senha",
+    headerStyle: { backgroundColor: '#963BE0', elevation: 0, shadowOpacity: 0 },
+    headerTintColor: 'white',
+  };
 
   resetSenha = () => {
     const { email } = this.state
@@ -17,23 +23,22 @@ export default class ForgetPassword extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-    <Image style={styles.img} source={require('../uwizer/assets/UWiserLight.png')}/>
        
-       
+       <View style={{width:'65%'}}>
+
         {this.state.errorMessage &&
-         
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
           </Text>}
+          <Icon style={{ position: 'absolute', right: 0, top: 5, color: '#888', padding: 10, fontSize: 20 }} name="mail" />
 
           <TextInput
-          style={styles.textInput}
           autoCapitalize='none'
           placeholder="Digite aqui o seu e-mail"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
-       
+       </View>
 
         <TouchableOpacity style={styles.btnStyle} onPress={this.resetSenha}>
           <Text style={ {color: 'white'} }>Enviar link para o meu Email</Text>
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
     height: '100%',
     width: '100%'
   },
@@ -73,7 +78,7 @@ const styles = StyleSheet.create({
     height: '8%',
     marginTop: 10,
     width: '70%',
-    backgroundColor: '#6c05da',
+    backgroundColor: '#963BE0',
     justifyContent: 'center',
     alignItems: 'center' ,
     borderRadius: 50

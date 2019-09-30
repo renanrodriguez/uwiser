@@ -52,7 +52,7 @@ export default class Gerenciar_Eventos extends React.Component {
     const { titulo, currentUser, descricao, chosenDate, local_link, horario } = this.state
 
     if (chosenDate == '' || titulo == '' || horario == '' || local_link == '') {
-      Toast.show('Para um evento ser adicionado ele precisa de um titulo, local, data e horario', Toast.LONG, Toast.BOTTOM, toastInfo);
+      Toast.show('O evento precisa de um titulo, local, data e horario', Toast.LONG, Toast.BOTTOM, toastInfo);
     } else {
       Toast.show('Evento criado com sucesso', Toast.LONG, Toast.BOTTOM, toastSucesso);
       pub_eve_ref.push({

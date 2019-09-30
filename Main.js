@@ -641,7 +641,7 @@ export default class Main extends React.Component {
                       <Left>
                         {item.urlFile ? (
                           <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => { Linking.openURL(item.urlFile) }}>
-                            <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} name="download" />
+                            <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} type='AntDesign' name="download" />
                             <Text>Baixar arquivo</Text>
                           </Button>
 

@@ -1,52 +1,57 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View ,TouchableOpacity,Image,ScrollView,FlatList} from 'react-native'
-import {Badge,Header,Input,Button, Icon, Content,Footer, FooterTab,Item,Form,Card,CardItem,Left,Right,Body,Thumbnail,HeaderTab} from 'native-base'
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, ScrollView, FlatList } from 'react-native'
+import { Badge, Header, Input, Button, Icon, Content, Footer, FooterTab, Item, Form, Card, CardItem, Left, Right, Body, Thumbnail, HeaderTab } from 'native-base'
 import firebase from 'react-native-firebase';
 import Toast from 'react-native-toast-native';
-import {firebaseDatabase} from './config'
+import { firebaseDatabase } from './config'
 
 export default class Lista_Confirmados extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null ,
-      usuario : [],
-      grupo_privado_participantes:[]
+      currentUser: null,
+      usuario: [],
+      grupo_privado_participantes: []
     };
   }
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     //To hide the ActionBar/NavigationBar
-    header: null,
-};
+    title: navigation.state.params.nome_grupo_privado,
+    headerTitleStyle: { color: '#fff' },
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: '#963BE0'
+    },
+  });
 
- 
+
 
 
   componentDidMount() {
     const { navigate } = this.props.navigation;
-   this.props.navigation.state.params.nome_grupo_privado
-   this.props.navigation.state.params.chave_seguranca_evento
+    this.props.navigation.state.params.nome_grupo_privado
+    this.props.navigation.state.params.chave_seguranca_evento
 
     const { currentUser } = firebase.auth()
     this.setState({ currentUser })
-   
+
 
     const rootPub = firebaseDatabase.ref('Eventos_Privados_Participantes').orderByChild("chave_seguranca_evento").equalTo(this.props.navigation.state.params.chave_seguranca_evento);
     rootPub.on('value', (childSnapshot) => {
       const grupo_privado_participantes = [];
       childSnapshot.forEach((doc) => {
         grupo_privado_participantes.push({
-            usuario_email: doc.toJSON().usuario_email,
-          });
-          this.setState({
-            grupo_privado_participantes: grupo_privado_participantes.sort((a, b) => {
-              return (a.usuario_email<b.usuario_email);
-            }),
-            loading: false,
-          }); 
+          usuario_email: doc.toJSON().usuario_email,
         });
+        this.setState({
+          grupo_privado_participantes: grupo_privado_participantes.sort((a, b) => {
+            return (a.usuario_email < b.usuario_email);
+          }),
+          loading: false,
+        });
+      });
     });
   }
 
@@ -57,34 +62,33 @@ export default class Lista_Confirmados extends React.Component {
     this.props.navigation.state.params.chave_seguranca_evento
     this.props.navigation.state.params.nome_evento
     return (
-        <View style={styles.container}>
-       <Header androidStatusBarColor="#6c05da" style={{color:'black',backgroundColor:'#963BE0',width:'100%'}} >
-              <Text style={{fontSize: 25,color:'white'}}>{this.props.navigation.state.params.nome_grupo_privado}</Text>  
-        </Header>
-          <Content>
-      <ScrollView>
-          <Card>
-          <CardItem block light style={{width:'100%',justifyContent:"center"}}>
-          <Text>Usuarios que realizaram check-in no evento: {this.props.navigation.state.params.nome_evento} </Text>
-          </CardItem>
-          </Card>
+      <View style={styles.container}>
+        <Content>
+          <ScrollView>
+            <Card style={{ padding: 10 }}>
+              <CardItem>
+                <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#4F4F4F' }}>Usuarios que realizaram check-in no evento:</Text>
+              </CardItem>
+              <CardItem>
+                <Text style={{ fontSize: 25, color: '#4F4F4F' }}>{this.props.navigation.state.params.nome_evento}</Text>
+              </CardItem>
+            </Card>
 
-<FlatList
-  data={this.state.grupo_privado_participantes}
-  renderItem={({item}) => {
-  return (
-    <Card>   
-    <Item header bordered>
-    <CardItem block light style={{color:'black',backgroundColor:'#963BE0',width:'100%',justifyContent:"center"}}>
-           <Text style={{color:'white',fontSize:15}}>{item.usuario_email}</Text>
-           </CardItem>
-    </Item>
-    </Card>
-    );}}>
-</FlatList>
-</ScrollView>
+            <FlatList
+              data={this.state.grupo_privado_participantes}
+              renderItem={({ item }) => {
+                return (
+                  <Card style={{ marginLeft: 20, marginRight: 20, marginTop: 20, backgroundColor: 'transparent', borderColor: 'transparent', elevation: 0 }}>
+                    <Item style={{ color: 'black', backgroundColor: '#fff', elevation: 2, width: '100%', justifyContent: "center", padding: 10, borderRadius: 10, borderColor: '#ccc' }}>
+                      <Text style={{ color: '#666', fontSize: 15, paddingLeft: 10, paddingTop: 5, paddingBottom: 10 }}>{item.usuario_email}</Text>
+                    </Item>
+                  </Card>
+                );
+              }}>
+            </FlatList>
+          </ScrollView>
         </Content>
-        </View>
+      </View>
     )
   }
 }

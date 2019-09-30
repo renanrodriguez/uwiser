@@ -184,7 +184,7 @@ const toastSucesso = {
 
 const toastInfo = {
   backgroundColor: "#001FA9",
-  height: 150,
+  height: 200,
   color: "#ffffff",
   fontSize: 17,
   borderRadius: 100,

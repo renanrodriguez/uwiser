@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, Platform, Image, Text, View,ScrollView,TouchableOpacity,Alert } from 'react-native'
-import {Header,Input,Button, Icon, Content,Footer, FooterTab,Card,CardItem,Form,Item,Picker} from 'native-base'
+import { StyleSheet, Platform, Image, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native'
+import { Header, Input, Button, Icon, Content, Footer, FooterTab, Card, CardItem, Form, Item, Picker } from 'native-base'
 import firebase from 'react-native-firebase';
-import {firebaseDatabase} from './config'
+import { firebaseDatabase } from './config'
 
 export default class Cadastro extends React.Component {
   state = { currentUser: null }
@@ -15,34 +15,39 @@ export default class Cadastro extends React.Component {
       nome_curso: '',
       idade: '',
       selected_heroi: '',
-      selected_sexo:'',
+      selected_sexo: '',
       grau_satisfacao: '',
       modalidade: '',
-      estado:''
+      estado: ''
     };
   }
 
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
-    header: null,
-};
+    title: "Editar perfil",
+    headerTitleStyle: { color: '#fff' },
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: '#963BE0'
+    },
+  };
 
   handleCadastroUsuario = () => {
-    const { nome_usuario ,nome_faculdade,nome_curso,idade,selected_heroi,selected_sexo,currentUser,grau_satisfacao,modalidade,estado} = this.state
-    const usuarioRoot = firebaseDatabase.ref('Users/'+currentUser.uid)
-    alert("Cadastro realizado com sucesso"); 
+    const { nome_usuario, nome_faculdade, nome_curso, idade, selected_heroi, selected_sexo, currentUser, grau_satisfacao, modalidade, estado } = this.state
+    const usuarioRoot = firebaseDatabase.ref('Users/' + currentUser.uid)
+    alert("Cadastro realizado com sucesso");
     usuarioRoot.set({
       nome_usuario: nome_usuario,
       nome_faculdade: nome_faculdade,
       nome_curso: nome_curso,
       idade: idade,
       selected_heroi: selected_heroi,
-      selected_sexo:selected_sexo,
+      selected_sexo: selected_sexo,
       idUsuario: currentUser.uid,
       emailUsuario: currentUser.email,
-      grau_satisfacao : grau_satisfacao,
-      modalidade:modalidade,
-      estado:estado
+      grau_satisfacao: grau_satisfacao,
+      modalidade: modalidade,
+      estado: estado
     });
   }
 
@@ -86,26 +91,24 @@ export default class Cadastro extends React.Component {
 
     return (
       <View style={styles.container}>
-          <Header androidStatusBarColor="#963BE0" style={{color:'black',backgroundColor:'#963BE0'}}>
-              <Text style={{fontSize: 30,color:'white',}}>Cadastro</Text>
-        </Header>
-         <Form>
-        <Item fixedLabel>
-              <Input placeholder='Nome' onChangeText={nome_usuario => this.setState({ nome_usuario })} value={this.state.nome_usuario}/>
-        </Item>
-        <Item fixedLabel last>
-        <Input placeholder='Faculdade' onChangeText={nome_faculdade => this.setState({ nome_faculdade })} value={this.state.nome_faculdade}/>
-        </Item>
-        <Item fixedLabel last>
-        <Input placeholder='Curso' onChangeText={nome_curso => this.setState({ nome_curso })} value={this.state.nome_curso}/>
-        </Item>
-        <Item fixedLabel last>
-        <Input keyboardType='numeric' placeholder='Idade' type='number' onChangeText={idade => this.setState({ idade })} value={this.state.idade}/>
-        </Item>
 
-        <Item fixedLabel last> 
-        <Text>Genero</Text>
-        <Picker
+        <Form style={{ marginLeft: 20, marginRight: 20 }}>
+          <Item fixedLabel>
+            <Input placeholder='Nome' onChangeText={nome_usuario => this.setState({ nome_usuario })} value={this.state.nome_usuario} />
+          </Item>
+          <Item fixedLabel last>
+            <Input placeholder='Faculdade' onChangeText={nome_faculdade => this.setState({ nome_faculdade })} value={this.state.nome_faculdade} />
+          </Item>
+          <Item fixedLabel last>
+            <Input placeholder='Curso' onChangeText={nome_curso => this.setState({ nome_curso })} value={this.state.nome_curso} />
+          </Item>
+          <Item fixedLabel last>
+            <Input keyboardType='numeric' placeholder='Idade' type='number' onChangeText={idade => this.setState({ idade })} value={this.state.idade} />
+          </Item>
+
+          <Item fixedLabel last>
+            <Text>Genero</Text>
+            <Picker
               mode="dropdown"
               iosHeader="Selecione o seu sexo"
               iosIcon={<Icon name="arrow-down" />}
@@ -113,15 +116,15 @@ export default class Cadastro extends React.Component {
               selectedValue={this.state.selected_sexo}
               onValueChange={this.onValueChange1.bind(this)} >
               <Picker.Item label="Selecionar" value="" />
-              <Picker.Item label="Masculino" value="https://image.flaticon.com/icons/png/128/1889/1889229.png" />
-              <Picker.Item label="Feminino" value="https://image.flaticon.com/icons/png/128/1889/1889223.png" />
-              <Picker.Item label="Não definido" value="https://image.flaticon.com/icons/png/128/1880/1880665.png" />
+              <Picker.Item label="Masculino" value="https://cdn.iconscout.com/icon/free/png-256/male-symbol-1438497-1214006.png" />
+              <Picker.Item label="Feminino" value="https://cdn.iconscout.com/icon/free/png-256/female-symbol-1438487-1213996.png" />
+              <Picker.Item label="Não definido" value="https://cdn.iconscout.com/icon/free/png-256/genderless-neutral-agender-no-not-46226.png" />
             </Picker>
-            </Item>
+          </Item>
 
-        <Item fixedLabel last> 
-        <Text>Modalidade</Text>
-        <Picker
+          <Item fixedLabel last>
+            <Text>Modalidade</Text>
+            <Picker
               mode="dropdown"
               iosHeader="Selecione a sua modalide"
               iosIcon={<Icon name="arrow-down" />}
@@ -132,9 +135,9 @@ export default class Cadastro extends React.Component {
               <Picker.Item label="Presencial" value="Presencial" />
               <Picker.Item label="Ensino a distância" value="EAD" />
             </Picker>
-            </Item>
+          </Item>
 
-            <Item fixedLabel last> 
+          <Item fixedLabel last>
             <Text>Avatar</Text>
             <Picker
               mode="dropdown"
@@ -149,9 +152,9 @@ export default class Cadastro extends React.Component {
               <Picker.Item label="Mulher maravilha" value="https://image.flaticon.com/icons/png/128/1466/1466137.png" />
               <Picker.Item label="Mulher gato" value="https://image.flaticon.com/icons/png/128/1466/1466103.png" />
             </Picker>
-            </Item>
+          </Item>
 
-            <Item fixedLabel last> 
+          <Item fixedLabel last>
             <Text>Estado</Text>
             <Picker
               mode="dropdown"
@@ -187,9 +190,9 @@ export default class Cadastro extends React.Component {
               <Picker.Item label="Sergipe" value="Sergipe" />
               <Picker.Item label="Tocantins" value="Tocantins" />
             </Picker>
-            </Item>
+          </Item>
 
-            <Item fixedLabel last> 
+          <Item fixedLabel last>
             <Text>Avaliação geral da faculdade</Text>
             <Picker
               mode="dropdown"
@@ -200,37 +203,15 @@ export default class Cadastro extends React.Component {
               onValueChange={this.onValueChange2.bind(this)} >
               <Picker.Item label="Ruim" value="https://image.flaticon.com/icons/png/128/148/148809.png" />
               <Picker.Item label="Razoavel" value="https://image.flaticon.com/icons/png/128/148/148808.png" />
-              <Picker.Item label="Ótima" value="https://image.flaticon.com/icons/png/128/1053/1053399.png" />
+              <Picker.Item label="Ótima" value="https://cdn.iconscout.com/icon/free/png-256/love-romance-romantic-valentine-valentines-day-heart-3-23915.png" />
             </Picker>
-            </Item>
-        <Button block light style={{color:'black',backgroundColor:'#963BE0'}}  onPress={this.handleCadastroUsuario}>
-            <Text style={{color:'white',fontSize:20}}>Adicionar</Text>
-            <Icon name="add" style={{color:'white'}}/>
-        </Button>
-      </Form>
-        <Content>
-        </Content>
-        <Footer style={{ backgroundColor: "white" }}>
-          <FooterTab style={{ backgroundColor: "white" }}>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Main')}>
-              <Icon style={{ color: '#7F1CFD', fontSize: 30 }} name="grid" />
-              <Text style={{ fontSize: 12, color: '#7F1CFD' }}>Feed</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Perfil')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="person" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Perfil</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Grupos')}>
-              <Icon style={{ color: 'gray', fontSize: 30 }} active name="contacts" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Grupos</Text>
-            </Button>
-            <Button style={{ backgroundColor: "white" }} vertical active onPress={() => this.props.navigation.navigate('Anotacoes')} >
-              <Icon style={{ color: 'gray', fontSize: 30 }} name="bookmarks" />
-              <Text style={{ fontSize: 12, color: 'gray' }}>Anotações</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-        </View>
+          </Item>
+          <Button block light style={{ color: 'black', backgroundColor: '#963BE0' }} onPress={this.handleCadastroUsuario}>
+            <Text style={{ color: 'white', fontSize: 20 }}>Editar</Text>
+            <Icon name="edit" type='AntDesign' style={{ color: 'white' }} />
+          </Button>
+        </Form>
+      </View>
     )
   }
 }
@@ -240,7 +221,8 @@ export default class Cadastro extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: '#fff',
+    marginTop: 20
   },
   footer: {
     flexDirection: 'row',

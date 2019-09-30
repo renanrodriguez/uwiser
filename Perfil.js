@@ -20,10 +20,11 @@ export default class Perfil extends React.Component {
   static navigationOptions = {
     //To hide the ActionBar/NavigationBar
     title: "Perfil",
-    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff'}, 
+    headerTitleStyle: { width: '90%', textAlign: 'center', color: '#fff' },
     headerStyle: {
       backgroundColor: '#963BE0'
-    },  };
+    },
+  };
 
 
   componentDidMount() {
@@ -68,47 +69,45 @@ export default class Perfil extends React.Component {
           data={this.state.usuario}
           renderItem={({ item }) => {
             return (
-              <Card>
+              <Card style={{ elevation: 0, borderColor: 'transparent' }}>
 
-                <CardItem style={{ marginTop: 8 }} header bordered>
+                <CardItem header bordered>
                   <Thumbnail medium source={{ uri: item.selected_heroi }} />
-                  <Text selectable={true} style={{ fontSize: 28, color: '#000000' }}>{item.nome_usuario}</Text>
+                  <Text selectable={true} style={{ marginLeft:10, fontSize: 25, textAlign: 'center', color: '#666', fontWeight: "bold" }}>{item.nome_usuario}</Text>
                 </CardItem>
 
                 <CardItem style={styles.carditem} bordered>
-                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>{item.nome_faculdade}, {item.nome_curso}</Text>
+                  <Text selectable={true} style={{ fontSize: 20, color: '#666' }}>{item.nome_faculdade}, {item.nome_curso}</Text>
                 </CardItem>
 
                 <CardItem style={styles.carditem} bordered>
-                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>Modalidade: {item.modalidade}</Text>
+                  <Text selectable={true} style={{ fontSize: 20, color: '#666' }}>Modalidade: {item.modalidade}</Text>
                 </CardItem>
 
                 <CardItem style={styles.carditem} bordered>
-                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>{item.idade} Anos</Text>
+                  <Text selectable={true} style={{ fontSize: 20, color: '#666' }}>{item.idade} Anos</Text>
                 </CardItem>
 
                 <CardItem style={styles.carditem} bordered>
-                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>Gênero : </Text>
+                  <Text selectable={true} style={{ fontSize: 20, color: '#666' }}>Gênero : </Text>
                   <Thumbnail square small source={{ uri: item.selected_sexo }} />
                 </CardItem>
 
                 <CardItem style={styles.carditem} bordered>
-                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>{item.emailUsuario}</Text>
+                  <Text selectable={true} style={{ fontSize: 20, color: '#666' }}>{item.emailUsuario}</Text>
                 </CardItem>
 
                 <CardItem style={styles.carditem} bordered>
-                  <Text selectable={true} style={{ fontSize: 22, color: '#333333' }}>Avaliação da faculdade: </Text>
+                  <Text selectable={true} style={{ fontSize: 20, color: '#666' }}>Avaliação da faculdade: </Text>
                   <Thumbnail square small source={{ uri: item.grau_satisfacao }} />
                 </CardItem>
               </Card>
             );
           }}>
         </FlatList>
-        <Button block light style={{ color: 'black', width: '100%', backgroundColor: '#963BE0', height: 25 }} onPress={() => this.props.navigation.navigate('Cadastro')}>
+        <Button block light style={{ color: 'black', width: '100%', marginBottom: 40, backgroundColor: '#963BE0', borderRadius: 10 }} onPress={() => this.props.navigation.navigate('Cadastro')}>
           <Text style={{ color: 'white', fontSize: 20 }}>Editar Perfil</Text>
-          <Icon name="add" style={{ color: 'white' }} />
         </Button>
-
       </View>
     )
   }
@@ -119,10 +118,13 @@ export default class Perfil extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e7f5fe',
+    backgroundColor: '#fff',
+    marginLeft: 20,
+    marginRight: 20
+
   },
   carditem: {
-    backgroundColor: '#e7f5fe',
+    backgroundColor: '#fff',
     marginTop: 1
   },
   footer: {

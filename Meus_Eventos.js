@@ -50,7 +50,7 @@ export default class Meus_Eventos extends React.Component {
     const { titulo, currentUser, descricao, chosenDate, local_link, horario } = this.state
 
     if (chosenDate == '' || titulo == '' || horario == '' || local_link == '') {
-      Toast.show('Para um evento ser adicionado ele precisa de um titulo, local, data e horario', Toast.SHORT, Toast.BOTTOM, toastInfo);
+      Toast.show('O evento precisa de um titulo, local, data e horario', Toast.LONG, Toast.BOTTOM, toastInfo);
     } else {
 
       pri_eve_ref.push({
@@ -236,9 +236,9 @@ export default class Meus_Eventos extends React.Component {
                 return (
                   <Card style={{ padding: 5 }} >
                     <Item header bordered >
-                      <Text selectable={true} style={{ fontSize: 25, color: '#4F4F4F', padding: 15 }}>{item.titulo}</Text>
+                      <Text selectable={true} style={{ width: '60%', fontSize: 20, color: '#777', fontWeight: 'bold', padding: 15 }}>{item.titulo}</Text>
                       <TouchableOpacity style={{ marginLeft: 25, marginRight: 20, shadowOffset: { width: 0, height: 0, }, backgroundColor: 'transparent', position: 'absolute', right: 0 }} onPress={() => this.handleApagarEvento(item.key)}>
-                        <Text style={{ position: 'absolute', right: 40, top: 10, width: 50, color: '#888' }}>Excluir</Text>
+                        <Text style={{ position: 'absolute', right: 40, top: 10, width: 50, color: '#888', fontWeight: 'bold' }}>Excluir</Text>
                         <Icon name="trash" type='FontAwesome' style={{ color: '#FF6C6C', fontSize: 35, marginLeft: 0 }} />
                       </TouchableOpacity>
                     </Item>

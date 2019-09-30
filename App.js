@@ -45,7 +45,6 @@ const AuthStack = createStackNavigator(
     SignUp,
     Login,
     ForgetPassword,
-    Cadastro,
   },
   {
     initialRouteName: 'Login'
@@ -74,6 +73,7 @@ const FeedStack = createStackNavigator(
 const PerfilStack = createStackNavigator(
   {
     Perfil,
+    Cadastro
   },
   {
     initialRouteName: 'Perfil'

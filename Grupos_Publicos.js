@@ -488,16 +488,17 @@ export default class Grupos_Publicos extends React.Component {
                       </TouchableOpacity>
                     ) : (null)}
                     <CardItem>
-                      <Left>
+                    <Left>
                         {item.urlFile ? (
-
-                          <Button block light style={{ color: 'black', backgroundColor: '#963BE0', width: '80%' }} onPress={() => { Linking.openURL(item.urlFile) }}>
-                            <Text style={{ color: 'white', fontSize: 10 }}>Baixar arquivo</Text>
+                          <Button style={{ color: '#0082FF', padding: 0 }} transparent onPress={() => { Linking.openURL(item.urlFile) }}>
+                            <Icon style={{ color: '#0082FF', fontSize: 20, padding: 10 }} type='AntDesign' name="download" />
+                            <Text>Baixar arquivo</Text>
                           </Button>
+
                         ) : (null)}
                       </Left>
                       {item.usuario == currentUser.uid ? (
-                        <Button style={{ color: '#0082FF', padding: 10 }} transparent onPress={() => this.handleApagarPost(item.key)} >
+                        <Button style={{ color: '#0082FF', padding: 15 }} transparent onPress={() => this.handleApagarPost(item.key)} >
                           <Icon style={{ color: '#0082FF', fontSize: 20, padding: 0 }} type='FontAwesome' name="trash-o" />
                           <Text>Excluir</Text>
                         </Button>
@@ -505,7 +506,7 @@ export default class Grupos_Publicos extends React.Component {
                       ) : (null)}
                       <Body>
                         <Button transparent onPress={() => this.props.navigation.navigate('Comentarios', { chave_seguranca_comentarios: item.chave_seguranca_comentarios })}>
-                          <Icon name="message1" type='AntDesign' style={{ color: '#0082FF', margin: 8 }} />
+                          <Icon name="message1" type='AntDesign' style={{ color: '#0082FF', margin: 10 }} />
                           <Text>Comentar</Text>
                         </Button>
                       </Body>

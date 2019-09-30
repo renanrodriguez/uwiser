@@ -259,7 +259,7 @@ const toastErro = {
 };
 
 const toastSucesso = {
-  backgroundColor: "#61a465",
+  backgroundColor: "#0A9300",
   height: 150,
   color: "#ffffff",
   fontSize: 17,
@@ -268,7 +268,7 @@ const toastSucesso = {
 };
 
 const toastInfo = {
-  backgroundColor: "#7182e1",
+  backgroundColor: "#001FA9",
   height: 200,
   color: "#ffffff",
   fontSize: 17,
